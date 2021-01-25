@@ -1,0 +1,23 @@
+﻿<Page x:Class="bookStoreApp.LoginPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:bookStoreApp"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="LoginPage">
+
+    <Grid>
+        <TextBox x:Name="IDtxtBox" HorizontalAlignment="Left" Height="35" Margin="413,156,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="270" VerticalContentAlignment="Center"/>
+        <TextBox x:Name="passWordtxtBox" HorizontalAlignment="Left" Height="35" Margin="413,196,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="270" VerticalContentAlignment="Center"/>
+        <Button x:Name="loginBottom" Content="Login" HorizontalAlignment="Left" Margin="454,244,0,0" VerticalAlignment="Top" Width="75" Height="30"/>
+        <Button x:Name="registerBottom" Content="Register" HorizontalAlignment="Left" Margin="566,244,0,0" VerticalAlignment="Top" Width="75" Height="30" Click="registerBottom_Click"/>
+        <TextBlock TextWrapping="Wrap" Text="Login" Height="105" Width="265" FontSize="72" HorizontalAlignment="Left" VerticalAlignment="Top" TextAlignment="Center" Margin="31,141,0,0"/>
+        <Label Content="Password" HorizontalAlignment="Left" Margin="311,196,0,0" VerticalAlignment="Top" Height="35" FontSize="22" FlowDirection="RightToLeft" Padding="0"/>
+        <Label Content="ID" HorizontalAlignment="Left" Margin="301,161,0,0" VerticalAlignment="Top" Height="35" Width="102" FontSize="22" FlowDirection="RightToLeft" Padding="0" ScrollViewer.CanContentScroll="True"/>
+        <Button x:Name="adminTest" Content="AdminTest" HorizontalAlignment="Left" Margin="413,318,0,0" VerticalAlignment="Top" Width="75" Click="adminTest_Click"/>
+        <Button Content="Select Menu" HorizontalAlignment="Left" Margin="493,318,0,0" VerticalAlignment="Top" Width="75" Click="Button_Click"/>
+
+    </Grid>
+</Page>

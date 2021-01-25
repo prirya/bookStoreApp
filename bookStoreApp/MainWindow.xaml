@@ -5,16 +5,16 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:bookStoreApp"
         mc:Ignorable="d"
-        Title="Sing up" Height="450" Width="800">
+        Title="Book store manager" 
+		Height="450" 
+		Width="800">
     <Grid>
-        <Button x:Name="showBottom" Content="Show all" HorizontalAlignment="Left" Margin="663,352,0,0" VerticalAlignment="Top" Width="75" Click="showBottom_Click"/>
-        <Button x:Name="adddatabottom" Content="add" HorizontalAlignment="Left" Margin="226,145,0,0" VerticalAlignment="Top" Width="75" Click="adddatabottom_Click"/>
-        <TextBox x:Name="nameTextbox" HorizontalAlignment="Left" Height="23" Margin="226,61,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="300"/>
-        <TextBox x:Name="addressTextbox" HorizontalAlignment="Left" Height="23" Margin="226,89,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="300"/>
-        <TextBox x:Name="emailTextbox" HorizontalAlignment="Left" Height="23" Margin="226,117,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="300"/>
-        <Label Content="Name" HorizontalAlignment="Left" Margin="163,61,0,0" VerticalAlignment="Top"/>
-        <Label Content="Address" HorizontalAlignment="Left" Margin="163,89,0,0" VerticalAlignment="Top"/>
-        <Label Content="Email" HorizontalAlignment="Left" Margin="163,114,0,0" VerticalAlignment="Top"/>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="53*"/>
+            <ColumnDefinition Width="739*"/>
+        </Grid.ColumnDefinitions>
+        <Frame x:FieldModifier="public" x:Name="mainFrame" NavigationUIVisibility="Hidden" Content="Frame" HorizontalAlignment="Left" Height="419" VerticalAlignment="Top" Width="792" Grid.ColumnSpan="2"/>
+
 
     </Grid>
 </Window>

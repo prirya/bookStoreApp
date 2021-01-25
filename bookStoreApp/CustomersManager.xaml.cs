@@ -16,15 +16,18 @@ using System.Windows.Shapes;
 namespace bookStoreApp
 {
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    /// Interaction logic for CustomersManager.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class CustomersManager : Page
     {
-        public MainWindow()
+        public CustomersManager()
         {
             InitializeComponent();
-            DataAccess.InitializeDatabase();
-            mainFrame.Navigate(new LoginPage());
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            NavigationService.GoBack();
         }
     }
 }

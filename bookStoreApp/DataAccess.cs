@@ -11,6 +11,7 @@ namespace bookStoreApp
     {
 
         public const string dbpath = "Database_BookStore.db";
+        public const string admindbpath = "adminDatabase.db";
         private static object createTable;
 
         public static void InitializeDatabase()
@@ -30,8 +31,43 @@ namespace bookStoreApp
                 SqliteCommand createTable = new SqliteCommand(tableCommand, db);
                 createTable.ExecuteReader();
             }
-        }
+            
+            using (SqliteConnection admindb = new SqliteConnection($"Filename={admindbpath}"))
+            {
+                admindb.Open();
 
+                String tableCommand =
+                    //ตารางเก็บข้อมูล User
+                    "CREATE TABLE IF NOT EXISTS User (`Number` INTEGER PRIMARY KEY, `User ID` NVARCHAR(100) NULL, `Password` NVARCHAR(100) NULL, `Name` NVARCHAR(50) NULL, `Address` NVARCHAR(500) NULL, `Email` NVARCHAR(50) NULL, `Birth day` DATE NULL, `Sex (Male)` BOOL NULL);";
+  
+                SqliteCommand createTable = new SqliteCommand(tableCommand, admindb);
+                createTable.ExecuteReader();
+            }
+        }
+//Administrator path ----------------------------------------------------------------------------------------------------------------
+        public static void AddUserTable(string userId, string password, string name, string address, string email, string birthday, bool sex) 
+        {
+            using (SqliteConnection admindb = new SqliteConnection($"Filename={admindbpath}"))
+            {
+                admindb.Open();
+                SqliteCommand insertCommand = new SqliteCommand();
+                insertCommand.Connection = admindb;
+
+                insertCommand.CommandText = "INSERT INTO User VALUES (NULL,@userId,@Password,@Name,@Address,@Email,@Birthday,@Sex);";
+                insertCommand.Parameters.AddWithValue("@userId", userId);
+                insertCommand.Parameters.AddWithValue("@Password", password);
+                insertCommand.Parameters.AddWithValue("@Name", name);
+                insertCommand.Parameters.AddWithValue("@Address", address);
+                insertCommand.Parameters.AddWithValue("@Email", email);
+                insertCommand.Parameters.AddWithValue("@Birthday", birthday);
+                insertCommand.Parameters.AddWithValue("@Sex", sex);
+
+                insertCommand.ExecuteReader();
+
+                admindb.Close();
+            }
+        }
+//Client path -------------------------------------------------------------------------------------------------------------------------
         public static void AddDataCustomerTable(string name, string address, string email)
         {
             using (SqliteConnection db = new SqliteConnection($"Filename={dbpath}"))
