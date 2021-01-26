@@ -16,23 +16,18 @@ using System.Windows.Shapes;
 namespace bookStoreApp
 {
     /// <summary>
-    /// Interaction logic for CustomersManager.xaml
+    /// Interaction logic for TransactionsLog.xaml
     /// </summary>
-    public partial class CustomersManager : Page
+    public partial class TransactionsLog : Page
     {
-        public CustomersManager()
+        public TransactionsLog()
         {
             InitializeComponent();
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+        private void backBtm_Click(object sender, RoutedEventArgs e)
         {
             NavigationService.GoBack();
-        }
-
-        private void Button_Click_1(object sender, RoutedEventArgs e)
-        {
-            NavigationService.Navigate(new CustomersDetail());
         }
     }
 }

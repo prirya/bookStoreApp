@@ -32,7 +32,7 @@
         <Button Content="Add" HorizontalAlignment="Left" Margin="21,357,0,0" VerticalAlignment="Top" Width="75"/>
         <Button Content="Remove" HorizontalAlignment="Left" Margin="101,357,0,0" VerticalAlignment="Top" Width="75"/>
         <Button Content="Back" HorizontalAlignment="Left" Margin="668,357,0,0" VerticalAlignment="Top" Width="75" Click="Button_Click" />
-        <Button Content="Show all" HorizontalAlignment="Left" Margin="261,357,0,0" VerticalAlignment="Top" Width="103"/>
+        <Button Content="Show all" HorizontalAlignment="Left" Margin="261,357,0,0" VerticalAlignment="Top" Width="103" Click="Button_Click_1"/>
         <Label Content="Customers Manager" HorizontalAlignment="Left" Margin="11,-1,0,0" VerticalAlignment="Top" Height="44" Width="779" FontSize="24"/>
 
     </Grid>
