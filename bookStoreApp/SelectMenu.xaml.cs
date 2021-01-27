@@ -48,5 +48,10 @@ namespace bookStoreApp
         {
             NavigationService.Navigate(new TransactionsLog());
         }
+
+        private void Button_Click_2(object sender, RoutedEventArgs e)
+        {
+            NavigationService.Navigate(new AdminPage());
+        }
     }
 }

@@ -25,11 +25,6 @@ namespace bookStoreApp
             InitializeComponent();
         }
 
-        private void registerBottom_Click(object sender, RoutedEventArgs e)
-        {
-            NavigationService.Navigate(new RegisterPage());
-        }
-
         private void adminTest_Click(object sender, RoutedEventArgs e)
         {
             NavigationService.Navigate(new AdminPage());
@@ -38,6 +33,20 @@ namespace bookStoreApp
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             NavigationService.Navigate(new SelectMenu());
+        }
+
+        private void loginBottom_Click(object sender, RoutedEventArgs e)
+        {
+            Dictionary<string, string> getUserid = DataAccess.GetUsernames();
+            string userid = IDtxtBox.Text;
+            string password = passWordtxtBox.Text;
+            if (getUserid.ContainsKey(userid)) 
+            {
+                if (getUserid[userid] == password)
+				{
+                    NavigationService.Navigate(new SelectMenu());
+                }
+            }
         }
     }
 }
