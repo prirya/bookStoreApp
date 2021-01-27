@@ -107,9 +107,6 @@
     <Compile Include="LogSelledList.xaml.cs">
       <DependentUpon>LogSelledList.xaml</DependentUpon>
     </Compile>
-    <Compile Include="RegisterPage.xaml.cs">
-      <DependentUpon>RegisterPage.xaml</DependentUpon>
-    </Compile>
     <Compile Include="SelectMenu.xaml.cs">
       <DependentUpon>SelectMenu.xaml</DependentUpon>
     </Compile>
@@ -157,10 +154,6 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Page Include="RegisterPage.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="SelectMenu.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
