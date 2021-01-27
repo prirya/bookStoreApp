@@ -24,17 +24,6 @@ namespace bookStoreApp
         {
             InitializeComponent();
         }
-
-        private void adminTest_Click(object sender, RoutedEventArgs e)
-        {
-            NavigationService.Navigate(new AdminPage());
-        }
-
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
-            NavigationService.Navigate(new SelectMenu());
-        }
-
         private void loginBottom_Click(object sender, RoutedEventArgs e)
         {
             Dictionary<string, string> getUserid = DataAccess.GetUsernames();
@@ -44,9 +33,39 @@ namespace bookStoreApp
             {
                 if (getUserid[userid] == password)
 				{
+                    IDtxtBox.Text = passWordtxtBox.Text = "";
                     NavigationService.Navigate(new SelectMenu());
+                    return;
                 }
             }
+			else
+			{
+                MessageBox.Show("Wrong ID, Password or both");
+			}
+        }
+
+        private void passWordtxtBox_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Enter) 
+            {
+                loginBottom_Click(null,null);
+            }
+        }
+
+        private void IDtxtBox_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Enter)
+            {
+                passWordtxtBox.Focus();
+            }
+#if DEBUG
+            if (e.Key == Key.F12)
+            {
+                IDtxtBox.Text = "root";
+                passWordtxtBox.Text = "7777";
+                loginBottom_Click(null, null);
+            }
+#endif
         }
     }
 }

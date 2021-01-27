@@ -12,7 +12,7 @@ namespace bookStoreApp
 
         public const string dbpath = "Database_BookStore.db";
         public const string admindbpath = "adminDatabase.db";
-        private static object createTable;
+        //private static object createTable; ไม่ได้ใช่งาน
 
         public static void InitializeDatabase()
         {
@@ -65,14 +65,16 @@ namespace bookStoreApp
         }
 
         static string chars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
+        static Random randomCore;
         public static string GetRandomName()
         {
-            Random rand = new Random();
-            int length = rand.Next(10, 20);
+            if (randomCore == null)
+                randomCore = new Random();
+            int length = randomCore.Next(10, 20);
             string randomName = "";
             while (length > 1)
             {
-                randomName += chars[rand.Next(0, chars.Length - 1)];
+                randomName += chars[randomCore.Next(0, chars.Length - 1)];
                 length--;
             }
             return randomName;
