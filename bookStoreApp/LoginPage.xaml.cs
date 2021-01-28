@@ -34,7 +34,7 @@ namespace bookStoreApp
                 if (getUserid[userid] == password)
 				{
                     IDtxtBox.Text = passWordtxtBox.Text = "";
-                    NavigationService.Navigate(new SelectMenu());
+                    NavigationService.Navigate(new SelectMenu(userid, password));
                     return;
                 }
             }
@@ -56,7 +56,7 @@ namespace bookStoreApp
         {
             if (e.Key == Key.Enter)
             {
-                passWordtxtBox.Focus();
+                passWordtxtBox.Focus(); //คำสั่งนี้ใช้เพื่อให้เกิดคอเซอร์เมอร์ไปกระพิบที่ช่องนั้นๆ (Focus())
             }
 #if DEBUG
             if (e.Key == Key.F12)

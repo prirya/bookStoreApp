@@ -110,8 +110,8 @@
     <Compile Include="SelectMenu.xaml.cs">
       <DependentUpon>SelectMenu.xaml</DependentUpon>
     </Compile>
-    <Compile Include="TransactionsLog.xaml.cs">
-      <DependentUpon>TransactionsLog.xaml</DependentUpon>
+    <Compile Include="Transactions.xaml.cs">
+      <DependentUpon>Transactions.xaml</DependentUpon>
     </Compile>
     <Page Include="AdminPage.xaml">
       <SubType>Designer</SubType>
@@ -158,7 +158,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="TransactionsLog.xaml">
+    <Page Include="Transactions.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

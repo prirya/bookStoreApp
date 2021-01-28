@@ -20,6 +20,19 @@ namespace bookStoreApp
     /// </summary>
     public partial class SelectMenu : Page
     {
+        public SelectMenu(string userid, string password)
+        {
+            InitializeComponent();
+            bool admintype = DataAccess.Typeuser(userid, password);
+            if (admintype == true) 
+            {
+                adminManagerBtn.Visibility = Visibility.Visible;
+            }
+            else if (admintype == false)
+            {
+                adminManagerBtn.Visibility = Visibility.Hidden;
+            }
+        }
         public SelectMenu()
         {
             InitializeComponent();
@@ -46,7 +59,7 @@ namespace bookStoreApp
 
         private void Button_Click_1(object sender, RoutedEventArgs e)
         {
-            NavigationService.Navigate(new TransactionsLog());
+            NavigationService.Navigate(new Transactions());
         }
 
         private void Button_Click_2(object sender, RoutedEventArgs e)

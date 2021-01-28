@@ -185,30 +185,31 @@ namespace bookStoreApp
             return entries;
         }
 
-        public static List<String> GetUsername() //คือการแสดงผลข้อมูลที่อยู่ใน dataBase ออกมาทั้งหมด
-        {
-            List<String> entries = new List<string>();
+        //public static List<String> GetUsername() //คือการแสดงผลข้อมูลที่อยู่ใน dataBase ออกมาทั้งหมด
+        //{
+        //    List<String> entries = new List<string>();
 
-            using (SqliteConnection admindb = new SqliteConnection($"Filename={admindbpath}"))
-            {
-                admindb.Open();
+        //    using (SqliteConnection admindb = new SqliteConnection($"Filename={admindbpath}"))
+        //    {
+        //        admindb.Open();
 
-                SqliteCommand selectCommand = new SqliteCommand
-                    ("SELECT userId,Password from User", admindb); //หลัง SELECT คือใส่ชื่อ field หากมีหลาย field ข้องใส่ (,) เอาไว้ด้วย แต่ถ้าอยากได้ทั้งหมดเลยก็ใส่ (*)
+        //        SqliteCommand selectCommand = new SqliteCommand
+        //            ("SELECT userId,Password from User", admindb); //หลัง SELECT คือใส่ชื่อ field หากมีหลาย field ข้องใส่ (,) เอาไว้ด้วย แต่ถ้าอยากได้ทั้งหมดเลยก็ใส่ (*)
 
 
-                SqliteDataReader query = selectCommand.ExecuteReader();
+        //        SqliteDataReader query = selectCommand.ExecuteReader();
 
-                while (query.Read())
-                {
-                    entries.Add($"{query.GetString(0)} {query.GetString(1)}"); //มันใช้งานเหมือน ArrayList คือกำหนดให้ส่งค่ากลับออกมาเป็นแต่ละ column (field) โดยเรียงตามที่เราเรียง Opject [0][1][2]
-                }
+        //        while (query.Read())
+        //        {
+        //            entries.Add($"{query.GetString(0)} {query.GetString(1)}"); //มันใช้งานเหมือน ArrayList คือกำหนดให้ส่งค่ากลับออกมาเป็นแต่ละ column (field) โดยเรียงตามที่เราเรียง Opject [0][1][2]
+        //        }
 
-                admindb.Close();
-            }
+        //        admindb.Close();
+        //    }
 
-            return entries;
-        }
+        //    return entries;
+        //}
+
 
         public static Dictionary<string, string> GetUsernames() //คือการแสดงผลข้อมูลที่อยู่ใน dataBase ออกมาทั้งหมด
         {
@@ -233,6 +234,32 @@ namespace bookStoreApp
             }
 
             return entries;
+        }
+        public static bool Typeuser(string userid, string password) 
+        {
+            bool IsAdmin = false;
+
+            using (SqliteConnection admindb = new SqliteConnection($"Filename={admindbpath}"))
+            {
+                admindb.Open();
+
+                SqliteCommand selectCommand = new SqliteCommand
+                    ("SELECT `User Id`,Password,TypeAdmin from User " +
+					$"WHERE `User Id`=\"{userid}\"; WHERE Password=\"{password}\";", admindb); //หลัง SELECT คือใส่ชื่อ field หากมีหลาย field ข้องใส่ (,) เอาไว้ด้วย แต่ถ้าอยากได้ทั้งหมดเลยก็ใส่ (*)
+
+
+
+                SqliteDataReader query = selectCommand.ExecuteReader();
+
+                while (query.Read())
+                {
+                    IsAdmin = query.GetBoolean(2);
+                }
+
+                admindb.Close();
+            }
+
+            return IsAdmin;
         }
     }
 }

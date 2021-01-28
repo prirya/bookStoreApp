@@ -18,9 +18,9 @@ namespace bookStoreApp
     /// <summary>
     /// Interaction logic for TransactionsLog.xaml
     /// </summary>
-    public partial class TransactionsLog : Page
+    public partial class Transactions : Page
     {
-        public TransactionsLog()
+        public Transactions()
         {
             InitializeComponent();
         }

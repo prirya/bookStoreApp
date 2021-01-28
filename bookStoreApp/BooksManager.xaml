@@ -30,7 +30,7 @@
         <TextBox x:Name="emailtxtBox_Copy" HorizontalAlignment="Left" Height="23" Margin="498,108,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="100"/>
         <TextBox x:Name="nameBooktxtBox_Copy" HorizontalAlignment="Left" Height="23" Margin="498,186,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="245"/>
         <Label Content="Tile" HorizontalAlignment="Left" Margin="383,186,0,0" VerticalAlignment="Top" Height="23" Width="110" VerticalContentAlignment="Center" FlowDirection="RightToLeft"/>
-        <Image HorizontalAlignment="Left" Height="129" Margin="603,52,0,0" VerticalAlignment="Top" Width="140"/>
+        <Image x:Name="imageBox" HorizontalAlignment="Left" Height="129" Margin="603,52,0,0" VerticalAlignment="Top" Width="140"/>
         <Button Content="Brower" HorizontalAlignment="Left" Margin="498,136,0,0" VerticalAlignment="Top" Width="100"/>
         <Button Content="Clear Image" HorizontalAlignment="Left" Margin="498,161,0,0" VerticalAlignment="Top" Width="100"/>
 

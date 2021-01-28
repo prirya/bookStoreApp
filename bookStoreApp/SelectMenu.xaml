@@ -18,7 +18,7 @@
         <Label Content="Transaction" HorizontalAlignment="Left" Margin="433,287,0,0" VerticalAlignment="Top" Width="110" HorizontalContentAlignment="Center"/>
         <Label Content="Log" HorizontalAlignment="Left" Margin="626,287,0,0" VerticalAlignment="Top" Width="110" HorizontalContentAlignment="Center"/>
         <Button Content="Back" HorizontalAlignment="Left" Margin="668,357,0,0" VerticalAlignment="Top" Width="75" Click="Button_Click"/>
-        <Button Content="Admin manager" HorizontalAlignment="Left" Margin="564,357,0,0" VerticalAlignment="Top" Width="99" Click="Button_Click_2"/>
+        <Button x:Name="adminManagerBtn" Content="Admin manager" HorizontalAlignment="Left" Margin="564,357,0,0" VerticalAlignment="Top" Width="99" Click="Button_Click_2"/>
 
     </Grid>
 </Page>
