@@ -55,7 +55,7 @@ namespace bookStoreApp
             if (usernames.ContainsKey("root"))
                 return;
             //Admin test
-            AddUserTable("root", "7777", "Administrator", "", "", "", true, true);
+            AddUserTable("root", "7777", "Administrator", "", "", new DateTime(1990,5,12), true, true);
             //User test
             AddDataCustomerTable(GetRandomName(), "", "");
             AddDataCustomerTable(GetRandomName(), "", "");
@@ -81,7 +81,7 @@ namespace bookStoreApp
         }
 
         //Administrator path ----------------------------------------------------------------------------------------------------------------
-        public static void AddUserTable(string userId, string password, string name, string address, string email, string birthday, bool sex , bool typeAdmin) 
+        public static void AddUserTable(string userId, string password, string name, string address, string email, DateTime birthday, bool sex , bool typeAdmin) 
         {
             using (SqliteConnection admindb = new SqliteConnection($"Filename={admindbpath}"))
             {
