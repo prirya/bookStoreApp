@@ -9,32 +9,32 @@
       Title="AdminPage">
 
     <Grid>
-        <TextBox x:Name="userIDtxtBox" HorizontalAlignment="Left" Height="23" Margin="519,85,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="244"/>
-        <TextBox x:Name="firstNametxtBox" HorizontalAlignment="Left" Height="23" Margin="519,169,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Text="First Name"/>
-        <TextBox x:Name="lastNametxtBox" HorizontalAlignment="Left" Height="23" Margin="643,169,0,0" TextWrapping="Wrap" Text="Last Name" VerticalAlignment="Top" Width="120"/>
-        <TextBox x:Name="emailtxtBox" HorizontalAlignment="Left" Height="23" Margin="518,254,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="245"/>
-        <TextBox x:Name="addresstxtBox" HorizontalAlignment="Left" Height="99" Margin="518,282,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="245" AcceptsReturn="True" AcceptsTab="True"/>
-        <RadioButton x:Name="maleRadio" Content="Male" HorizontalAlignment="Left" Margin="521,199,0,0" VerticalAlignment="Top" Height="23"/>
-        <RadioButton x:Name="femaleRadio" Content="Female" HorizontalAlignment="Left" Margin="601,199,0,0" VerticalAlignment="Top" Height="23"/>
-        <Label Content="User ID" HorizontalAlignment="Left" Margin="404,81,0,0" VerticalAlignment="Top" Height="23" Width="110" VerticalContentAlignment="Center" FlowDirection="RightToLeft"/>
-        <Label Content="Password" HorizontalAlignment="Left" Margin="404,109,0,0" VerticalAlignment="Top" Height="23" Width="110" VerticalContentAlignment="Center" FlowDirection="RightToLeft"/>
-        <Label Content="Password Confirm" HorizontalAlignment="Left" Margin="404,137,0,0" VerticalAlignment="Top" Height="23" Width="110" VerticalContentAlignment="Center" FlowDirection="RightToLeft"/>
-        <Label Content="Name" HorizontalAlignment="Left" Margin="403,165,0,0" VerticalAlignment="Top" Height="23" Width="110" VerticalContentAlignment="Center" FlowDirection="RightToLeft"/>
-        <Label Content="Sex" HorizontalAlignment="Left" Margin="403,193,0,0" VerticalAlignment="Top" Height="23" Width="110" VerticalContentAlignment="Center" FlowDirection="RightToLeft"/>
-        <Label Content="Birthday" HorizontalAlignment="Left" Margin="403,223,0,0" VerticalAlignment="Top" Height="23" Width="110" VerticalContentAlignment="Center" FlowDirection="RightToLeft"/>
-        <Label Content="Email" HorizontalAlignment="Left" Margin="403,251,0,0" VerticalAlignment="Top" Height="23" Width="110" VerticalContentAlignment="Center" FlowDirection="RightToLeft"/>
-        <Label Content="Address" HorizontalAlignment="Left" Margin="403,278,0,0" VerticalAlignment="Top" Height="23" Width="110" VerticalContentAlignment="Center" FlowDirection="RightToLeft"/>
-        <Button x:Name="saveBtn" Content="Save" HorizontalAlignment="Left" Margin="590,386,0,0" VerticalAlignment="Top" Width="42" Click="saveBtn_Click"/>
-        <Button x:Name="clearBtn" Content="Clear" HorizontalAlignment="Left" Margin="637,386,0,0" VerticalAlignment="Top" Width="46" Click="ClearBtn_Click_1"/>
-        <PasswordBox x:Name="passwordBox" HorizontalAlignment="Left" Margin="519,113,0,0" VerticalAlignment="Top" Width="244" Height="23"/>
-        <PasswordBox x:Name="passwordConfirmBox" HorizontalAlignment="Left" Margin="519,141,0,0" VerticalAlignment="Top" Width="244" Height="23"/>
-        <DataGrid x:Name="dataGrid" HorizontalAlignment="Left" Height="300" Margin="39,81,0,0" VerticalAlignment="Top" Width="345" IsReadOnly="True" SelectionChanged="dataGrid_SelectionChanged"/>
-        <Button x:Name="addBtn" Content="Add" HorizontalAlignment="Left" Margin="519,386,0,0" VerticalAlignment="Top" Width="66" Click="addBtn_Click"/>
-        <Button x:Name="removeBtn" Content="Remove" HorizontalAlignment="Left" Margin="39,386,0,0" VerticalAlignment="Top" Width="75" Click="removeBtn_Click"/>
+        <TextBox x:Name="userIDtxtBox" HorizontalAlignment="Left" Height="23" Margin="499,56,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="244"/>
+        <TextBox x:Name="firstNametxtBox" HorizontalAlignment="Left" Height="23" Margin="499,140,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
+        <TextBox x:Name="lastNametxtBox" HorizontalAlignment="Left" Height="23" Margin="623,140,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
+        <TextBox x:Name="emailtxtBox" HorizontalAlignment="Left" Height="23" Margin="498,225,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="245"/>
+        <TextBox x:Name="addresstxtBox" HorizontalAlignment="Left" Height="99" Margin="498,253,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="245" AcceptsReturn="True" AcceptsTab="True"/>
+        <RadioButton x:Name="maleRadio" Content="Male" HorizontalAlignment="Left" Margin="501,170,0,0" VerticalAlignment="Top" Height="23"/>
+        <RadioButton x:Name="femaleRadio" Content="Female" HorizontalAlignment="Left" Margin="581,170,0,0" VerticalAlignment="Top" Height="23"/>
+        <Label Content="User ID" HorizontalAlignment="Left" Margin="384,52,0,0" VerticalAlignment="Top" Height="23" Width="110" VerticalContentAlignment="Center" FlowDirection="RightToLeft"/>
+        <Label Content="Password" HorizontalAlignment="Left" Margin="384,80,0,0" VerticalAlignment="Top" Height="23" Width="110" VerticalContentAlignment="Center" FlowDirection="RightToLeft"/>
+        <Label Content="Password Confirm" HorizontalAlignment="Left" Margin="384,108,0,0" VerticalAlignment="Top" Height="23" Width="110" VerticalContentAlignment="Center" FlowDirection="RightToLeft"/>
+        <Label Content="Name" HorizontalAlignment="Left" Margin="383,136,0,0" VerticalAlignment="Top" Height="23" Width="110" VerticalContentAlignment="Center" FlowDirection="RightToLeft"/>
+        <Label Content="Sex" HorizontalAlignment="Left" Margin="383,164,0,0" VerticalAlignment="Top" Height="23" Width="110" VerticalContentAlignment="Center" FlowDirection="RightToLeft"/>
+        <Label Content="Birthday" HorizontalAlignment="Left" Margin="383,194,0,0" VerticalAlignment="Top" Height="23" Width="110" VerticalContentAlignment="Center" FlowDirection="RightToLeft"/>
+        <Label Content="Email" HorizontalAlignment="Left" Margin="383,222,0,0" VerticalAlignment="Top" Height="23" Width="110" VerticalContentAlignment="Center" FlowDirection="RightToLeft"/>
+        <Label Content="Address" HorizontalAlignment="Left" Margin="383,249,0,0" VerticalAlignment="Top" Height="23" Width="110" VerticalContentAlignment="Center" FlowDirection="RightToLeft"/>
+        <Button x:Name="saveBtn" Content="Save" HorizontalAlignment="Left" Margin="570,357,0,0" VerticalAlignment="Top" Width="42" Click="saveBtn_Click"/>
+        <Button x:Name="clearBtn" Content="Clear" HorizontalAlignment="Left" Margin="617,357,0,0" VerticalAlignment="Top" Width="46" Click="ClearBtn_Click_1"/>
+        <PasswordBox x:Name="passwordBox" HorizontalAlignment="Left" Margin="499,84,0,0" VerticalAlignment="Top" Width="244" Height="23"/>
+        <PasswordBox x:Name="passwordConfirmBox" HorizontalAlignment="Left" Margin="499,112,0,0" VerticalAlignment="Top" Width="244" Height="23"/>
+        <DataGrid x:Name="dataGrid" HorizontalAlignment="Left" Height="300" Margin="19,52,0,0" VerticalAlignment="Top" Width="345" IsReadOnly="True" SelectionChanged="dataGrid_SelectionChanged"/>
+        <Button x:Name="addBtn" Content="Add" HorizontalAlignment="Left" Margin="499,357,0,0" VerticalAlignment="Top" Width="66" Click="addBtn_Click"/>
+        <Button x:Name="removeBtn" Content="Remove" HorizontalAlignment="Left" Margin="19,357,0,0" VerticalAlignment="Top" Width="75" Click="removeBtn_Click"/>
         <Label Content="User ID Manager" HorizontalAlignment="Left" Margin="11,-1,0,0" VerticalAlignment="Top" Height="44" Width="779" FontSize="24"/>
-        <Button Content="Back" HorizontalAlignment="Left" Margin="688,386,0,0" VerticalAlignment="Top" Width="75" Click="Button_Click"/>
-        <DatePicker x:Name="datePicker" HorizontalAlignment="Left" Height="22" Margin="518,227,0,0" VerticalAlignment="Top" DisplayDate="1990-01-01" DisplayDateStart="1900-01-01"/>
-        <CheckBox x:Name="adminCBox" Content="Admin Permission" HorizontalAlignment="Left" Margin="637,227,0,0" VerticalAlignment="Top" Height="22" Width="126" Cursor="" ToolTip="Admin Permission can add new user"/>
+        <Button Content="Back" HorizontalAlignment="Left" Margin="668,357,0,0" VerticalAlignment="Top" Width="75" Click="Button_Click"/>
+        <DatePicker x:Name="datePicker" HorizontalAlignment="Left" Height="22" Margin="498,198,0,0" VerticalAlignment="Top" DisplayDate="1990-01-01" DisplayDateStart="1900-01-01"/>
+        <CheckBox x:Name="adminCBox" Content="Admin Permission" HorizontalAlignment="Left" Margin="617,198,0,0" VerticalAlignment="Top" Height="22" Width="126" Cursor="" ToolTip="Admin Permission can add new user"/>
 
     </Grid>
 </Page>
