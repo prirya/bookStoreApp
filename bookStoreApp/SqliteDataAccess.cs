@@ -51,17 +51,7 @@ namespace bookStoreApp
             
 
         }
-        //public static void SavePerson(UserModel person) //เพิ่มข้อมูลตาราง SQL
-        //{
-        //    using (IDbConnection cnn = new SqliteConnection(LoadConnectionString()))
-        //    {
-        //        cnn.Execute("INSERT into Person (FirstName , LastName) VALUES(@FirstName , @LastName)", person);
-        //    }
-        //}
-        private static string LoadConnectionString(string id = "admindbpath") //โหลด SQL ไฟล์ไหนๆมาใช้ ในที่นี้เลือกโหลดไฟล์ที่ชื่อว่า Default (ลองไปหาความหมายของคำว่า Default ได้ที่หน้า App.config
-        {
-            return ConfigurationManager.ConnectionStrings[id].ConnectionString;
-        }
+
         //public static void UpdatePerson(UserModel person) //แก้ไขข้อมูลตาราง SQL
         //{
         //    using (IDbConnection cnn = new SqliteConnection(LoadConnectionString()))
