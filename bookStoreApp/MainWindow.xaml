@@ -5,16 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:bookStoreApp"
         mc:Ignorable="d"
-        Title="Book store manager" 
-		Height="450" 
-		Width="800">
+        Title="Book store manager">
     <Grid>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="53*"/>
-            <ColumnDefinition Width="739*"/>
-        </Grid.ColumnDefinitions>
-        <Frame x:FieldModifier="public" x:Name="mainFrame" NavigationUIVisibility="Hidden" Content="Frame" HorizontalAlignment="Left" Height="419" VerticalAlignment="Top" Width="792" Grid.ColumnSpan="2"/>
-
-
+        <Frame x:FieldModifier="public" x:Name="mainFrame" NavigationUIVisibility="Hidden"/>
     </Grid>
 </Window>

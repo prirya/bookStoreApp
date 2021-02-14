@@ -9,12 +9,21 @@
       Title="LoginPage">
 
     <Grid>
-        <TextBox x:Name="IDtxtBox" HorizontalAlignment="Left" Height="35" Margin="413,156,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="270" VerticalContentAlignment="Center" KeyDown="IDtxtBox_KeyDown"/>
-        <TextBox x:Name="passWordtxtBox" HorizontalAlignment="Left" Height="35" Margin="413,196,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="270" VerticalContentAlignment="Center" KeyDown="passWordtxtBox_KeyDown"/>
-        <Button x:Name="loginBottom" Content="Login" HorizontalAlignment="Left" Margin="413,250,0,0" VerticalAlignment="Top" Width="75" Height="30" Click="loginBottom_Click"/>
-        <TextBlock TextWrapping="Wrap" Text="Login" Height="105" Width="265" FontSize="72" HorizontalAlignment="Left" VerticalAlignment="Top" TextAlignment="Center" Margin="31,141,0,0"/>
-        <Label Content="Password" HorizontalAlignment="Left" Margin="311,196,0,0" VerticalAlignment="Top" Height="35" FontSize="22" FlowDirection="RightToLeft" Padding="0"/>
-        <Label Content="ID" HorizontalAlignment="Left" Margin="301,161,0,0" VerticalAlignment="Top" Height="35" Width="102" FontSize="22" FlowDirection="RightToLeft" Padding="0" ScrollViewer.CanContentScroll="True"/>
-
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="1*"/>
+            <ColumnDefinition Width="2*"/>
+        </Grid.ColumnDefinitions>
+        <TextBlock Text="Login" FontSize="72" TextAlignment="Center" VerticalAlignment="Center"/>
+        <StackPanel Orientation="Vertical" Grid.Column="1" VerticalAlignment="Center">
+            <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                <TextBlock Text="ID" Height="35" Width="120" FontSize="22" TextAlignment="Right"/>
+                <TextBox FontSize="20" VerticalContentAlignment="Center" x:Name="IDtxtBox" Height="35" Width="270" KeyDown="IDtxtBox_KeyDown" Margin="5"/>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal">
+                <TextBlock Text="Password" Height="35" Width="120" FontSize="22" TextAlignment="Right"/>
+                <TextBox FontSize="20" VerticalContentAlignment="Center" x:Name="passWordtxtBox" Height="35" Width="270" KeyDown="passWordtxtBox_KeyDown" Margin="5"/>
+            </StackPanel>
+            <Button x:Name="loginBottom" Content="Login" Width="75" Height="30" Click="loginBottom_Click" HorizontalAlignment="Left" Margin="125,0,0,0"/>
+        </StackPanel>
     </Grid>
 </Page>
