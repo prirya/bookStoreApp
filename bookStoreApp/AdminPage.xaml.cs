@@ -31,7 +31,7 @@ namespace bookStoreApp
 
         private void winLoader(object sender, RoutedEventArgs e)
         {
-            people = SqliteDataAccess.LoadPeople();
+            people = DataAccess.LoadAdmin();
             dataGrid.ItemsSource = people;
         }
         public void Clear()
@@ -60,7 +60,7 @@ namespace bookStoreApp
         List<UserModel> people = new List<UserModel>();
         private void LoadpeopleList()
         {
-            people = SqliteDataAccess.LoadPeople();
+            people = DataAccess.LoadAdmin();
         }
         private void dataGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
@@ -221,6 +221,11 @@ namespace bookStoreApp
             people = DataAccess.SearchPeople(SearchtxtBox.Text);
             dataGrid.ItemsSource = null;
             dataGrid.ItemsSource = people;
+        }
+
+        private void SearchtxtBox_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Enter){ SearchBtn_Click(null , null); }
         }
     }
 }

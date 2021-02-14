@@ -119,7 +119,6 @@
     <Compile Include="CustomersManager.xaml.cs">
       <DependentUpon>CustomersManager.xaml</DependentUpon>
     </Compile>
-    <Compile Include="SqliteDataAccess.cs" />
     <Compile Include="LoginPage.xaml.cs">
       <DependentUpon>LoginPage.xaml</DependentUpon>
     </Compile>

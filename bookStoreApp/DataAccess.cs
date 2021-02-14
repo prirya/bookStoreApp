@@ -80,6 +80,39 @@ namespace bookStoreApp
             return randomName;
         }
         #region Administrator part
+        public static List<UserModel> LoadAdmin()
+        {
+            List<UserModel> entries = new List<UserModel>();
+            using (SqliteConnection admindb = new SqliteConnection($"Filename={admindbpath}"))
+            {
+                admindb.Open();
+
+                SqliteCommand selectCommand = new SqliteCommand
+                    ("SELECT Number,`User Id`,Password,Name,Address,Email,`Birth day`,`Sex (Male)`,TypeAdmin from User", admindb);
+
+
+                SqliteDataReader query = selectCommand.ExecuteReader();
+
+                while (query.Read())
+                {
+                    entries.Add(new UserModel()
+                    {
+                        Number = query.GetInt32(0),
+                        userId = query.GetString(1),
+                        password = query.GetString(2),
+                        name = query.GetString(3),
+                        address = query.GetString(4),
+                        email = query.GetString(5),
+                        birthday = query.GetDateTime(6),
+                        sex = query.GetBoolean(7),
+                        typeAdmin = query.GetBoolean(8)
+                    });
+                }
+
+                admindb.Close();
+                return entries.ToList();
+            }
+        }
         public static void AddUserTable(UserModel user)
         {
             using (SqliteConnection admindb = new SqliteConnection($"Filename={admindbpath}"))

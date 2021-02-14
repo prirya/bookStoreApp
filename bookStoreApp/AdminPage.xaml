@@ -35,7 +35,7 @@
         <Button Content="Back" HorizontalAlignment="Left" Margin="668,357,0,0" VerticalAlignment="Top" Width="75" Click="Button_Click"/>
         <DatePicker x:Name="datePicker" HorizontalAlignment="Left" Height="22" Margin="498,198,0,0" VerticalAlignment="Top" DisplayDate="1990-01-01" DisplayDateStart="1900-01-01"/>
         <CheckBox x:Name="adminCBox" Content="Admin Permission" HorizontalAlignment="Left" Margin="617,198,0,0" VerticalAlignment="Top" Height="22" Width="126" Cursor="" ToolTip="Admin Permission can add new user"/>
-        <TextBox x:Name="SearchtxtBox" HorizontalAlignment="Left" Height="20" Margin="165,357,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="141"/>
+        <TextBox x:Name="SearchtxtBox" HorizontalAlignment="Left" Height="20" Margin="165,357,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="141" KeyDown="SearchtxtBox_KeyDown"/>
         <Button x:Name="SearchBtn" Content="Search" HorizontalAlignment="Left" Margin="311,357,0,0" VerticalAlignment="Top" Width="53" Click="SearchBtn_Click"/>
 
     </Grid>
