@@ -79,8 +79,6 @@ namespace bookStoreApp
             }
             return randomName;
         }
-
-        //Administrator path ----------------------------------------------------------------------------------------------------------------
         #region Administrator part
         public static void AddUserTable(UserModel user)
         {
@@ -178,8 +176,36 @@ namespace bookStoreApp
                 Number = number
             }) ;
         }
+        public static List<UserModel>  SearchPeople(string search) //TODO : ทำระบบค้นหา
+        {
+            List<UserModel> entries = new List<UserModel>();
+            using (SqliteConnection admindb = new SqliteConnection($"Filename={admindbpath}"))
+            {
+                admindb.Open();
+                SqliteCommand sqliteCommand = new SqliteCommand();
+                sqliteCommand.Connection = admindb;
+                sqliteCommand.CommandText = $"SELECT Number,`User Id`,Password,Name,Address,Email,`Birth day`,`Sex (Male)`,TypeAdmin FROM User WHERE Name LIKE \"%{search.ToLower()}%\" OR `User ID` LIKE  \"%{search.ToLower()}%\";"; //TODO : แก้ code ตรงนี้ซะ
+                SqliteDataReader query = sqliteCommand.ExecuteReader();
+                while (query.Read()) 
+                {
+                    entries.Add(new UserModel()
+                    {
+                        Number = query.GetInt32(0),
+                        userId = query.GetString(1),
+                        password = query.GetString(2),
+                        name = query.GetString(3),
+                        address = query.GetString(4),
+                        email = query.GetString(5),
+                        birthday = query.GetDateTime(6),
+                        sex = query.GetBoolean(7),
+                        typeAdmin = query.GetBoolean(8)
+                    });
+                }
+                admindb.Close();
+                return entries;
+            }
+        }
         #endregion
-        //Client path -------------------------------------------------------------------------------------------------------------------------
         #region Client part
         public static void AddDataCustomerTable(string name, string address, string email)
         {

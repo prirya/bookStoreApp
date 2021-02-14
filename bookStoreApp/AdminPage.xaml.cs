@@ -62,7 +62,6 @@ namespace bookStoreApp
         {
             people = SqliteDataAccess.LoadPeople();
         }
-
         private void dataGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if (dataGrid.SelectedCells == null || dataGrid.SelectedCells.Count < 1)
@@ -170,6 +169,7 @@ namespace bookStoreApp
             Clear();
             addBtn.Visibility = Visibility.Visible;
             dataGrid.SelectedIndex = -1;
+            refreshDATA();
         }
 
         private void saveBtn_Click(object sender, RoutedEventArgs e)
@@ -202,11 +202,25 @@ namespace bookStoreApp
         private void removeBtn_Click(object sender, RoutedEventArgs e)
         {
             var selectPerson = dataGrid.SelectedCells[0].Item as UserModel;
-            DataAccess.RemoveUser(selectPerson);
-            Clear();
-            refreshDATA();
-            return;
+            var Result = MessageBox.Show("Are you sure?", "Confirm", MessageBoxButton.YesNo);
+                if (Result == MessageBoxResult.Yes)
+                    {
+                        DataAccess.RemoveUser(selectPerson);
+                        Clear();
+                        refreshDATA();
+                        return;
+                    }
+                else if (Result == MessageBoxResult.No)
+                    {
+                        refreshDATA();
+                    }
         }
-
+        private void SearchBtn_Click(object sender, RoutedEventArgs e)
+        {
+            if (SearchtxtBox.Text == "") { refreshDATA(); return; }
+            people = DataAccess.SearchPeople(SearchtxtBox.Text);
+            dataGrid.ItemsSource = null;
+            dataGrid.ItemsSource = people;
+        }
     }
 }

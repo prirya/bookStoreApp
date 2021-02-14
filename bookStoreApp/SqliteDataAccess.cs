@@ -51,28 +51,5 @@ namespace bookStoreApp
             
 
         }
-
-        //public static void UpdatePerson(UserModel person) //แก้ไขข้อมูลตาราง SQL
-        //{
-        //    using (IDbConnection cnn = new SqliteConnection(LoadConnectionString()))
-        //    {
-        //        cnn.Execute($"UPDATE Person SET FirstName = \"{person.FirstName}\",LastName = \"{person.LastName}\" WHERE Id = {person.Id} ", person);
-        //    }
-        //}
-        //public static void DeletePerson(UserModel person) //ลบออกจาก SQL
-        //{
-        //    using (IDbConnection cnn = new SqliteConnection(LoadConnectionString()))
-        //    {
-        //        cnn.Execute($"DELETE FROM Person WHERE Id = {person.Id} ", person);
-        //    }
-        //}
-        //public static List<UserModel> SearchPeople(string search) //เอาไว้ค้นหา
-        //{
-        //    using (IDbConnection cnn = new SqliteConnection(LoadConnectionString()))
-        //    {
-        //        var output = cnn.query<UserModel>($"SELECT Id , FirstName , LastName FROM Person WHERE FirstName LIKE \"%{search.ToLower()}%\" OR LastName LIKE  \"%{search.ToLower()}%\"", new DynamicParameters()); // ตัว % ก็เหมือนกับ * เวลาเราไม่รู้ว่าต้องค้นหาคำนำหน้านั้นว่าอะไร *.exe บนค้นหาวินโด้ ก็มาเป็น %.exe แทนใน SQL // LIKE เป็นคำสั่งค้นหาในสิ่งที่ดูเหมือนกัน // .ToLower() คือแปลงตัวอักษรให้เป็นตัวพิมพ์เล็กเพื่อให้การค้นหาไม่ใส่ใจกับพิมพ์เล็กพิมพ์ใหญ่
-        //        return output.ToList();
-        //    }
-        //}
     }
 }
