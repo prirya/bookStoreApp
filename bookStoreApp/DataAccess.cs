@@ -22,7 +22,7 @@ namespace bookStoreApp
 
                 String tableCommand =
                     //ตารางเก็บข้อมูลลูกค้า
-                    "CREATE TABLE IF NOT EXISTS CustomersTable (`Customer ID` INTEGER PRIMARY KEY, `Name` NVARCHAR(50) NULL, `Address` NVARCHAR(500) NULL, `Email` NVARCHAR(50) NULL);" +
+                    "CREATE TABLE IF NOT EXISTS CustomersTable (`Customer ID` INT PRIMARY KEY, `Name` NVARCHAR(50) NULL, `Address` NVARCHAR(500) NULL, `Email` NVARCHAR(50) NULL, `Sex(Male)` BOOL NULL, Birthday DATE NULL, `Phone Number` INT NULL);" +
                     //สร้างตารางหนังสือ
                     "CREATE TABLE IF NOT EXISTS BookTable (`ISBN` CHAR(10) PRIMARY KEY, Title NVARCHAR(200) NULL,Description NVARCHAR(500) NULL,Price DOUBLE NULL);" +
                     //ข้อมูลการขาย
@@ -240,7 +240,7 @@ namespace bookStoreApp
         }
         #endregion
         #region Client part
-        public static void AddDataCustomerTable(string name, string address, string email)
+        public static void AddDataCustomerTable(CustomerModel customer)
         {
             using (SqliteConnection db = new SqliteConnection($"Filename={dbpath}"))
             {
@@ -248,10 +248,12 @@ namespace bookStoreApp
                 SqliteCommand insertCommand = new SqliteCommand();
                 insertCommand.Connection = db;
 
-                insertCommand.CommandText = "INSERT INTO CustomersTable VALUES (NULL,@Name,@Address,@Email);";
-                insertCommand.Parameters.AddWithValue("@Name", name);
-                insertCommand.Parameters.AddWithValue("@Address", address);
-                insertCommand.Parameters.AddWithValue("@Email", email);
+                insertCommand.CommandText = "INSERT INTO CustomersTable VALUES (NULL,@Name,@Address,@Email,@Birthday,@Sex);";
+                insertCommand.Parameters.AddWithValue("@Name", customer.name);
+                insertCommand.Parameters.AddWithValue("@Address", customer.address);
+                insertCommand.Parameters.AddWithValue("@Email", customer.email);
+                insertCommand.Parameters.AddWithValue("@Birthday", customer.birthday);
+                insertCommand.Parameters.AddWithValue("@sex", customer.sex);
 
                 insertCommand.ExecuteReader();
 
@@ -295,7 +297,7 @@ namespace bookStoreApp
                 db.Close();
             }
         }
-        public static List<String> GetData() //คือการแสดงผลข้อมูลที่อยู่ใน dataBase ออกมาทั้งหมด
+        public static List<String> GetDataUser() //คือการแสดงผลข้อมูลที่อยู่ใน dataBase ออกมาทั้งหมด
         {
             List<String> entries = new List<string>();
 
@@ -369,6 +371,7 @@ namespace bookStoreApp
 
             return IsAdmin;
         }
+
         #endregion
     }
 }
