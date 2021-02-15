@@ -8,31 +8,84 @@
       d:DesignHeight="450" d:DesignWidth="800"
       Title="Transactions">
 
-    <Grid RenderTransformOrigin="0.518,0.508">
-        <Label Content="Transactions" HorizontalAlignment="Left" Margin="11,-1,0,0" VerticalAlignment="Top" Height="44" Width="779" FontSize="24"/>
-        <DataGrid HorizontalAlignment="Left" Height="309" Margin="10,43,0,0" VerticalAlignment="Top" Width="374"/>
-        <Button x:Name="printBtm" Content="Print" HorizontalAlignment="Left" Margin="498,357,0,0" VerticalAlignment="Top" Width="82"/>
-        <Button x:Name="editBtm" Content="Edit" HorizontalAlignment="Left" Margin="588,357,0,0" VerticalAlignment="Top" Width="75"/>
-        <Button x:Name="backBtm" Content="Back" HorizontalAlignment="Left" Margin="668,357,0,0" VerticalAlignment="Top" Width="75" Click="backBtm_Click"/>
-        <TextBox x:Name="customersIDtxtBox" HorizontalAlignment="Left" Height="23" Margin="499,80,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" IsUndoEnabled="False" IsReadOnly="True"/>
-        <TextBox x:Name="iSBNtxtBox" HorizontalAlignment="Left" Height="23" Margin="499,52,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
-        <TextBox x:Name="quantitytxtBox" HorizontalAlignment="Left" Height="23" Margin="499,108,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
-        <TextBox x:Name="titletxtBox" HorizontalAlignment="Left" Height="23" Margin="499,166,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="245" IsEnabled="False" Focusable="False" AllowDrop="False"/>
-        <TextBox x:Name="addresstxtBox" HorizontalAlignment="Left" Height="99" Margin="499,194,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="245" IsEnabled="False" Focusable="False"/>
-        <Label Content="Customer ID" HorizontalAlignment="Left" Margin="383,76,0,0" VerticalAlignment="Top" Height="23" Width="110" VerticalContentAlignment="Center" FlowDirection="RightToLeft"/>
-        <Label Content="ISBN" HorizontalAlignment="Left" Margin="383,48,0,0" VerticalAlignment="Top" Height="23" Width="110" VerticalContentAlignment="Center" FlowDirection="RightToLeft"/>
-        <Label x:Name="quantity" Content="quantity" HorizontalAlignment="Left" Margin="383,105,0,0" VerticalAlignment="Top" Height="27" Width="110" VerticalContentAlignment="Center" FlowDirection="RightToLeft"/>
-        <Label Content="Title" HorizontalAlignment="Left" Margin="384,163,0,0" VerticalAlignment="Top" Height="23" Width="110" VerticalContentAlignment="Center" FlowDirection="RightToLeft"/>
-        <Label Content="Description" HorizontalAlignment="Left" Margin="384,190,0,0" VerticalAlignment="Top" Height="23" Width="110" VerticalContentAlignment="Center" FlowDirection="RightToLeft"/>
-        <Label Content="Type" HorizontalAlignment="Left" Margin="458,132,0,0" VerticalAlignment="Top"/>
-        <TextBox x:Name="typetxtBox" HorizontalAlignment="Left" Height="23" Margin="499,136,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Focusable="False" IsEnabled="False"/>
-        <Image x:Name="imageBox" HorizontalAlignment="Left" Height="107" Margin="624,52,0,0" VerticalAlignment="Top" Width="119"/>
-        <TextBox x:Name="quantitytxtBox_Copy" HorizontalAlignment="Left" Height="23" Margin="499,295,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="50" Focusable="False" IsEnabled="False"/>
-        <Label x:Name="quantity_Copy" Content="Price" HorizontalAlignment="Left" Margin="384,291,0,0" VerticalAlignment="Top" Height="27" Width="110" VerticalContentAlignment="Center" FlowDirection="RightToLeft"/>
-        <TextBox x:Name="totalPricetxtBox" HorizontalAlignment="Left" Height="57" Margin="668,295,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="75" FontSize="20" Focusable="False"/>
-        <Label Content="Total Price" HorizontalAlignment="Left" Margin="548,291,0,0" VerticalAlignment="Top" Height="61" Width="115" VerticalContentAlignment="Center" FlowDirection="RightToLeft" FontSize="20" FontWeight="Bold"/>
-        <Button Content="Add" HorizontalAlignment="Left" Margin="10,357,0,0" VerticalAlignment="Top" Width="75"/>
-        <Button Content="Remove" HorizontalAlignment="Left" Margin="90,357,0,0" VerticalAlignment="Top" Width="75"/>
+    <Grid Background="White">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <Label Content="Transactions" FontSize="24" Margin="5"/>
 
+        <DataGrid Margin="5" Grid.Row="1" Grid.Column="0"/>
+
+        <Grid Grid.Row="1" Grid.Column="2">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="121*"/>
+                <ColumnDefinition Width="132*"/>
+                <ColumnDefinition Width="148*"/>
+            </Grid.ColumnDefinitions>
+
+            <TextBlock Text="ISBN" Grid.Column="0" Grid.Row="0" VerticalAlignment="Center" TextAlignment="Right"/>
+            <TextBox x:Name="iSBNtxtBox" Grid.Column="1" Grid.Row="0" Margin="5"/>
+
+            <TextBlock Text="Customer ID" Grid.Column="0" Grid.Row="1" VerticalAlignment="Center" TextAlignment="Right"/>
+            <TextBox x:Name="customersIDtxtBox" IsReadOnly="True" IsUndoEnabled="False" Grid.Column="1" Grid.Row="1" Margin="5"/>
+
+            <TextBlock x:Name="quantity" Text="Quantity" Grid.Column="0" Grid.Row="2" VerticalAlignment="Center" TextAlignment="Right"/>
+            <TextBox x:Name="quantitytxtBox" Grid.Column="1" Grid.Row="2" Margin="5"/>
+
+            <TextBlock Text="Type" Grid.Column="0" Grid.Row="3" VerticalAlignment="Center" TextAlignment="Right"/>
+            <TextBox x:Name="typetxtBox" Grid.Column="1" Grid.Row="3" Margin="5"/>
+            <Image x:Name="imageBox" Grid.Column="2" Grid.RowSpan="4"/>
+
+            <TextBlock Text="Title" Grid.Column="0" Grid.Row="4" VerticalAlignment="Center" TextAlignment="Right"/>
+            <TextBox x:Name="titletxtBox" Grid.Column="1" Grid.ColumnSpan="2" Grid.Row="4" Margin="5"/>
+
+            <TextBlock Text="Description" Grid.Column="0" Grid.Row="5" VerticalAlignment="Center" TextAlignment="Right"/>
+            <TextBox x:Name="addresstxtBox" Height="100" Grid.Column="1" Grid.ColumnSpan="2" Grid.Row="5" Margin="5"/>
+
+            <TextBlock Text="Price" x:Name="quantity_Copy" Grid.Column="0" Grid.Row="6" VerticalAlignment="Center" TextAlignment="Right"/>
+            <TextBox x:Name="quantitytxtBox_Copy" Grid.Column="1" Grid.Row="6" Margin="5"/>
+
+            <TextBlock Text="Total Price" Width="115" FontSize="20" FontWeight="Bold" Grid.Column="0" Grid.Row="7" VerticalAlignment="Center" TextAlignment="Right"/>
+            <TextBox x:Name="totalPricetxtBox" FontSize="20" Grid.Column="1" Grid.Row="7" Margin="5"/>
+        </Grid>
+
+        <Grid Grid.Row="2" Grid.Column="0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Button Content="Add" Margin="5"/>
+            <Button Content="Remove" Grid.Column="1" Margin="5"/>
+        </Grid>
+
+        <Grid Grid.Column="1" Grid.Row="3">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Button x:Name="printBtm" Content="Print" Grid.Column="1" Margin="5"/>
+            <Button x:Name="editBtm" Content="Edit" Grid.Column="2" Margin="5"/>
+            <Button x:Name="backBtm" Content="Back" Click="backBtm_Click" Grid.Column="3" Margin="5" Width="80"/>
+        </Grid>
     </Grid>
 </Page>
