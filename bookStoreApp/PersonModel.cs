@@ -26,6 +26,7 @@ namespace bookStoreApp
         public string email { get; set; }
         public DateTime birthday { get; set; }
         public bool sex { get; set; }
+        public int phone { get; set; }
     }
 
 }

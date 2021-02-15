@@ -40,7 +40,7 @@
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
-            <Button x:Name="adminManagerBtn" Content="Admin manager" Click="Button_Click_2" Margin="5"/>
+            <Button x:Name="adminManagerBtn" Content="Admin manager" Click="Button_Click_2" Margin="-11,5,5,5"/>
             <Button Grid.Column="1" Content="Back" Click="Button_Click" Margin="5" Width="80"/>
         </Grid>
 

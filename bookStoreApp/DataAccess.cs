@@ -57,11 +57,11 @@ namespace bookStoreApp
             //Admin test
             AddUserTable("root", "7777", "Administrator", "", "", new DateTime(1990, 5, 12), true, true);
             //User test
-            AddDataCustomerTable(GetRandomName(), "", "");
-            AddDataCustomerTable(GetRandomName(), "", "");
-            AddDataCustomerTable(GetRandomName(), "", "");
-            AddDataCustomerTable(GetRandomName(), "", "");
-            AddDataCustomerTable(GetRandomName(), "", "");
+            //    AddDataCustomerTable(GetRandomName(), "", "");
+            //    AddDataCustomerTable(GetRandomName(), "", "");
+            //    AddDataCustomerTable(GetRandomName(), "", "");
+            //    AddDataCustomerTable(GetRandomName(), "", "");
+            //    AddDataCustomerTable(GetRandomName(), "", "");
         }
 
         static string chars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
@@ -240,7 +240,7 @@ namespace bookStoreApp
         }
         #endregion
         #region Client part
-        public static void AddDataCustomerTable(string name, string address, string email)
+        public static void AddDataCustomerTable(CustomerModel customer)
         {
             using (SqliteConnection db = new SqliteConnection($"Filename={dbpath}"))
             {
@@ -248,10 +248,13 @@ namespace bookStoreApp
                 SqliteCommand insertCommand = new SqliteCommand();
                 insertCommand.Connection = db;
 
-                insertCommand.CommandText = "INSERT INTO CustomersTable VALUES (NULL,@Name,@Address,@Email);";
-                insertCommand.Parameters.AddWithValue("@Name", name);
-                insertCommand.Parameters.AddWithValue("@Address", address);
-                insertCommand.Parameters.AddWithValue("@Email", email);
+                insertCommand.CommandText = "INSERT INTO CustomersTable VALUES (NULL,@Name,@Address,@Email,@Birthday,@Sex,@`Phone Number`);";
+                insertCommand.Parameters.AddWithValue("@Name", customer.name);
+                insertCommand.Parameters.AddWithValue("@Address", customer.address);
+                insertCommand.Parameters.AddWithValue("@Email", customer.email);
+                insertCommand.Parameters.AddWithValue("@Birthday", customer.birthday);
+                insertCommand.Parameters.AddWithValue("@sex", customer.sex);
+                insertCommand.Parameters.AddWithValue("@`Phone Number`", customer.phone);
 
                 insertCommand.ExecuteReader();
 
