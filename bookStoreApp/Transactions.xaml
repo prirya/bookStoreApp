@@ -34,9 +34,9 @@
                 <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="121*"/>
-                <ColumnDefinition Width="132*"/>
-                <ColumnDefinition Width="148*"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
 
             <TextBlock Text="ISBN" Grid.Column="0" Grid.Row="0" VerticalAlignment="Center" TextAlignment="Right"/>
