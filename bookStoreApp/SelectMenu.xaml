@@ -35,10 +35,14 @@
             <Button x:Name="logBtm" Content="&#xE160;" FontFamily="Segoe MDL2 Assets" FontSize="72" Width="110" Height="152" Click="LogBtm_Click"/>
             <TextBlock Text="Log" Margin="0,10,0,0" Width="110" TextAlignment="Center"/>
         </StackPanel>
-        <StackPanel Orientation="Horizontal" Grid.Row="1" Grid.ColumnSpan="4" HorizontalAlignment="Right" Margin="5">
-            <Button x:Name="adminManagerBtn" Content="Admin manager" HorizontalAlignment="Left" VerticalAlignment="Top" Width="99" Click="Button_Click_2" Margin="5,0"/>
-            <Button Content="Back" HorizontalAlignment="Left" VerticalAlignment="Top" Width="75" Click="Button_Click" Margin="5,0"/>
-        </StackPanel>
+        <Grid Grid.Row="1" Grid.Column="3">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Button x:Name="adminManagerBtn" Content="Admin manager" Click="Button_Click_2" Margin="5"/>
+            <Button Grid.Column="1" Content="Back" Click="Button_Click" Margin="5" Width="80"/>
+        </Grid>
 
     </Grid>
 </Page>
