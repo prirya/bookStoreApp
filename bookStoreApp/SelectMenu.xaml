@@ -9,16 +9,40 @@
       Title="SelectMenu">
 
     <Grid>
-        <Button x:Name="CustomersBtm" Content="&#xE13D;" FontFamily="Segoe MDL2 Assets" FontSize="72" HorizontalAlignment="Left" Margin="55,130,0,0" VerticalAlignment="Top" Width="110" Height="152" Click="CustomersBtm_Click"/>
-        <Button x:Name="booksManagerBtm" Content="&#xE736;" FontFamily="Segoe MDL2 Assets" FontSize="72" HorizontalAlignment="Left" Margin="244,130,0,0" VerticalAlignment="Top" Width="110" Height="152" Click="booksManagerBtm_Click"/>
-        <Button Content="$" FontSize="72" HorizontalAlignment="Left" Margin="433,130,0,0" VerticalAlignment="Top" Width="110" Height="152" Click="Button_Click_1"/>
-        <Button x:Name="logBtm" Content="&#xE160;" FontFamily="Segoe MDL2 Assets" FontSize="72" HorizontalAlignment="Left" Margin="626,130,0,0" VerticalAlignment="Top" Width="110" Height="152" Click="LogBtm_Click"/>
-        <Label Content="Customers" HorizontalAlignment="Left" Margin="55,287,0,0" VerticalAlignment="Top" Width="110" HorizontalContentAlignment="Center"/>
-        <Label Content="Books" HorizontalAlignment="Left" Margin="244,287,0,0" VerticalAlignment="Top" Width="110" HorizontalContentAlignment="Center"/>
-        <Label Content="Transaction" HorizontalAlignment="Left" Margin="433,287,0,0" VerticalAlignment="Top" Width="110" HorizontalContentAlignment="Center"/>
-        <Label Content="Log" HorizontalAlignment="Left" Margin="626,287,0,0" VerticalAlignment="Top" Width="110" HorizontalContentAlignment="Center"/>
-        <Button Content="Back" HorizontalAlignment="Left" Margin="668,357,0,0" VerticalAlignment="Top" Width="75" Click="Button_Click"/>
-        <Button x:Name="adminManagerBtn" Content="Admin manager" HorizontalAlignment="Left" Margin="564,357,0,0" VerticalAlignment="Top" Width="99" Click="Button_Click_2"/>
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+            <Button x:Name="CustomersBtm" Content="&#xE13D;" FontFamily="Segoe MDL2 Assets" FontSize="72" Width="110" Height="152" Click="CustomersBtm_Click"/>
+            <TextBlock Text="Customers" Margin="0,10,0,0" Width="110" TextAlignment="Center"/>
+        </StackPanel>
+        <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Column="1">
+            <Button x:Name="booksManagerBtm" Content="&#xE736;" FontFamily="Segoe MDL2 Assets" FontSize="72" HorizontalAlignment="Left" Width="110" Height="152" Click="booksManagerBtm_Click"/>
+            <TextBlock Text="Books" Margin="0,10,0,0" Width="110" TextAlignment="Center"/>
+        </StackPanel>
+        <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Column="2">
+            <Button Content="$" FontSize="72" Width="110" Height="152" Click="Button_Click_1"/>
+            <TextBlock Text="Transaction" Margin="0,10,0,0" Width="110" TextAlignment="Center"/>
+        </StackPanel>
+        <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Column="3">
+            <Button x:Name="logBtm" Content="&#xE160;" FontFamily="Segoe MDL2 Assets" FontSize="72" Width="110" Height="152" Click="LogBtm_Click"/>
+            <TextBlock Text="Log" Margin="0,10,0,0" Width="110" TextAlignment="Center"/>
+        </StackPanel>
+        <Grid Grid.Row="1" Grid.Column="3">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Button x:Name="adminManagerBtn" Content="Admin manager" Click="Button_Click_2" Margin="5"/>
+            <Button Grid.Column="1" Content="Back" Click="Button_Click" Margin="5" Width="80"/>
+        </Grid>
 
     </Grid>
 </Page>
