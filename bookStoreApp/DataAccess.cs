@@ -57,11 +57,11 @@ namespace bookStoreApp
             //Admin test
             AddUserTable("root", "7777", "Administrator", "", "", new DateTime(1990, 5, 12), true, true);
             //User test
-            AddDataCustomerTable(GetRandomName(), "", "");
-            AddDataCustomerTable(GetRandomName(), "", "");
-            AddDataCustomerTable(GetRandomName(), "", "");
-            AddDataCustomerTable(GetRandomName(), "", "");
-            AddDataCustomerTable(GetRandomName(), "", "");
+            //AddDataCustomerTable(GetRandomName(), "", "");
+            //AddDataCustomerTable(GetRandomName(), "", "");
+            //AddDataCustomerTable(GetRandomName(), "", "");
+            //AddDataCustomerTable(GetRandomName(), "", "");
+            //AddDataCustomerTable(GetRandomName(), "", "");
         }
 
         static string chars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
