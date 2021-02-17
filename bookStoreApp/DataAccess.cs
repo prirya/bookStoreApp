@@ -22,7 +22,7 @@ namespace bookStoreApp
 
                 String tableCommand =
                     //ตารางเก็บข้อมูลลูกค้า
-                    "CREATE TABLE IF NOT EXISTS CustomersTable (`Customer ID` INT PRIMARY KEY, `Name` NVARCHAR(50) NULL, `Address` NVARCHAR(500) NULL, `Email` NVARCHAR(50) NULL, `Sex(Male)` BOOL NULL, Birthday DATE NULL, `Phone Number` INT NULL);" +
+                    "CREATE TABLE IF NOT EXISTS CustomersTable (`Customer ID` INTEGER PRIMARY KEY, `Name` NVARCHAR(50) NULL, `Address` NVARCHAR(500) NULL, `Email` NVARCHAR(50) NULL, `Sex(Male)` BOOL NULL, Birthday DATE NULL, `Phone Number` INT NULL);" +
                     //สร้างตารางหนังสือ
                     "CREATE TABLE IF NOT EXISTS BookTable (`ISBN` CHAR(10) PRIMARY KEY, Title NVARCHAR(200) NULL,Description NVARCHAR(500) NULL,Price DOUBLE NULL);" +
                     //ข้อมูลการขาย
@@ -209,7 +209,7 @@ namespace bookStoreApp
                 Number = number
             }) ;
         }
-        public static List<UserModel>  SearchPeople(string search) //TODO : ทำระบบค้นหา
+        public static List<UserModel> SearchPeople(string search) //TODO : ทำระบบค้นหา
         {
             List<UserModel> entries = new List<UserModel>();
             using (SqliteConnection admindb = new SqliteConnection($"Filename={admindbpath}"))
@@ -219,7 +219,7 @@ namespace bookStoreApp
                 sqliteCommand.Connection = admindb;
                 sqliteCommand.CommandText = $"SELECT Number,`User Id`,Password,Name,Address,Email,`Birth day`,`Sex (Male)`,TypeAdmin FROM User WHERE Name LIKE \"%{search.ToLower()}%\" OR `User ID` LIKE  \"%{search.ToLower()}%\";"; //TODO : แก้ code ตรงนี้ซะ
                 SqliteDataReader query = sqliteCommand.ExecuteReader();
-                while (query.Read()) 
+                while (query.Read())
                 {
                     entries.Add(new UserModel()
                     {
@@ -248,18 +248,20 @@ namespace bookStoreApp
                 SqliteCommand insertCommand = new SqliteCommand();
                 insertCommand.Connection = db;
 
-                insertCommand.CommandText = "INSERT INTO CustomersTable VALUES (NULL,@Name,@Address,@Email,@Birthday,@Sex);";
-                insertCommand.Parameters.AddWithValue("@Name", customer.name);
-                insertCommand.Parameters.AddWithValue("@Address", customer.address);
-                insertCommand.Parameters.AddWithValue("@Email", customer.email);
-                insertCommand.Parameters.AddWithValue("@Birthday", customer.birthday);
-                insertCommand.Parameters.AddWithValue("@sex", customer.sex);
+                insertCommand.CommandText = "INSERT INTO CustomersTable VALUES (NULL,@Name,@Address,@Email,@Sex,@Birthday,@PhoneNumber);";
+                insertCommand.Parameters.AddWithValue("@Name", customer.Name);
+                insertCommand.Parameters.AddWithValue("@Address", customer.Address);
+                insertCommand.Parameters.AddWithValue("@Email", customer.Email);
+                insertCommand.Parameters.AddWithValue("@Sex", customer.Sex);
+                insertCommand.Parameters.AddWithValue("@Birthday", customer.Birthday);
+                insertCommand.Parameters.AddWithValue("@PhoneNumber", customer.Phone);
 
                 insertCommand.ExecuteReader();
 
                 db.Close();
             }
         }
+        //public static void AddDataCustomerTable(int )
         public static void AddDataBookTable(string isbn, string title, string description, string price)
         {
             using (SqliteConnection db = new SqliteConnection($"Filename={dbpath}"))
@@ -297,30 +299,39 @@ namespace bookStoreApp
                 db.Close();
             }
         }
-        public static List<String> GetDataUser() //คือการแสดงผลข้อมูลที่อยู่ใน dataBase ออกมาทั้งหมด
+        public static List<CustomerModel> GetDataUser() //คือการแสดงผลข้อมูลที่อยู่ใน dataBase ออกมาทั้งหมด
         {
-            List<String> entries = new List<string>();
-
-            using (SqliteConnection db = new SqliteConnection($"Filename={dbpath}"))
+            List<CustomerModel> entries = new List<CustomerModel>();
+            using (SqliteConnection dp = new SqliteConnection($"Filename={dbpath}"))
             {
-                db.Open();
+                dp.Open();
 
                 SqliteCommand selectCommand = new SqliteCommand
-                    ("SELECT Name,Address,Email from CustomersTable", db); //หลัง SELECT คือใส่ชื่อ field หากมีหลาย field ข้องใส่ (,) เอาไว้ด้วย แต่ถ้าอยากได้ทั้งหมดเลยก็ใส่ (*)
+                    ("SELECT `Customer ID`,Name,Address,Email,Birthday,`Sex(Male)`,`Phone Number` from CustomersTable", dp);
 
 
                 SqliteDataReader query = selectCommand.ExecuteReader();
 
                 while (query.Read())
                 {
-                    entries.Add($"{query.GetString(0)} {query.GetString(1)} ({query.GetString(2)})"); //มันใช้งานเหมือน ArrayList คือกำหนดให้ส่งค่ากลับออกมาเป็นแต่ละ column (field) โดยเรียงตามที่เราเรียง Opject [0][1][2]
+                    entries.Add(new CustomerModel()
+                    {
+                        
+                        CustomerId = query.GetInt16(0),
+                        Name = query.GetString(1),
+                        Address = query.GetString(2),
+                        Email = query.GetString(3),
+                        Birthday = query.GetDateTime(4),
+                        Sex = query.GetBoolean(5),
+                        Phone = query.GetInt32(6),
+                    });
                 }
 
-                db.Close();
+                dp.Close();
+                return entries.ToList();
             }
-
-            return entries;
         }
+
         public static Dictionary<string, string> GetUsernames() //คือการแสดงผลข้อมูลที่อยู่ใน dataBase ออกมาทั้งหมด
         {
             Dictionary<string, string> entries = new Dictionary<string, string>();

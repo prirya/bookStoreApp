@@ -9,9 +9,9 @@
       Title="CustomersManager">
 
     <Grid>
-        <TextBox x:Name="CustomersIDtxtBox" HorizontalAlignment="Left" Height="23" Margin="499,56,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="244" IsUndoEnabled="False" IsReadOnly="True"/>
-        <TextBox x:Name="firstNametxtBox" HorizontalAlignment="Left" Height="23" Margin="498,140,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Text="First Name"/>
-        <TextBox x:Name="lastNametxtBox" HorizontalAlignment="Left" Height="23" Margin="623,140,0,0" TextWrapping="Wrap" Text="Last Name" VerticalAlignment="Top" Width="120"/>
+        <TextBox x:Name="CustomersIDtxtBox" HorizontalAlignment="Left" Height="23" Margin="499,56,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="244" IsUndoEnabled="False" IsReadOnly="True" IsEnabled="False"/>
+        <TextBox x:Name="firstNametxtBox" HorizontalAlignment="Left" Height="23" Margin="498,140,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
+        <TextBox x:Name="lastNametxtBox" HorizontalAlignment="Left" Height="23" Margin="623,140,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
         <TextBox x:Name="emailtxtBox" HorizontalAlignment="Left" Height="23" Margin="498,225,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="245"/>
         <TextBox x:Name="addresstxtBox" HorizontalAlignment="Left" Height="99" Margin="498,253,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="245"/>
         <RadioButton x:Name="maleRadio" Content="Male" HorizontalAlignment="Left" Margin="501,170,0,0" VerticalAlignment="Top" Height="23"/>
@@ -22,16 +22,18 @@
         <Label Content="Birthday" HorizontalAlignment="Left" Margin="383,194,0,0" VerticalAlignment="Top" Height="23" Width="110" VerticalContentAlignment="Center" FlowDirection="RightToLeft"/>
         <Label Content="Email" HorizontalAlignment="Left" Margin="383,222,0,0" VerticalAlignment="Top" Height="23" Width="110" VerticalContentAlignment="Center" FlowDirection="RightToLeft"/>
         <Label Content="Address" HorizontalAlignment="Left" Margin="383,249,0,0" VerticalAlignment="Top" Height="23" Width="110" VerticalContentAlignment="Center" FlowDirection="RightToLeft"/>
-        <Button Content="Save" HorizontalAlignment="Left" Margin="498,357,0,0" VerticalAlignment="Top" Width="75"/>
+        <Button x:Name="saveBtn" Content="Save" HorizontalAlignment="Left" Margin="498,357,0,0" VerticalAlignment="Top" Width="75"/>
         <Button Content="Clear" HorizontalAlignment="Left" Margin="581,357,0,0" VerticalAlignment="Top" Width="75"/>
-        <DataGrid x:Name="dataGridCustomers" HorizontalAlignment="Left" Height="300" Margin="19,52,0,0" VerticalAlignment="Top" Width="345"/>
+        <DataGrid x:Name="dataGrid" HorizontalAlignment="Left" Height="300" Margin="19,52,0,0" VerticalAlignment="Top" Width="345" IsReadOnly="True" SelectionChanged="dataGrid_SelectionChanged"/>
         <Button Content="Edit" HorizontalAlignment="Left" Margin="181,357,0,0" VerticalAlignment="Top" Width="75"/>
-        <Button x:Name="AddBtn" Content="Add" HorizontalAlignment="Left" Margin="21,357,0,0" VerticalAlignment="Top" Width="75"/>
+        <Button x:Name="addBtn" Content="Add" HorizontalAlignment="Left" Margin="21,357,0,0" VerticalAlignment="Top" Width="75" Click="addBtn_Click"/>
         <Button x:Name="RemoveBtn" Content="Remove" HorizontalAlignment="Left" Margin="101,357,0,0" VerticalAlignment="Top" Width="75"/>
         <Button Content="Back" HorizontalAlignment="Left" Margin="668,357,0,0" VerticalAlignment="Top" Width="75" Click="Button_Click" />
         <Button Content="Show all" HorizontalAlignment="Left" Margin="261,357,0,0" VerticalAlignment="Top" Width="103" Click="Button_Click_1"/>
         <Label Content="Customers Manager" HorizontalAlignment="Left" Margin="11,-1,0,0" VerticalAlignment="Top" Height="44" Width="779" FontSize="24"/>
         <DatePicker x:Name="datePicker" HorizontalAlignment="Left" Height="22" Margin="498,198,0,0" VerticalAlignment="Top" DisplayDate="1990-01-01" DisplayDateStart="1900-01-01"/>
+        <TextBox x:Name="phonetxtBox" HorizontalAlignment="Left" Height="23" Margin="499,84,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="244"/>
+        <Label Content="Phone" HorizontalAlignment="Left" Margin="384,80,0,0" VerticalAlignment="Top" Height="23" Width="110" VerticalContentAlignment="Center" FlowDirection="RightToLeft"/>
 
     </Grid>
 </Page>

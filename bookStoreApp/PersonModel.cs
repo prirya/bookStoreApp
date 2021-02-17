@@ -20,12 +20,24 @@ namespace bookStoreApp
     }
     public class CustomerModel
     {
-        public string CustomerId { get; set; }
-        public string name { get; set; }
-        public string address { get; set; }
-        public string email { get; set; }
-        public DateTime birthday { get; set; }
-        public bool sex { get; set; }
+        public int CustomerId { get; set; }
+        public string Name { get; set; }
+        public string Address { get; set; }
+        public string Email { get; set; }
+        public DateTime Birthday { get; set; }
+        public bool Sex { get; set; }
+        public int Phone { get; set; }
+        public CustomerModel() { }
+        public CustomerModel(int customerId,string name,string address, string email,DateTime birthday ,bool sex ,int phone) 
+        {
+            CustomerId = customerId;
+            Name = name;
+            Address = address;
+            Email = email;
+            Birthday = birthday;
+            Sex = sex;
+            Phone = phone;
+        }
     }
 
 }
