@@ -22,14 +22,14 @@
         <Label Content="Birthday" HorizontalAlignment="Left" Margin="383,194,0,0" VerticalAlignment="Top" Height="23" Width="110" VerticalContentAlignment="Center" FlowDirection="RightToLeft"/>
         <Label Content="Email" HorizontalAlignment="Left" Margin="383,222,0,0" VerticalAlignment="Top" Height="23" Width="110" VerticalContentAlignment="Center" FlowDirection="RightToLeft"/>
         <Label Content="Address" HorizontalAlignment="Left" Margin="383,249,0,0" VerticalAlignment="Top" Height="23" Width="110" VerticalContentAlignment="Center" FlowDirection="RightToLeft"/>
-        <Button x:Name="saveBtn" Content="Save" HorizontalAlignment="Left" Margin="498,357,0,0" VerticalAlignment="Top" Width="75"/>
-        <Button Content="Clear" HorizontalAlignment="Left" Margin="581,357,0,0" VerticalAlignment="Top" Width="75"/>
+        <Button x:Name="saveBtn" Content="Save" HorizontalAlignment="Left" Margin="561,357,0,0" VerticalAlignment="Top" Width="48" Click="saveBtn_Click"/>
+        <Button x:Name="clearBTn" Content="Clear" HorizontalAlignment="Left" Margin="614,357,0,0" VerticalAlignment="Top" Width="42" Click="clearBTn_Click"/>
         <DataGrid x:Name="dataGrid" HorizontalAlignment="Left" Height="300" Margin="19,52,0,0" VerticalAlignment="Top" Width="345" IsReadOnly="True" SelectionChanged="dataGrid_SelectionChanged"/>
-        <Button Content="Edit" HorizontalAlignment="Left" Margin="181,357,0,0" VerticalAlignment="Top" Width="75"/>
-        <Button x:Name="addBtn" Content="Add" HorizontalAlignment="Left" Margin="21,357,0,0" VerticalAlignment="Top" Width="75" Click="addBtn_Click"/>
-        <Button x:Name="RemoveBtn" Content="Remove" HorizontalAlignment="Left" Margin="101,357,0,0" VerticalAlignment="Top" Width="75"/>
+        <Button Content="Edit" HorizontalAlignment="Left" Margin="224,357,0,0" VerticalAlignment="Top" Width="75"/>
+        <Button x:Name="addBtn" Content="Add" HorizontalAlignment="Left" Margin="499,357,0,0" VerticalAlignment="Top" Width="57" Click="addBtn_Click"/>
+        <Button x:Name="RemoveBtn" Content="Remove" HorizontalAlignment="Left" Margin="19,357,0,0" VerticalAlignment="Top" Width="75"/>
         <Button Content="Back" HorizontalAlignment="Left" Margin="668,357,0,0" VerticalAlignment="Top" Width="75" Click="Button_Click" />
-        <Button Content="Show all" HorizontalAlignment="Left" Margin="261,357,0,0" VerticalAlignment="Top" Width="103" Click="Button_Click_1"/>
+        <Button Content="Show all" HorizontalAlignment="Left" Margin="304,357,0,0" VerticalAlignment="Top" Width="60" Click="Button_Click_1"/>
         <Label Content="Customers Manager" HorizontalAlignment="Left" Margin="11,-1,0,0" VerticalAlignment="Top" Height="44" Width="779" FontSize="24"/>
         <DatePicker x:Name="datePicker" HorizontalAlignment="Left" Height="22" Margin="498,198,0,0" VerticalAlignment="Top" DisplayDate="1990-01-01" DisplayDateStart="1900-01-01"/>
         <TextBox x:Name="phonetxtBox" HorizontalAlignment="Left" Height="23" Margin="499,84,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="244"/>

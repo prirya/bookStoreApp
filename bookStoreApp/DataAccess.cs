@@ -209,7 +209,7 @@ namespace bookStoreApp
                 Number = number
             }) ;
         }
-        public static List<UserModel> SearchPeople(string search) //TODO : ทำระบบค้นหา
+        public static List<UserModel> SearchPeople(string search)
         {
             List<UserModel> entries = new List<UserModel>();
             using (SqliteConnection admindb = new SqliteConnection($"Filename={admindbpath}"))
@@ -217,7 +217,7 @@ namespace bookStoreApp
                 admindb.Open();
                 SqliteCommand sqliteCommand = new SqliteCommand();
                 sqliteCommand.Connection = admindb;
-                sqliteCommand.CommandText = $"SELECT Number,`User Id`,Password,Name,Address,Email,`Birth day`,`Sex (Male)`,TypeAdmin FROM User WHERE Name LIKE \"%{search.ToLower()}%\" OR `User ID` LIKE  \"%{search.ToLower()}%\";"; //TODO : แก้ code ตรงนี้ซะ
+                sqliteCommand.CommandText = $"SELECT Number,`User Id`,Password,Name,Address,Email,`Birth day`,`Sex (Male)`,TypeAdmin FROM User WHERE Name LIKE \"%{search.ToLower()}%\" OR `User ID` LIKE  \"%{search.ToLower()}%\";";
                 SqliteDataReader query = sqliteCommand.ExecuteReader();
                 while (query.Read())
                 {
@@ -261,7 +261,28 @@ namespace bookStoreApp
                 db.Close();
             }
         }
-        //public static void AddDataCustomerTable(int )
+        public static void UpdateCustomer(CustomerModel customer)
+        {
+            using (SqliteConnection db = new SqliteConnection($"Filename={dbpath}"))
+            {
+                db.Open();
+                SqliteCommand sqliteCommand = new SqliteCommand();
+                sqliteCommand.Connection = db;
+                //SQLite Command
+                sqliteCommand.CommandText = $"UPDATE CustomersTable SET " +
+                    $"`Name` = \"{customer.Name}\" ," +
+                    $"`Address` = \"{customer.Address}\" ," +
+                    $"`Email` = \"{customer.Email}\" ," +
+                    $"`Birthday` = \"{customer.Birthday}\" ," +
+                    $"`Sex(Male)` = {customer.Sex} ," +
+                    $"`Phone Number` = {customer.Phone} " +
+                    $"WHERE `Customer ID` = {customer.CustomerId};";
+
+
+                sqliteCommand.ExecuteReader();
+                db.Close();
+            }
+        }
         public static void AddDataBookTable(string isbn, string title, string description, string price)
         {
             using (SqliteConnection db = new SqliteConnection($"Filename={dbpath}"))
@@ -307,7 +328,7 @@ namespace bookStoreApp
                 dp.Open();
 
                 SqliteCommand selectCommand = new SqliteCommand
-                    ("SELECT `Customer ID`,Name,Address,Email,Birthday,`Sex(Male)`,`Phone Number` from CustomersTable", dp);
+                    ("SELECT `Customer ID`,Name,Address,Email,`Sex(Male)`,Birthday,`Phone Number` from CustomersTable", dp);
 
 
                 SqliteDataReader query = selectCommand.ExecuteReader();
@@ -316,19 +337,18 @@ namespace bookStoreApp
                 {
                     entries.Add(new CustomerModel()
                     {
-                        
                         CustomerId = query.GetInt16(0),
                         Name = query.GetString(1),
                         Address = query.GetString(2),
                         Email = query.GetString(3),
-                        Birthday = query.GetDateTime(4),
-                        Sex = query.GetBoolean(5),
+                        Sex = query.GetBoolean(4),
+                        Birthday = query.GetDateTime(5),
                         Phone = query.GetInt32(6),
                     });
                 }
 
                 dp.Close();
-                return entries.ToList();
+                return entries;
             }
         }
 

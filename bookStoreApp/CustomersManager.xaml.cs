@@ -153,5 +153,35 @@ namespace bookStoreApp
             Clear();
             refreshData();
         }
+        private void saveBtn_Click(object sender, RoutedEventArgs e)
+        {
+            CheckData();
+            bool sex = true;
+            if (maleRadio.IsChecked == true) { sex = true; }
+            if (femaleRadio.IsChecked == true) { sex = false; }
+            if (dataGrid.SelectedCells.Count >= 1)
+            {
+                var selectuser = dataGrid.SelectedCells[0].Item as CustomerModel;
+                if (selectuser != null)
+                {
+                    //selectuser.CustomerId = int.Parse(CustomersIDtxtBox.Text);
+                    selectuser.Name = $"{firstNametxtBox.Text} {lastNametxtBox.Text}";
+                    selectuser.Address = addresstxtBox.Text;
+                    selectuser.Email = emailtxtBox.Text;
+                    selectuser.Birthday = datePicker.SelectedDate.Value;
+                    selectuser.Sex = sex;
+                    DataAccess.UpdateCustomer(selectuser);
+                    refreshData();
+                    Clear();
+                    return;
+                }
+            }
+        }
+
+        private void clearBTn_Click(object sender, RoutedEventArgs e)
+        {
+            Clear();
+            refreshData();
+        }
     }
 }
