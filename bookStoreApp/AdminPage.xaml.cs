@@ -26,6 +26,7 @@ namespace bookStoreApp
         public AdminPage()
         {
             InitializeComponent();
+            datePicker.DisplayDateEnd = DateTime.Now;
             Loaded += winLoader;
         }
 
@@ -36,6 +37,8 @@ namespace bookStoreApp
         }
         public void Clear()
         {
+            datePicker.DisplayDateEnd = DateTime.Now;
+            datePicker.SelectedDate = DateTime.Now;
             userIDtxtBox.Text = "";
             passwordBox.Password = "";
             passwordConfirmBox.Password = "";
@@ -172,7 +175,7 @@ namespace bookStoreApp
             refreshDATA();
         }
 
-        private void saveBtn_Click(object sender, RoutedEventArgs e)
+        private void saveBtn_Click(object sender, RoutedEventArgs e) //DOTO : มีบางอย่างผิดปกติกับฟังชั่นนี้
         {
             CheckData();
             bool sex = true;

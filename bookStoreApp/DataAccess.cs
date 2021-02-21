@@ -7,48 +7,55 @@ using Microsoft.Data.Sqlite;
 
 namespace bookStoreApp
 {
-    class DataAccess
+    public class DataAccess
     {
-
+        public const string timeformat = "dd-MM-yyyy";
         public const string dbpath = "Database_BookStore.db";
         public const string admindbpath = "adminDatabase.db";
-        //private static object createTable; ไม่ได้ใช่งาน
-
-        public static void InitializeDatabase()
+        public static void Command(string filename, string command)
         {
-            using (SqliteConnection db = new SqliteConnection($"Filename={dbpath}"))
+            using (SqliteConnection db = new SqliteConnection($"Filename={filename}"))
             {
                 db.Open();
-
-                String tableCommand =
+                SqliteCommand sqliteCommand = new SqliteCommand();
+                sqliteCommand.Connection = db;
+                sqliteCommand.CommandText = command;
+                sqliteCommand.ExecuteReader();
+                db.Close();
+            }
+        }
+        public static void InitializeDatabase()
+        {
+            Command(dbpath,
                     //ตารางเก็บข้อมูลลูกค้า
-                    "CREATE TABLE IF NOT EXISTS CustomersTable (`Customer ID` INTEGER PRIMARY KEY, `Name` NVARCHAR(50) NULL, `Address` NVARCHAR(500) NULL, `Email` NVARCHAR(50) NULL, `Sex(Male)` BOOL NULL, Birthday DATE NULL, `Phone Number` INT NULL);" +
+                    "CREATE TABLE IF NOT EXISTS CustomersTable (`Customer ID` INTEGER PRIMARY KEY, `Name` NVARCHAR(50) NULL, `Address` NVARCHAR(500) NULL, `Email` NVARCHAR(50) NULL, `Sex(Male)` BOOL NULL, Birthday NVARCHAR(50) NULL, `Phone Number` INT NULL);" +
                     //สร้างตารางหนังสือ
                     "CREATE TABLE IF NOT EXISTS BookTable (`ISBN` CHAR(10) PRIMARY KEY, Title NVARCHAR(200) NULL,Description NVARCHAR(500) NULL,Price DOUBLE NULL);" +
                     //ข้อมูลการขาย
-                    "CREATE TABLE IF NOT EXISTS Transactions (`ISBN` CHAR(10) PRIMARY KEY,`Customers ID` NVARCHAR(200) NULL,Quatity INTEGER NULL,`Total Price` DOUBLE NULL);";
-
-                SqliteCommand createTable = new SqliteCommand(tableCommand, db);
-                createTable.ExecuteReader();
-
-            }
-            using (SqliteConnection admindb = new SqliteConnection($"Filename={admindbpath}"))
-            {
-                admindb.Open();
-
-                String tableCommand =
-                    //ตารางเก็บข้อมูล User
-                    "CREATE TABLE IF NOT EXISTS User (`Number` INTEGER PRIMARY KEY, `User ID` NVARCHAR(100) NULL, `Password` NVARCHAR(100) NULL, `Name` NVARCHAR(50) NULL, `Address` NVARCHAR(500) NULL, `Email` NVARCHAR(50) NULL, `Birth day` DATE NULL, `Sex (Male)` BOOL NULL, `TypeAdmin` BOOL NULL);";
-
-                SqliteCommand createTable = new SqliteCommand(tableCommand, admindb);
-                createTable.ExecuteReader();
-            }
+                    "CREATE TABLE IF NOT EXISTS Transactions (`ISBN` CHAR(10) PRIMARY KEY,`Customers ID` NVARCHAR(200) NULL,Quatity INTEGER NULL,`Total Price` DOUBLE NULL);");
+            Command(admindbpath, "CREATE TABLE IF NOT EXISTS User (`Number` INTEGER PRIMARY KEY, `User ID` NVARCHAR(100) NULL, `Password` NVARCHAR(100) NULL, `Name` NVARCHAR(50) NULL, `Address` NVARCHAR(500) NULL, `Email` NVARCHAR(50) NULL, `Birth day` NVARCHAR(50) NULL, `Sex (Male)` BOOL NULL, `TypeAdmin` BOOL NULL);");
 
 #if DEBUG
             AddDebugData();
 #endif
         }
 
+        public static SqliteDataReader GetSqliterQuery(string filename, string command) //TODO : ยังไม่เวิร์ค ต้องมี List ลองรับ
+        {
+            using (SqliteConnection dp = new SqliteConnection($"Filename={filename}"))
+            {
+                dp.Open();
+                SqliteCommand sqliteCommand = new SqliteCommand()
+                {
+                    Connection = dp,
+                    CommandText = command
+                };
+                var query = sqliteCommand.ExecuteReader();
+                dp.Close();
+
+                return query;
+            }
+        }
         public static void AddDebugData()
         {
             var usernames = GetUsernames();
@@ -79,7 +86,13 @@ namespace bookStoreApp
             }
             return randomName;
         }
-        #region Administrator part
+        public static DateTime Time(string time)
+        {
+            var split = time.Split('-');
+            DateTime dday = new DateTime(int.Parse(split[2]), int.Parse(split[1]), int.Parse(split[0]));
+            return dday;
+        }
+#region Administrator part
         public static List<UserModel> LoadAdmin()
         {
             List<UserModel> entries = new List<UserModel>();
@@ -95,6 +108,7 @@ namespace bookStoreApp
 
                 while (query.Read())
                 {
+                    
                     entries.Add(new UserModel()
                     {
                         Number = query.GetInt32(0),
@@ -103,7 +117,7 @@ namespace bookStoreApp
                         name = query.GetString(3),
                         address = query.GetString(4),
                         email = query.GetString(5),
-                        birthday = query.GetDateTime(6),
+                        birthday = Time(query.GetString(6)),
                         sex = query.GetBoolean(7),
                         typeAdmin = query.GetBoolean(8)
                     });
@@ -127,7 +141,7 @@ namespace bookStoreApp
                 insertCommand.Parameters.AddWithValue("@Name", user.name);
                 insertCommand.Parameters.AddWithValue("@Address", user.address);
                 insertCommand.Parameters.AddWithValue("@Email", user.email);
-                insertCommand.Parameters.AddWithValue("@Birthday", user.birthday);
+                insertCommand.Parameters.AddWithValue("@Birthday", user.birthday.ToString(timeformat));
                 insertCommand.Parameters.AddWithValue("@Sex", user.sex);
                 insertCommand.Parameters.AddWithValue("@TypeAdmin", user.typeAdmin);
 
@@ -152,27 +166,16 @@ namespace bookStoreApp
         }
         public static void UpdateUser(UserModel user) //แก้ไขข้อมูลตาราง SQL
         {
-            using (SqliteConnection admindb = new SqliteConnection($"Filename={admindbpath}"))
-            {
-                admindb.Open();
-                SqliteCommand sqliteCommand = new SqliteCommand();
-                sqliteCommand.Connection = admindb;
-                //SQLite Command
-                sqliteCommand.CommandText = $"UPDATE User SET " +
+            Command(admindbpath, $"UPDATE User SET " +
                     $"`User ID` = \"{user.userId}\" ," +
                     $"`Password` = \"{user.password}\" ," +
                     $"`Name` = \"{user.name}\" ," +
                     $"`Address` = \"{user.address}\" ," +
                     $"`Email` = \"{user.email}\" ," +
-                    $"`Birth day` = \"{user.birthday}\" ," +
+                    $"`Birth day` = \"{user.birthday.ToString(timeformat)}\" ," +
                     $"`Sex (Male)` = {user.sex} ," +
                     $"`TypeAdmin` = {user.typeAdmin} " +
-                    $"WHERE Number = {user.Number};";
-
-
-                sqliteCommand.ExecuteReader();
-                admindb.Close();
-            }
+                    $"WHERE Number = {user.Number};");
         }
         public static void UpdateUser(string UserId, string Password, string Name, string Address, string Email, DateTime Birthday, bool Sex, bool TypeAdmin)
         {
@@ -229,7 +232,7 @@ namespace bookStoreApp
                         name = query.GetString(3),
                         address = query.GetString(4),
                         email = query.GetString(5),
-                        birthday = query.GetDateTime(6),
+                        birthday = Time(query.GetString(6)),
                         sex = query.GetBoolean(7),
                         typeAdmin = query.GetBoolean(8)
                     });
@@ -238,8 +241,57 @@ namespace bookStoreApp
                 return entries;
             }
         }
+        public static bool Typeuser(string userid, string password)
+        {
+            bool IsAdmin = false;
+            using (SqliteConnection admindb = new SqliteConnection($"Filename={admindbpath}"))
+            {
+                admindb.Open();
+
+                SqliteCommand selectCommand = new SqliteCommand
+                    ("SELECT `User Id`,Password,TypeAdmin from User " +
+                    $"WHERE `User Id`=\"{userid}\"; WHERE Password=\"{password}\";", admindb); //หลัง SELECT คือใส่ชื่อ field หากมีหลาย field ข้องใส่ (,) เอาไว้ด้วย แต่ถ้าอยากได้ทั้งหมดเลยก็ใส่ (*)
+
+
+
+                SqliteDataReader query = selectCommand.ExecuteReader();
+
+                while (query.Read())
+                {
+                    IsAdmin = query.GetBoolean(2);
+                }
+
+                admindb.Close();
+            }
+
+            return IsAdmin;
+        }
+        public static Dictionary<string, string> GetUsernames() //คือการแสดงผลข้อมูลที่อยู่ใน dataBase ออกมาทั้งหมด
+        {
+            Dictionary<string, string> entries = new Dictionary<string, string>();
+
+            using (SqliteConnection admindb = new SqliteConnection($"Filename={admindbpath}"))
+            {
+                admindb.Open();
+
+                SqliteCommand selectCommand = new SqliteCommand
+                    ("SELECT `User Id`,Password from User", admindb); //หลัง SELECT คือใส่ชื่อ field หากมีหลาย field ข้องใส่ (,) เอาไว้ด้วย แต่ถ้าอยากได้ทั้งหมดเลยก็ใส่ (*)
+
+
+                SqliteDataReader query = selectCommand.ExecuteReader();
+
+                while (query.Read())
+                {
+                    entries.Add(query.GetString(0), query.GetString(1));
+                }
+
+                admindb.Close();
+            }
+
+            return entries;
+        }
         #endregion
-        #region Client part
+#region Customers part
         public static void AddDataCustomerTable(CustomerModel customer)
         {
             using (SqliteConnection db = new SqliteConnection($"Filename={dbpath}"))
@@ -253,7 +305,7 @@ namespace bookStoreApp
                 insertCommand.Parameters.AddWithValue("@Address", customer.Address);
                 insertCommand.Parameters.AddWithValue("@Email", customer.Email);
                 insertCommand.Parameters.AddWithValue("@Sex", customer.Sex);
-                insertCommand.Parameters.AddWithValue("@Birthday", customer.Birthday);
+                insertCommand.Parameters.AddWithValue("@Birthday", customer.Birthday.ToString(timeformat));
                 insertCommand.Parameters.AddWithValue("@PhoneNumber", customer.Phone);
 
                 insertCommand.ExecuteReader();
@@ -273,7 +325,7 @@ namespace bookStoreApp
                     $"`Name` = \"{customer.Name}\" ," +
                     $"`Address` = \"{customer.Address}\" ," +
                     $"`Email` = \"{customer.Email}\" ," +
-                    $"`Birthday` = \"{customer.Birthday}\" ," +
+                    $"`Birthday` = \"{customer.Birthday.ToString(timeformat)}\" ," +
                     $"`Sex(Male)` = {customer.Sex} ," +
                     $"`Phone Number` = {customer.Phone} " +
                     $"WHERE `Customer ID` = {customer.CustomerId};";
@@ -283,6 +335,43 @@ namespace bookStoreApp
                 db.Close();
             }
         }
+        public static void RemoveCustomers(CustomerModel customer)
+        {
+            Command(dbpath, $"DELETE FROM CustomersTable WHERE `Customer Id` = \"{customer.CustomerId}\";");
+        }
+        public static List<CustomerModel> GetDataUser() //คือการแสดงผลข้อมูลที่อยู่ใน dataBase ออกมาทั้งหมด
+        {
+            List<CustomerModel> entries = new List<CustomerModel>();
+            using (SqliteConnection dp = new SqliteConnection($"Filename={dbpath}"))
+            {
+                dp.Open();
+
+                SqliteCommand selectCommand = new SqliteCommand
+                    ("SELECT `Customer ID`,Name,Address,Email,`Sex(Male)`,Birthday,`Phone Number` from CustomersTable", dp);
+
+
+                SqliteDataReader query = selectCommand.ExecuteReader();
+
+                while (query.Read())
+                {
+                    entries.Add(new CustomerModel()
+                    {
+                        CustomerId = query.GetInt16(0),
+                        Name = query.GetString(1),
+                        Address = query.GetString(2),
+                        Email = query.GetString(3),
+                        Sex = query.GetBoolean(4),
+                        Birthday = query.GetDateTime(5),
+                        Phone = query.GetInt32(6),
+                    });
+                }
+
+                dp.Close();
+                return entries;
+            }
+        }
+        #endregion
+        #region Other Zone
         public static void AddDataBookTable(string isbn, string title, string description, string price)
         {
             using (SqliteConnection db = new SqliteConnection($"Filename={dbpath}"))
@@ -320,89 +409,8 @@ namespace bookStoreApp
                 db.Close();
             }
         }
-        public static List<CustomerModel> GetDataUser() //คือการแสดงผลข้อมูลที่อยู่ใน dataBase ออกมาทั้งหมด
-        {
-            List<CustomerModel> entries = new List<CustomerModel>();
-            using (SqliteConnection dp = new SqliteConnection($"Filename={dbpath}"))
-            {
-                dp.Open();
-
-                SqliteCommand selectCommand = new SqliteCommand
-                    ("SELECT `Customer ID`,Name,Address,Email,`Sex(Male)`,Birthday,`Phone Number` from CustomersTable", dp);
-
-
-                SqliteDataReader query = selectCommand.ExecuteReader();
-
-                while (query.Read())
-                {
-                    entries.Add(new CustomerModel()
-                    {
-                        CustomerId = query.GetInt16(0),
-                        Name = query.GetString(1),
-                        Address = query.GetString(2),
-                        Email = query.GetString(3),
-                        Sex = query.GetBoolean(4),
-                        Birthday = query.GetDateTime(5),
-                        Phone = query.GetInt32(6),
-                    });
-                }
-
-                dp.Close();
-                return entries;
-            }
-        }
-
-        public static Dictionary<string, string> GetUsernames() //คือการแสดงผลข้อมูลที่อยู่ใน dataBase ออกมาทั้งหมด
-        {
-            Dictionary<string, string> entries = new Dictionary<string, string>();
-
-            using (SqliteConnection admindb = new SqliteConnection($"Filename={admindbpath}"))
-            {
-                admindb.Open();
-
-                SqliteCommand selectCommand = new SqliteCommand
-                    ("SELECT `User Id`,Password from User", admindb); //หลัง SELECT คือใส่ชื่อ field หากมีหลาย field ข้องใส่ (,) เอาไว้ด้วย แต่ถ้าอยากได้ทั้งหมดเลยก็ใส่ (*)
-
-
-                SqliteDataReader query = selectCommand.ExecuteReader();
-
-                while (query.Read())
-                {
-                    entries.Add(query.GetString(0), query.GetString(1));
-                }
-
-                admindb.Close();
-            }
-
-            return entries;
-        }
-        public static bool Typeuser(string userid, string password)
-        {
-            bool IsAdmin = false;
-
-            using (SqliteConnection admindb = new SqliteConnection($"Filename={admindbpath}"))
-            {
-                admindb.Open();
-
-                SqliteCommand selectCommand = new SqliteCommand
-                    ("SELECT `User Id`,Password,TypeAdmin from User " +
-                    $"WHERE `User Id`=\"{userid}\"; WHERE Password=\"{password}\";", admindb); //หลัง SELECT คือใส่ชื่อ field หากมีหลาย field ข้องใส่ (,) เอาไว้ด้วย แต่ถ้าอยากได้ทั้งหมดเลยก็ใส่ (*)
-
-
-
-                SqliteDataReader query = selectCommand.ExecuteReader();
-
-                while (query.Read())
-                {
-                    IsAdmin = query.GetBoolean(2);
-                }
-
-                admindb.Close();
-            }
-
-            return IsAdmin;
-        }
-
         #endregion
+
+
     }
 }

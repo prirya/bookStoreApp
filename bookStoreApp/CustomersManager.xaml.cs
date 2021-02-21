@@ -23,6 +23,7 @@ namespace bookStoreApp
         public CustomersManager()
         {
             InitializeComponent();
+            datePicker.DisplayDateEnd = DateTime.Now;
             Loaded += Loader;
         }
         List<CustomerModel> people = new List<CustomerModel>();
@@ -182,6 +183,24 @@ namespace bookStoreApp
         {
             Clear();
             refreshData();
+        }
+
+        private void RemoveBtn_Click(object sender, RoutedEventArgs e)
+        {
+            var selectPerson = dataGrid.SelectedCells[0].Item as CustomerModel;
+            var Result = MessageBox.Show("Are you sure?", "Confirm", MessageBoxButton.YesNo);
+            if (Result == MessageBoxResult.Yes)
+            {
+                DataAccess.RemoveCustomers(selectPerson);
+                Clear();
+                refreshData();
+                return;
+            }
+            else if (Result == MessageBoxResult.No)
+            {
+                refreshData();
+            }
+            
         }
     }
 }
