@@ -37,11 +37,6 @@ namespace bookStoreApp
         {
             NavigationService.GoBack();
         }
-
-        private void Button_Click_1(object sender, RoutedEventArgs e)
-        {
-            NavigationService.Navigate(new CustomersDetail());
-        }
         public void Clear()
         {
             CustomersIDtxtBox.Text = "";
@@ -154,7 +149,7 @@ namespace bookStoreApp
             Clear();
             refreshData();
         }
-        private void saveBtn_Click(object sender, RoutedEventArgs e)
+        private void saveBtn_Click(object sender, RoutedEventArgs e) //TODO : Here
         {
             CheckData();
             bool sex = true;

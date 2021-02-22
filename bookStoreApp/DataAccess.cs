@@ -361,7 +361,7 @@ namespace bookStoreApp
                         Address = query.GetString(2),
                         Email = query.GetString(3),
                         Sex = query.GetBoolean(4),
-                        Birthday = query.GetDateTime(5),
+                        Birthday = Time(query.GetString(5)),
                         Phone = query.GetInt32(6),
                     });
                 }

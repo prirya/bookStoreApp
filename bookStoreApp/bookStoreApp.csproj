@@ -113,9 +113,6 @@
     <Compile Include="BooksManager.xaml.cs">
       <DependentUpon>BooksManager.xaml</DependentUpon>
     </Compile>
-    <Compile Include="CustomersDetail.xaml.cs">
-      <DependentUpon>CustomersDetail.xaml</DependentUpon>
-    </Compile>
     <Compile Include="CustomersManager.xaml.cs">
       <DependentUpon>CustomersManager.xaml</DependentUpon>
     </Compile>
@@ -141,10 +138,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="BooksManager.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="CustomersDetail.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
