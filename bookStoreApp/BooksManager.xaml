@@ -8,31 +8,82 @@
       d:DesignHeight="450" d:DesignWidth="800"
       Title="BooksManager">
 
-    <Grid>
-        <TextBox x:Name="userIDtxtBox" HorizontalAlignment="Left" Height="23" Margin="498,52,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="100" IsUndoEnabled="False" IsReadOnly="True"/>
-        <TextBox x:Name="nameBooktxtBox" HorizontalAlignment="Left" Height="23" Margin="498,214,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="245"/>
-        <TextBox x:Name="emailtxtBox" HorizontalAlignment="Left" Height="23" Margin="498,80,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="100"/>
-        <TextBox x:Name="addresstxtBox" HorizontalAlignment="Left" Height="110" Margin="498,242,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="245"/>
-        <Label Content="ISBN" HorizontalAlignment="Left" Margin="383,52,0,0" VerticalAlignment="Top" Height="23" Width="110" VerticalContentAlignment="Center" FlowDirection="RightToLeft"/>
-        <Label Content="Type" HorizontalAlignment="Left" Margin="383,214,0,0" VerticalAlignment="Top" Height="23" Width="110" VerticalContentAlignment="Center" FlowDirection="RightToLeft"/>
-        <Label Content="Price" HorizontalAlignment="Left" Margin="383,77,0,0" VerticalAlignment="Top" Height="23" Width="110" VerticalContentAlignment="Center" FlowDirection="RightToLeft"/>
-        <Label Content="Description" HorizontalAlignment="Left" Margin="384,237,0,0" VerticalAlignment="Top" Height="23" Width="110" VerticalContentAlignment="Center" FlowDirection="RightToLeft"/>
-        <Button Content="Save" HorizontalAlignment="Left" Margin="498,357,0,0" VerticalAlignment="Top" Width="75"/>
-        <Button Content="Clear" HorizontalAlignment="Left" Margin="581,357,0,0" VerticalAlignment="Top" Width="75"/>
-        <DataGrid HorizontalAlignment="Left" Height="300" Margin="19,52,0,0" VerticalAlignment="Top" Width="345"/>
-        <Button Content="Edit" HorizontalAlignment="Left" Margin="181,357,0,0" VerticalAlignment="Top" Width="75"/>
-        <Button Content="Add" HorizontalAlignment="Left" Margin="21,357,0,0" VerticalAlignment="Top" Width="75"/>
-        <Button Content="Remove" HorizontalAlignment="Left" Margin="101,357,0,0" VerticalAlignment="Top" Width="75"/>
-        <Button x:Name="backBtm" Content="Back" HorizontalAlignment="Left" Margin="668,357,0,0" VerticalAlignment="Top" Width="75" Click="backBtm_Click" />
-        <Button x:Name="showAllListBtm" Content="Show all" HorizontalAlignment="Left" Margin="261,357,0,0" VerticalAlignment="Top" Width="103" Click="showAllListBtm_Click"/>
-        <Label Content="Books Manager" HorizontalAlignment="Left" Margin="11,-1,0,0" VerticalAlignment="Top" Height="44" Width="779" FontSize="24"/>
-        <Label Content="Quantity" HorizontalAlignment="Left" Margin="433,105,0,0" VerticalAlignment="Top" Height="23" Width="61" VerticalContentAlignment="Center" FlowDirection="RightToLeft"/>
-        <TextBox x:Name="emailtxtBox_Copy" HorizontalAlignment="Left" Height="23" Margin="498,108,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="100"/>
-        <TextBox x:Name="nameBooktxtBox_Copy" HorizontalAlignment="Left" Height="23" Margin="498,186,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="245"/>
-        <Label Content="Tile" HorizontalAlignment="Left" Margin="383,186,0,0" VerticalAlignment="Top" Height="23" Width="110" VerticalContentAlignment="Center" FlowDirection="RightToLeft"/>
-        <Image x:Name="imageBox" HorizontalAlignment="Left" Height="129" Margin="603,52,0,0" VerticalAlignment="Top" Width="140"/>
-        <Button Content="Brower" HorizontalAlignment="Left" Margin="498,136,0,0" VerticalAlignment="Top" Width="100"/>
-        <Button Content="Clear Image" HorizontalAlignment="Left" Margin="498,161,0,0" VerticalAlignment="Top" Width="100"/>
+    <Grid Background="White">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <Label Content="Books Manager" Margin="5" FontSize="24"/>
 
+        <DataGrid Margin="5" Grid.Row="1"/>
+
+        <Grid Grid.Row="2" Grid.Column="0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Button Content="Add" Margin="5"/>
+            <Button Content="Remove" Grid.Column="1" Margin="5"/>
+            <Button Content="Edit" Grid.Column="2" Margin="5"/>
+            <Button x:Name="showAllListBtm" Content="Show all" Click="showAllListBtm_Click" Grid.Column="3" Margin="5"/>
+        </Grid>
+
+        <Grid Grid.Row="1" Grid.Column="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <TextBlock Text="ISBN" Grid.Row="0" Grid.Column="0" TextAlignment="Right" VerticalAlignment="Center"/>
+            <TextBox x:Name="userIDtxtBox" IsUndoEnabled="False" IsReadOnly="True" Grid.Column="1" Grid.Row="0" Margin="5"/>
+
+            <TextBlock Text="Type" Grid.Row="1" Grid.Column="0" TextAlignment="Right" VerticalAlignment="Center"/>
+            <TextBox x:Name="nameBooktxtBox" Grid.Column="1" Grid.Row="1" Margin="5"/>
+
+            <TextBlock Text="Price" Grid.Row="2" Grid.Column="0" TextAlignment="Right" VerticalAlignment="Center"/>
+            <TextBox x:Name="emailtxtBox" Grid.Column="1" Grid.Row="2" Margin="5"/>
+
+            <TextBlock Text="Quantity" Grid.Column="0" Grid.Row="3" TextAlignment="Right" VerticalAlignment="Center"/>
+            <TextBox x:Name="emailtxtBox_Copy" Grid.Column="1" Grid.Row="3" Margin="5"/>
+
+            <Image x:Name="imageBox" Grid.Column="2" Grid.RowSpan="6"/>
+            <Button Content="Brower" Grid.Row="4" Grid.Column="1" Margin="5"/>
+            <Button Content="Clear Image" Grid.Row="5" Grid.Column="1" Margin="5"/>
+
+            <TextBlock Text="Tile" Grid.Column="0" Grid.Row="6" TextAlignment="Right" VerticalAlignment="Center"/>
+            <TextBox x:Name="nameBooktxtBox_Copy" Grid.Row="6" Grid.Column="1" Grid.ColumnSpan="2" Margin="5"/>
+
+            <TextBlock Text="Description" Grid.Column="0" Grid.Row="7" VerticalAlignment="Top" TextAlignment="Right"/>
+            <TextBox x:Name="addresstxtBox" VerticalAlignment="Top" Height="110" Grid.Column="1" Grid.ColumnSpan="2" Grid.Row="7" Margin="5"/>
+        </Grid>
+
+        <Grid Grid.Row="2" Grid.Column="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Button Content="Save" Grid.Column="1" Margin="5"/>
+            <Button Content="Clear" Grid.Column="2" Margin="5"/>
+            <Button x:Name="backBtm" Content="Back" Click="backBtm_Click" Grid.Column="3" Margin="5" Width="80"/>
+        </Grid>
     </Grid>
 </Page>

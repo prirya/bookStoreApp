@@ -49,6 +49,7 @@ namespace bookStoreApp
             femaleRadio.IsChecked = false;
             firstNametxtBox.Text = "";
             lastNametxtBox.Text = "";
+            adminCBox.IsChecked = false;
         }
         public void refreshDATA()
         {
@@ -108,6 +109,7 @@ namespace bookStoreApp
                 femaleRadio.IsChecked = true;
             }
             datePicker.SelectedDate = selectPerson.birthday;
+            adminCBox.IsChecked = selectPerson.typeAdmin;
             emailtxtBox.Text = selectPerson.email;
             addresstxtBox.Text = selectPerson.address;
         }
@@ -177,7 +179,7 @@ namespace bookStoreApp
 
         private void saveBtn_Click(object sender, RoutedEventArgs e) //DOTO : มีบางอย่างผิดปกติกับฟังชั่นนี้
         {
-            CheckData();
+            if (CheckData() == false) { return; }
             bool sex = true;
             if (maleRadio.IsChecked == true) { sex = true; }
             if (femaleRadio.IsChecked == true) { sex = false; }

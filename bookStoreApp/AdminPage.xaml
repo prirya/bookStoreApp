@@ -8,35 +8,103 @@
       d:DesignHeight="450" d:DesignWidth="800"
       Title="AdminPage">
 
-    <Grid>
-        <TextBox x:Name="userIDtxtBox" HorizontalAlignment="Left" Height="23" Margin="499,56,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="244"/>
-        <TextBox x:Name="firstNametxtBox" HorizontalAlignment="Left" Height="23" Margin="499,140,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
-        <TextBox x:Name="lastNametxtBox" HorizontalAlignment="Left" Height="23" Margin="623,140,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
-        <TextBox x:Name="emailtxtBox" HorizontalAlignment="Left" Height="23" Margin="498,225,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="245"/>
-        <TextBox x:Name="addresstxtBox" HorizontalAlignment="Left" Height="99" Margin="498,253,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="245" AcceptsReturn="True" AcceptsTab="True"/>
-        <RadioButton x:Name="maleRadio" Content="Male" HorizontalAlignment="Left" Margin="501,170,0,0" VerticalAlignment="Top" Height="23"/>
-        <RadioButton x:Name="femaleRadio" Content="Female" HorizontalAlignment="Left" Margin="581,170,0,0" VerticalAlignment="Top" Height="23"/>
-        <Label Content="User ID" HorizontalAlignment="Left" Margin="384,52,0,0" VerticalAlignment="Top" Height="23" Width="110" VerticalContentAlignment="Center" FlowDirection="RightToLeft"/>
-        <Label Content="Password" HorizontalAlignment="Left" Margin="384,80,0,0" VerticalAlignment="Top" Height="23" Width="110" VerticalContentAlignment="Center" FlowDirection="RightToLeft"/>
-        <Label Content="Password Confirm" HorizontalAlignment="Left" Margin="384,108,0,0" VerticalAlignment="Top" Height="23" Width="110" VerticalContentAlignment="Center" FlowDirection="RightToLeft"/>
-        <Label Content="Name" HorizontalAlignment="Left" Margin="383,136,0,0" VerticalAlignment="Top" Height="23" Width="110" VerticalContentAlignment="Center" FlowDirection="RightToLeft"/>
-        <Label Content="Sex" HorizontalAlignment="Left" Margin="383,164,0,0" VerticalAlignment="Top" Height="23" Width="110" VerticalContentAlignment="Center" FlowDirection="RightToLeft"/>
-        <Label Content="Birthday" HorizontalAlignment="Left" Margin="383,194,0,0" VerticalAlignment="Top" Height="23" Width="110" VerticalContentAlignment="Center" FlowDirection="RightToLeft"/>
-        <Label Content="Email" HorizontalAlignment="Left" Margin="383,222,0,0" VerticalAlignment="Top" Height="23" Width="110" VerticalContentAlignment="Center" FlowDirection="RightToLeft"/>
-        <Label Content="Address" HorizontalAlignment="Left" Margin="383,249,0,0" VerticalAlignment="Top" Height="23" Width="110" VerticalContentAlignment="Center" FlowDirection="RightToLeft"/>
-        <Button x:Name="saveBtn" Content="Save" HorizontalAlignment="Left" Margin="570,357,0,0" VerticalAlignment="Top" Width="42" Click="saveBtn_Click"/>
-        <Button x:Name="clearBtn" Content="Clear" HorizontalAlignment="Left" Margin="617,357,0,0" VerticalAlignment="Top" Width="46" Click="ClearBtn_Click_1"/>
-        <PasswordBox x:Name="passwordBox" HorizontalAlignment="Left" Margin="499,84,0,0" VerticalAlignment="Top" Width="244" Height="23"/>
-        <PasswordBox x:Name="passwordConfirmBox" HorizontalAlignment="Left" Margin="499,112,0,0" VerticalAlignment="Top" Width="244" Height="23"/>
-        <DataGrid x:Name="dataGrid" HorizontalAlignment="Left" Height="300" Margin="19,52,0,0" VerticalAlignment="Top" Width="345" IsReadOnly="True" SelectionChanged="dataGrid_SelectionChanged"/>
-        <Button x:Name="addBtn" Content="Add" HorizontalAlignment="Left" Margin="499,357,0,0" VerticalAlignment="Top" Width="66" Click="addBtn_Click"/>
-        <Button x:Name="removeBtn" Content="Remove" HorizontalAlignment="Left" Margin="19,357,0,0" VerticalAlignment="Top" Width="54" Click="removeBtn_Click"/>
-        <Label Content="User ID Manager" HorizontalAlignment="Left" Margin="11,-1,0,0" VerticalAlignment="Top" Height="44" Width="779" FontSize="24"/>
-        <Button Content="Back" HorizontalAlignment="Left" Margin="668,357,0,0" VerticalAlignment="Top" Width="75" Click="Button_Click"/>
-        <DatePicker x:Name="datePicker" HorizontalAlignment="Left" Height="22" Margin="498,198,0,0" VerticalAlignment="Top" DisplayDate="1990-01-01" DisplayDateStart="1900-01-01"/>
-        <CheckBox x:Name="adminCBox" Content="Admin Permission" HorizontalAlignment="Left" Margin="617,198,0,0" VerticalAlignment="Top" Height="22" Width="126" Cursor="" ToolTip="Admin Permission can add new user"/>
-        <TextBox x:Name="SearchtxtBox" HorizontalAlignment="Left" Height="20" Margin="165,357,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="141" KeyDown="SearchtxtBox_KeyDown"/>
-        <Button x:Name="SearchBtn" Content="Search" HorizontalAlignment="Left" Margin="311,357,0,0" VerticalAlignment="Top" Width="53" Click="SearchBtn_Click"/>
+    <Grid Background="White">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <Label Content="User ID Manager" Margin="5" FontSize="24"/>
+
+        <DataGrid x:Name="dataGrid" IsReadOnly="True" SelectionChanged="dataGrid_SelectionChanged" Grid.Row="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="5"/>
+
+        <Grid Grid.Row="2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Button x:Name="removeBtn" Content="Remove" Click="removeBtn_Click" Margin="5"/>
+            <TextBox x:Name="SearchtxtBox" TextWrapping="Wrap" KeyDown="SearchtxtBox_KeyDown" Grid.Column="2" Grid.ColumnSpan="2" Margin="5"/>
+            <Button x:Name="SearchBtn" Content="Search" Click="SearchBtn_Click" Grid.Column="4" Margin="5"/>
+        </Grid>
+
+        <Grid Grid.Column="1" Grid.Row="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <TextBlock Text="User ID" TextAlignment="Right" Grid.Column="0" Grid.Row="0" VerticalAlignment="Center"/>
+            <TextBox x:Name="userIDtxtBox" VerticalAlignment="Center" Grid.Column="1" Grid.Row="0" Margin="5"/>
+
+            <TextBlock Text="Password" Grid.Column="0" Grid.Row="1" TextAlignment="Right" VerticalAlignment="Center"/>
+            <PasswordBox x:Name="passwordBox" Grid.Column="1" Grid.Row="1" Margin="5"/>
+
+            <TextBlock Text="Password Confirm" Grid.Column="0" Grid.Row="2" TextAlignment="Right" VerticalAlignment="Center"/>
+            <PasswordBox x:Name="passwordConfirmBox" Grid.Column="1" Grid.Row="2" Margin="5"/>
+
+            <TextBlock Text="Name" TextAlignment="Right" Grid.Column="0" Grid.Row="3" VerticalAlignment="Center"/>
+            <Grid Grid.Column="1" Grid.Row="3">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <TextBox x:Name="firstNametxtBox" Grid.Column="0" Margin="5"/>
+                <TextBox x:Name="lastNametxtBox" Grid.Column="1" Margin="5"/>
+            </Grid>
+
+            <TextBlock Text="Sex" TextAlignment="Right" Grid.Column="0" Grid.Row="4" VerticalAlignment="Center"/>
+            <Grid Grid.Column="1" Grid.Row="4">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <RadioButton x:Name="maleRadio" Content="Male" Grid.Column="0" VerticalAlignment="Center" Margin="5"/>
+                <RadioButton x:Name="femaleRadio" Content="Female" Grid.Column="1" VerticalAlignment="Center" Margin="5"/>
+            </Grid>
+
+            <TextBlock Text="Birthday" TextAlignment="Right" Grid.Column="0" Grid.Row="5" VerticalAlignment="Center"/>
+            <DatePicker x:Name="datePicker" DisplayDate="1990-01-01" DisplayDateStart="1900-01-01" Grid.Column="1" Grid.Row="5" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="5"/>
+
+            <CheckBox x:Name="adminCBox" Content="Admin Permission" ToolTip="Admin Permission can add new user" Grid.Column="1" Grid.Row="6" Margin="5"/>
+
+            <TextBlock Text="Email" Grid.Column="0" Grid.Row="7" TextAlignment="Right" VerticalAlignment="Center"/>
+            <TextBox x:Name="emailtxtBox" Grid.Column="1" Grid.Row="7" Margin="5"/>
+
+            <TextBlock Text="Address" Grid.Column="0" Grid.Row="8" TextAlignment="Right" VerticalAlignment="Center"/>
+            <TextBox x:Name="addresstxtBox" Height="99" TextWrapping="Wrap" AcceptsReturn="True" AcceptsTab="True" Grid.Column="1" Grid.Row="8" Margin="5"/>
+        </Grid>
+
+        <Grid Grid.Column="1" Grid.Row="2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Button x:Name="saveBtn" Content="Save" Click="saveBtn_Click" Grid.Column="0" Margin="5"/>
+            <Button x:Name="addBtn" Content="Add" Click="addBtn_Click" Grid.Column="1" Margin="5"/>
+            <Button x:Name="clearBtn" Content="Clear" Click="ClearBtn_Click_1" Grid.Column="2" Margin="5"/>
+            <Button Content="Back" Width="80" Click="Button_Click" Grid.Column="3" Margin="5"/>
+        </Grid>
 
     </Grid>
 </Page>
