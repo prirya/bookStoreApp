@@ -39,5 +39,25 @@ namespace bookStoreApp
             Phone = phone;
         }
     }
-
+    public class BookModel
+    {
+        public int Number { get; set; }
+        public string ISBN { get; set; }
+        public string Title { get; set; }
+        public string Type { get; set; }
+        public string Description { get; set; }
+        public decimal Price { get; set; }
+        public int Quantity { get; set; }
+        public BookModel() { }
+        public BookModel(int number, string isbn, string title, string type, string description, decimal price,int quantity)
+        {
+            Number = number;
+            ISBN = isbn;
+            Title = title;
+            Type = type;
+            Description = description;
+            Price = price;
+            Quantity = quantity;
+        }
+    }
 }

@@ -107,9 +107,6 @@
     <Compile Include="AdminPage.xaml.cs">
       <DependentUpon>AdminPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="BookList.xaml.cs">
-      <DependentUpon>BookList.xaml</DependentUpon>
-    </Compile>
     <Compile Include="BooksManager.xaml.cs">
       <DependentUpon>BooksManager.xaml</DependentUpon>
     </Compile>
@@ -130,10 +127,6 @@
       <DependentUpon>Transactions.xaml</DependentUpon>
     </Compile>
     <Page Include="AdminPage.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="BookList.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

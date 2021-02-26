@@ -32,7 +32,6 @@ namespace bookStoreApp
             people = DataAccess.GetDataUser();
             dataGrid.ItemsSource = people;
         }
-
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             NavigationService.GoBack();
@@ -149,9 +148,9 @@ namespace bookStoreApp
             Clear();
             refreshData();
         }
-        private void saveBtn_Click(object sender, RoutedEventArgs e) //TODO : Here
+        private void saveBtn_Click(object sender, RoutedEventArgs e)
         {
-            CheckData();
+            if (CheckData() == false) { return; }
             bool sex = true;
             if (maleRadio.IsChecked == true) { sex = true; }
             if (femaleRadio.IsChecked == true) { sex = false; }
@@ -173,13 +172,11 @@ namespace bookStoreApp
                 }
             }
         }
-
         private void clearBTn_Click(object sender, RoutedEventArgs e)
         {
             Clear();
             refreshData();
         }
-
         private void RemoveBtn_Click(object sender, RoutedEventArgs e)
         {
             var selectPerson = dataGrid.SelectedCells[0].Item as CustomerModel;

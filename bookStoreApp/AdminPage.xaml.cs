@@ -157,7 +157,6 @@ namespace bookStoreApp
             }
             return true;
         }
-
         private void addBtn_Click(object sender, RoutedEventArgs e)
         {
             if (CheckData() == false) { return; }
@@ -168,7 +167,6 @@ namespace bookStoreApp
             Clear();
             refreshDATA();
         }
-
         private void ClearBtn_Click_1(object sender, RoutedEventArgs e)
         {
             Clear();
@@ -176,7 +174,6 @@ namespace bookStoreApp
             dataGrid.SelectedIndex = -1;
             refreshDATA();
         }
-
         private void saveBtn_Click(object sender, RoutedEventArgs e) //DOTO : มีบางอย่างผิดปกติกับฟังชั่นนี้
         {
             if (CheckData() == false) { return; }
@@ -203,7 +200,6 @@ namespace bookStoreApp
                 }
             }
         }
-
         private void removeBtn_Click(object sender, RoutedEventArgs e)
         {
             var selectPerson = dataGrid.SelectedCells[0].Item as UserModel;
@@ -227,7 +223,6 @@ namespace bookStoreApp
             dataGrid.ItemsSource = null;
             dataGrid.ItemsSource = people;
         }
-
         private void SearchtxtBox_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.Key == Key.Enter){ SearchBtn_Click(null , null); }

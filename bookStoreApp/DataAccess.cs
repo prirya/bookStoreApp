@@ -30,7 +30,7 @@ namespace bookStoreApp
                     //ตารางเก็บข้อมูลลูกค้า
                     "CREATE TABLE IF NOT EXISTS CustomersTable (`Customer ID` INTEGER PRIMARY KEY, `Name` NVARCHAR(50) NULL, `Address` NVARCHAR(500) NULL, `Email` NVARCHAR(50) NULL, `Sex(Male)` BOOL NULL, Birthday NVARCHAR(50) NULL, `Phone Number` INT NULL);" +
                     //สร้างตารางหนังสือ
-                    "CREATE TABLE IF NOT EXISTS BookTable (`ISBN` CHAR(10) PRIMARY KEY, Title NVARCHAR(200) NULL,Description NVARCHAR(500) NULL,Price DOUBLE NULL);" +
+                    "CREATE TABLE IF NOT EXISTS BookTable (Number INTEGER PRIMARY KEY ,`ISBN` CHAR(10) NULL, Title NVARCHAR(200) NULL,Type NVARCHAR(500) NULL,Description NVARCHAR(500) NULL,Price DECIMAL NULL,Quantity INT NULL);" +
                     //ข้อมูลการขาย
                     "CREATE TABLE IF NOT EXISTS Transactions (`ISBN` CHAR(10) PRIMARY KEY,`Customers ID` NVARCHAR(200) NULL,Quatity INTEGER NULL,`Total Price` DOUBLE NULL);");
             Command(admindbpath, "CREATE TABLE IF NOT EXISTS User (`Number` INTEGER PRIMARY KEY, `User ID` NVARCHAR(100) NULL, `Password` NVARCHAR(100) NULL, `Name` NVARCHAR(50) NULL, `Address` NVARCHAR(500) NULL, `Email` NVARCHAR(50) NULL, `Birth day` NVARCHAR(50) NULL, `Sex (Male)` BOOL NULL, `TypeAdmin` BOOL NULL);");
@@ -92,7 +92,7 @@ namespace bookStoreApp
             DateTime dday = new DateTime(int.Parse(split[2]), int.Parse(split[1]), int.Parse(split[0]));
             return dday;
         }
-#region Administrator part
+        #region Administrator part
         public static List<UserModel> LoadAdmin()
         {
             List<UserModel> entries = new List<UserModel>();
@@ -291,7 +291,7 @@ namespace bookStoreApp
             return entries;
         }
         #endregion
-#region Customers part
+        #region Customers part
         public static void AddDataCustomerTable(CustomerModel customer)
         {
             using (SqliteConnection db = new SqliteConnection($"Filename={dbpath}"))
@@ -342,12 +342,12 @@ namespace bookStoreApp
         public static List<CustomerModel> GetDataUser() //คือการแสดงผลข้อมูลที่อยู่ใน dataBase ออกมาทั้งหมด
         {
             List<CustomerModel> entries = new List<CustomerModel>();
-            using (SqliteConnection dp = new SqliteConnection($"Filename={dbpath}"))
+            using (SqliteConnection db = new SqliteConnection($"Filename={dbpath}"))
             {
-                dp.Open();
+                db.Open();
 
                 SqliteCommand selectCommand = new SqliteCommand
-                    ("SELECT `Customer ID`,Name,Address,Email,`Sex(Male)`,Birthday,`Phone Number` from CustomersTable", dp);
+                    ("SELECT `Customer ID`,Name,Address,Email,`Sex(Male)`,Birthday,`Phone Number` from CustomersTable", db);
 
 
                 SqliteDataReader query = selectCommand.ExecuteReader();
@@ -366,30 +366,137 @@ namespace bookStoreApp
                     });
                 }
 
-                dp.Close();
+                db.Close();
+                return entries;
+            }
+        }
+        public static List<CustomerModel> SearchCustomers(string search) //TODO : ยังไม่ได้ทำปุ่ม Search
+        {
+            List<CustomerModel> entries = new List<CustomerModel>();
+            using (SqliteConnection db = new SqliteConnection($"Filename={dbpath}"))
+            {
+                db.Open();
+                SqliteCommand sqliteCommand = new SqliteCommand();
+                sqliteCommand.Connection = db;
+                sqliteCommand.CommandText = $"SELECT `Customer ID`,Address,Email,`Sex(Male)`,Birthday,`Phone Number` FROM CustomersTable WHERE Name LIKE \"%{search.ToLower()}%\" OR `User ID` LIKE  \"%{search.ToLower()}%\";";
+                SqliteDataReader query = sqliteCommand.ExecuteReader();
+                while (query.Read())
+                {
+                    entries.Add(new CustomerModel()
+                    {
+                        CustomerId = query.GetInt16(0),
+                        Name = query.GetString(1),
+                        Address = query.GetString(2),
+                        Email = query.GetString(3),
+                        Sex = query.GetBoolean(4),
+                        Birthday = Time(query.GetString(5)),
+                        Phone = query.GetInt32(6),
+                    });
+                }
+                db.Close();
                 return entries;
             }
         }
         #endregion
-        #region Other Zone
-        public static void AddDataBookTable(string isbn, string title, string description, string price)
+        #region Book Data Base Zone
+        public static List<BookModel> GetBookData()
+        {
+            List<BookModel> entries = new List<BookModel>();
+            using (SqliteConnection db = new SqliteConnection($"Filename={dbpath}"))
+            {
+                db.Open();
+                SqliteCommand selectCommand = new SqliteCommand
+                    ("SELECT Number,ISBN,Title,Type,Description,Price,Quantity FROM BookTable", db);
+                SqliteDataReader query = selectCommand.ExecuteReader();
+                while (query.Read())
+                {
+                    entries.Add(new BookModel()
+                    {
+                        Number = query.GetInt32(0),
+                        ISBN = query.GetString(1),
+                        Title = query.GetString(2),
+                        Type = query.GetString(3),
+                        Description = query.GetString(4),
+                        Price = query.GetDecimal(5),
+                        Quantity = query.GetInt32(6)
+                    });
+                }
+                db.Close();
+                return entries;
+            }
+        }
+        public static void AddDataBookTable(string isbn, string title, string type, string description, decimal price, int quantity)
         {
             using (SqliteConnection db = new SqliteConnection($"Filename={dbpath}"))
             {
                 db.Open();
                 SqliteCommand insertCommand = new SqliteCommand();
                 insertCommand.Connection = db;
-
-                insertCommand.CommandText = "INSERT INTO BookTable VALUES(@isbn,@title,@description,@price);";
+                insertCommand.CommandText = "INSERT INTO BookTable VALUES(NULL,@isbn,@title,@type,@description,@price,@quantity);";
                 insertCommand.Parameters.AddWithValue("@isbn", isbn);
                 insertCommand.Parameters.AddWithValue("@title", title);
+                insertCommand.Parameters.AddWithValue("@type", type);
                 insertCommand.Parameters.AddWithValue("@description", description);
                 insertCommand.Parameters.AddWithValue("@price", price);
+                insertCommand.Parameters.AddWithValue("@quantity", quantity);
                 insertCommand.ExecuteReader();
-
                 db.Close();
             }
         }
+        public static void RemoveBookTable(BookModel book)
+        {
+            Command(dbpath, $"DELETE FROM BookTable WHERE Number = \"{book.Number}\";");
+        }
+        public static void SaveBook(BookModel book) 
+        {
+            using (SqliteConnection db = new SqliteConnection($"Filename={dbpath}"))
+            {
+                db.Open();
+                SqliteCommand sqliteCommand = new SqliteCommand();
+                sqliteCommand.Connection = db;
+                //SQLite Command
+                sqliteCommand.CommandText = $"UPDATE BookTable SET " +
+                    $"ISBN = \"{book.ISBN}\" ," +
+                    $"Title = \"{book.Title}\" ," +
+                    $"Type = \"{book.Type}\" ," +
+                    $"Description = \"{book.Description}\" ," +
+                    $"Price = {book.Price} ," +
+                    $"Quantity = {book.Quantity} " +
+                    $"WHERE Number = {book.Number};";
+                sqliteCommand.ExecuteReader();
+                db.Close();
+            }
+        }
+        public static List<BookModel> SearchBooks(string search)
+        {
+            List<BookModel> entries = new List<BookModel>();
+            using (SqliteConnection db = new SqliteConnection($"Filename={dbpath}"))
+            {
+                db.Open();
+                SqliteCommand sqliteCommand = new SqliteCommand();
+                sqliteCommand.Connection = db;
+                sqliteCommand.CommandText = $"SELECT Number,ISBN,Type,Title,Description,Price,Quantity FROM BookTable WHERE Title LIKE \"%{search.ToLower()}%\" OR ISBN LIKE  \"%{search.ToLower()}%\";";
+                SqliteDataReader query = sqliteCommand.ExecuteReader();
+                while (query.Read())
+                {
+                    entries.Add(new BookModel()
+                    {
+                        Number = query.GetInt32(0),
+                        ISBN = query.GetString(1),
+                        Title = query.GetString(2),
+                        Type = query.GetString(3),
+                        Description = query.GetString(4),
+                        Price = query.GetDecimal(5),
+                        Quantity = query.GetInt32(6)
+                    });
+                }
+                db.Close();
+                return entries;
+            }
+        }
+        #endregion
+        #region Transactions Zone
+
         public static void AddDataTransactions(string isbn, string customersID, string quatity, string totalPrice)
         {
 
