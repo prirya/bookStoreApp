@@ -60,4 +60,40 @@ namespace bookStoreApp
             Quantity = quantity;
         }
     }
+    public class TransactionsSold
+    {
+        public int Number { get; set; }
+        public string ISBN { get; set; }
+        public decimal TotalPrice { get; set; }
+        public int CustomerId { get; set; }
+        public int QuantitySold { get; set; }
+        public DateTime TimeSold { get; set; }
+        public TransactionsSold() { }
+        public TransactionsSold(int number, string isbn, int customerid, decimal totalPrice, int quantitySold, DateTime timeSold)
+        {
+            Number = number;
+            ISBN = isbn;
+            CustomerId = customerid;
+            TotalPrice = totalPrice;
+            QuantitySold = quantitySold;
+            TimeSold = timeSold;
+        }
+    }
+    public class GetdataTransactions
+    {
+        public string ISBN { get; set; }
+        public string TitleBook { get; set; }
+        public string Type { get; set; }
+        public decimal Price { get; set; }
+        public int QuantitySold { get; set; }
+        public GetdataTransactions() { }
+        public GetdataTransactions(string isbn, string titleBook,string type,decimal price,int quantitySold)
+        {
+            ISBN = isbn;
+            TitleBook = titleBook;
+            Type = type;
+            Price = price;
+            QuantitySold = quantitySold;
+        }
+    }
 }

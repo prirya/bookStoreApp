@@ -180,7 +180,7 @@ namespace bookStoreApp
             }
             
         }
-        private void SerachBtn_Click(object sender, RoutedEventArgs e) //TODO : Sommingwrong 
+        private void SerachBtn_Click(object sender, RoutedEventArgs e)
         {
             if (searchtxtBox.Text == "") { RefreshData(); return; }
             book = DataAccess.SearchBooks(searchtxtBox.Text);

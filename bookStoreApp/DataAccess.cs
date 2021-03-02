@@ -516,6 +516,99 @@ namespace bookStoreApp
                 db.Close();
             }
         }
+        public static List<BookModel> GetTransactions() //TODO : fix
+        {
+            List<BookModel> entries = new List<BookModel>();
+            using (SqliteConnection db = new SqliteConnection($"Filename={dbpath}"))
+            {
+                db.Open();
+                SqliteCommand selectCommand = new SqliteCommand
+                    ("SELECT Number,ISBN,Title,Type,Description,Price,Quantity FROM BookTable", db);
+                SqliteDataReader query = selectCommand.ExecuteReader();
+                while (query.Read())
+                {
+                    entries.Add(new BookModel()
+                    {
+                        Number = query.GetInt32(0),
+                        ISBN = query.GetString(1),
+                        Title = query.GetString(2),
+                        Type = query.GetString(3),
+                        Description = query.GetString(4),
+                        Price = query.GetDecimal(5),
+                        Quantity = query.GetInt32(6)
+                    });
+                }
+                db.Close();
+                return entries;
+            }
+        }
+        //public static void AddDataBookTable(string isbn, string title, string type, string description, decimal price, int quantity) //TODO : fix
+        //{
+        //    using (SqliteConnection db = new SqliteConnection($"Filename={dbpath}"))
+        //    {
+        //        db.Open();
+        //        SqliteCommand insertCommand = new SqliteCommand();
+        //        insertCommand.Connection = db;
+        //        insertCommand.CommandText = "INSERT INTO BookTable VALUES(NULL,@isbn,@title,@type,@description,@price,@quantity);";
+        //        insertCommand.Parameters.AddWithValue("@isbn", isbn);
+        //        insertCommand.Parameters.AddWithValue("@title", title);
+        //        insertCommand.Parameters.AddWithValue("@type", type);
+        //        insertCommand.Parameters.AddWithValue("@description", description);
+        //        insertCommand.Parameters.AddWithValue("@price", price);
+        //        insertCommand.Parameters.AddWithValue("@quantity", quantity);
+        //        insertCommand.ExecuteReader();
+        //        db.Close();
+        //    }
+        //}
+        //public static void RemoveBookTable(BookModel book) //TODO : fix
+        //{
+        //    Command(dbpath, $"DELETE FROM BookTable WHERE Number = \"{book.Number}\";");
+        //}
+        //public static void SaveBook(BookModel book) //TODO : fix
+        //{
+        //    using (SqliteConnection db = new SqliteConnection($"Filename={dbpath}"))
+        //    {
+        //        db.Open();
+        //        SqliteCommand sqliteCommand = new SqliteCommand();
+        //        sqliteCommand.Connection = db;
+        //        //SQLite Command
+        //        sqliteCommand.CommandText = $"UPDATE BookTable SET " +
+        //            $"ISBN = \"{book.ISBN}\" ," +
+        //            $"Title = \"{book.Title}\" ," +
+        //            $"Type = \"{book.Type}\" ," +
+        //            $"Description = \"{book.Description}\" ," +
+        //            $"Price = {book.Price} ," +
+        //            $"Quantity = {book.Quantity} " +
+        //            $"WHERE Number = {book.Number};";
+        //        sqliteCommand.ExecuteReader();
+        //        db.Close();
+        //    }
+        //}
+        public static List<GetdataTransactions> GetDataBook(string isbn,int quantitySold)
+        {
+            List<GetdataTransactions> entries = new List<GetdataTransactions>();
+            using (SqliteConnection db = new SqliteConnection($"Filename={dbpath}"))
+            {
+                db.Open();
+                SqliteCommand sqliteCommand = new SqliteCommand();
+                sqliteCommand.Connection = db;
+                sqliteCommand.CommandText = $"SELECT ISBN,Title,Type,Price FROM BookTable WHERE ISBN LIKE  \"%{isbn}%\";";
+                SqliteDataReader query = sqliteCommand.ExecuteReader();
+                while (query.Read())
+                {
+                    entries.Add(new GetdataTransactions()
+                    {
+                        ISBN = query.GetString(0),
+                        TitleBook = query.GetString(1),
+                        Type = query.GetString(2),
+                        Price = query.GetDecimal(3),
+                        QuantitySold = quantitySold
+                    });
+                }
+                db.Close();
+                return entries;
+            }
+        }
         #endregion
 
 
