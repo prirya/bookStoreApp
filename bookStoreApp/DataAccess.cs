@@ -497,7 +497,7 @@ namespace bookStoreApp
         #endregion
         #region Transactions Zone
 
-        public static void AddDataTransactions(string isbn, string customersID, string quatity, string totalPrice)
+        public static void AddDataTransactions(string isbn, string customersID, string quatity, string totalPrice) //TODO : Fix this Method
         {
 
             using (SqliteConnection db = new SqliteConnection($"Filename={dbpath}"))
@@ -542,24 +542,6 @@ namespace bookStoreApp
                 return entries;
             }
         }
-        //public static void AddDataBookTable(string isbn, string title, string type, string description, decimal price, int quantity) //TODO : fix
-        //{
-        //    using (SqliteConnection db = new SqliteConnection($"Filename={dbpath}"))
-        //    {
-        //        db.Open();
-        //        SqliteCommand insertCommand = new SqliteCommand();
-        //        insertCommand.Connection = db;
-        //        insertCommand.CommandText = "INSERT INTO BookTable VALUES(NULL,@isbn,@title,@type,@description,@price,@quantity);";
-        //        insertCommand.Parameters.AddWithValue("@isbn", isbn);
-        //        insertCommand.Parameters.AddWithValue("@title", title);
-        //        insertCommand.Parameters.AddWithValue("@type", type);
-        //        insertCommand.Parameters.AddWithValue("@description", description);
-        //        insertCommand.Parameters.AddWithValue("@price", price);
-        //        insertCommand.Parameters.AddWithValue("@quantity", quantity);
-        //        insertCommand.ExecuteReader();
-        //        db.Close();
-        //    }
-        //}
         //public static void RemoveBookTable(BookModel book) //TODO : fix
         //{
         //    Command(dbpath, $"DELETE FROM BookTable WHERE Number = \"{book.Number}\";");
@@ -592,7 +574,7 @@ namespace bookStoreApp
                 db.Open();
                 SqliteCommand sqliteCommand = new SqliteCommand();
                 sqliteCommand.Connection = db;
-                sqliteCommand.CommandText = $"SELECT ISBN,Title,Type,Price FROM BookTable WHERE ISBN LIKE  \"%{isbn}%\";";
+                sqliteCommand.CommandText = $"SELECT ISBN,Title,Type,Price,Quantity,Number FROM BookTable WHERE ISBN LIKE  \"%{isbn}%\";";
                 SqliteDataReader query = sqliteCommand.ExecuteReader();
                 while (query.Read())
                 {
@@ -602,13 +584,46 @@ namespace bookStoreApp
                         TitleBook = query.GetString(1),
                         Type = query.GetString(2),
                         Price = query.GetDecimal(3),
-                        QuantitySold = quantitySold
+                        QuantitySold = quantitySold,
+                        Quantity = query.GetInt32(4),
+                        Number = query.GetInt32(5)
                     });
                 }
                 db.Close();
                 return entries;
             }
         }
+
+        public static void SellAllBooks(List<GetdataTransactions> Books)
+		{
+
+            //TODO:เช็คหนังสือในสต็อค
+            //TODO:ลบหนังสือที่เหลืออยู่ (Quantity) ใน BookTable
+
+            //TODO:บันทึกรายการขาย
+		}
+        public static void SellBook(List<GetdataTransactions> bookList)
+        {
+            using (SqliteConnection db = new SqliteConnection($"Filename={dbpath}"))
+            {
+                db.Open();
+                foreach (var book in bookList)
+                {
+                    var book2 = GetDataBook(book.ISBN, book.QuantitySold);
+                    foreach (var book3 in book2)
+                    {
+                        SqliteCommand sqliteCommand = new SqliteCommand();
+                        sqliteCommand.Connection = db;
+                        sqliteCommand.CommandText = $"UPDATE BookTable SET " +
+                        $"Quantity = {book3.Quantity - book.QuantitySold} " +
+                        $"WHERE Number = {book3.Number};";
+                        sqliteCommand.ExecuteReader();
+                    }
+                }
+                db.Close();
+            }
+        }
+
         #endregion
 
 

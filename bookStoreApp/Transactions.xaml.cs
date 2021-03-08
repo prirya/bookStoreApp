@@ -31,31 +31,112 @@ namespace bookStoreApp
             NavigationService.GoBack();
         }
 
+        /// <summary
+        /// คำนวณค่าหนังสือทั้งหมดจากรายการหนังสือที่อยู่ใน BookList
+        /// </summary>
+        public static decimal CalculateTotalBookPrice(List<GetdataTransactions> bookList)
+		{
+            decimal totalcost = 0m; //สร้างค่าเก็บไว้เพื่อคำนวณและรอส่งกลับ
+            int bookcount = 0;
+            foreach (var totalQuantity in bookList) //วนซ้ำรายการ "BookList" ทีละอัน โดยระหว่างวน เรียกหนังสือทีละเล่มในรายการว่า "totalQuantity"
+            {
+                //คำนวณค่าหนังสือทีละเล่ม ด้วยการเอาค่า total บวกเข้ากับค่า หนังสือปัจจุบัน คูณด้วยค่าหนังสือปัจจุบัน
+                totalcost = totalcost + (totalQuantity.Price * totalQuantity.QuantitySold);
+                bookcount = bookcount + totalQuantity.QuantitySold;
+            }
+            return totalcost; //ส่งค่าที่คำนวณเสร็จแล้วกลับไป
+        }
+        public static int CalculateTotalBookCount(List<GetdataTransactions> bookList)
+        {
+            int bookcount = 0;
+            foreach (var totalQuantity in bookList) 
+            {
+                bookcount = bookcount + totalQuantity.QuantitySold;
+            }
+            return bookcount;
+        }
+        private void Clearinput()
+        {
+            quantitytxtBox.Text = "";
+            iSBNtxtBox.Text = "";
+        }
+        private void ClearBookList()
+        {
+            totalQuantitytxtBox.Text = "";
+            totalPricetxtBox.Text = "";
+            DottxtBox.Text = "";
+            BookList.Clear();
+            dataGrid.ItemsSource = null;
+        }
+
         private void AddBtn_Click(object sender, RoutedEventArgs e)
         {
-            BookList.AddRange(DataAccess.GetDataBook(iSBNtxtBox.Text, int.Parse(quantitytxtBox.Text)));
+
+            var databook = DataAccess.GetDataBook(iSBNtxtBox.Text, int.Parse(quantitytxtBox.Text));
+            if (databook.Count == 0)
+            {
+                return;
+            }
+            else if (databook.Count > 0)  //Count คือการนับจำนวนวัสดุที่อยู่ใน List ว่ามีกี่ตัว
+            {
+                foreach (var book in databook)
+                {
+                    bool found = false;
+
+                    foreach (var book2 in BookList)
+                    {
+                        if (book.ISBN == book2.ISBN)
+                        {
+                            book2.QuantitySold += book.QuantitySold;
+                            found = true;
+                        }
+                    }
+                    if (found == false) 
+                    {
+                        BookList.Add(book);
+                    }
+                }
+            }
             dataGrid.ItemsSource = null;
             dataGrid.ItemsSource = BookList;
-            int bookcount = 0;
-            decimal totalprice = 0m;
-            foreach (var totalQuantity in BookList)
-            {
-                bookcount += totalQuantity.QuantitySold;
-                totalprice += totalQuantity.Price * totalQuantity.QuantitySold;
-            }
+            int bookcount = CalculateTotalBookCount(BookList);
+            decimal totalprice = CalculateTotalBookPrice(BookList);
             totalQuantitytxtBox.Text = bookcount.ToString();
             string stringtotalPrice = totalprice.ToString();
             var cha = stringtotalPrice.Split('.');
             if (cha.Length > 1)
             {
                 totalPricetxtBox.Text = cha[0];
-                DottxtBox.Text = cha[1];
+                DottxtBox.Text = $".{cha[1]}";
             }
             else if (cha.Length == 1)
             {
                 totalPricetxtBox.Text = cha[0];
                 DottxtBox.Text = "";
             }
+            Clearinput();
+        }
+
+        private void SellBtn_Click(object sender, RoutedEventArgs e)
+        {
+            string textshow = "";
+            int count = 1;
+            decimal totalprice = CalculateTotalBookPrice(BookList);
+            foreach (var order in BookList)
+            {
+                textshow += $"{count}.{order.TitleBook}  Quantity :{order.QuantitySold} Price :{order.Price * order.QuantitySold}\r \n";
+                count++;
+            }
+            var Answer = MessageBox.Show($"{textshow} \r \n Total Price :{totalprice} Baht" ,"Are you sure to sell this order?",MessageBoxButton.YesNo) ;
+            if (Answer == MessageBoxResult.Yes) 
+            { 
+                DataAccess.SellBook(BookList);
+                //TODO : Record to database
+                Clearinput();
+                ClearBookList();
+                
+            }
+            
         }
     }
 }

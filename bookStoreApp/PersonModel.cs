@@ -86,14 +86,19 @@ namespace bookStoreApp
         public string Type { get; set; }
         public decimal Price { get; set; }
         public int QuantitySold { get; set; }
+        public int Quantity { get; set; }
+        public int Number { get; set; }
         public GetdataTransactions() { }
-        public GetdataTransactions(string isbn, string titleBook,string type,decimal price,int quantitySold)
+        public GetdataTransactions(string isbn, string titleBook,string type,decimal price,int quantitySold,int quantity,int number)
         {
             ISBN = isbn;
             TitleBook = titleBook;
             Type = type;
             Price = price;
             QuantitySold = quantitySold;
+            Quantity = quantity;
+            Number = number;
+
         }
     }
 }
