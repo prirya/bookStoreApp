@@ -25,6 +25,7 @@ namespace bookStoreApp
         public Transactions()
         {
             InitializeComponent();
+            iSBNtxtBox.Focus();
         }
         private void backBtm_Click(object sender, RoutedEventArgs e)
         {
@@ -37,12 +38,10 @@ namespace bookStoreApp
         public static decimal CalculateTotalBookPrice(List<GetdataTransactions> bookList)
 		{
             decimal totalcost = 0m; //สร้างค่าเก็บไว้เพื่อคำนวณและรอส่งกลับ
-            int bookcount = 0;
             foreach (var totalQuantity in bookList) //วนซ้ำรายการ "BookList" ทีละอัน โดยระหว่างวน เรียกหนังสือทีละเล่มในรายการว่า "totalQuantity"
             {
                 //คำนวณค่าหนังสือทีละเล่ม ด้วยการเอาค่า total บวกเข้ากับค่า หนังสือปัจจุบัน คูณด้วยค่าหนังสือปัจจุบัน
                 totalcost = totalcost + (totalQuantity.Price * totalQuantity.QuantitySold);
-                bookcount = bookcount + totalQuantity.QuantitySold;
             }
             return totalcost; //ส่งค่าที่คำนวณเสร็จแล้วกลับไป
         }
@@ -57,7 +56,7 @@ namespace bookStoreApp
         }
         private void Clearinput()
         {
-            quantitytxtBox.Text = "";
+            quantitytxtBox.Text = "1";
             iSBNtxtBox.Text = "";
         }
         private void ClearBookList()
@@ -119,24 +118,7 @@ namespace bookStoreApp
 
         private void SellBtn_Click(object sender, RoutedEventArgs e)
         {
-            string textshow = "";
-            int count = 1;
-            decimal totalprice = CalculateTotalBookPrice(BookList);
-            foreach (var order in BookList)
-            {
-                textshow += $"{count}.{order.TitleBook}  Quantity :{order.QuantitySold} Price :{order.Price * order.QuantitySold}\r \n";
-                count++;
-            }
-            var Answer = MessageBox.Show($"{textshow} \r \n Total Price :{totalprice} Baht" ,"Are you sure to sell this order?",MessageBoxButton.YesNo) ;
-            if (Answer == MessageBoxResult.Yes) 
-            { 
-                DataAccess.SellBook(BookList);
-                //TODO : Record to database
-                Clearinput();
-                ClearBookList();
-                
-            }
-            
+            NavigationService.Navigate(new ConfirmOrder(BookList, totalPricetxtBox.Text, DottxtBox.Text, totalQuantitytxtBox.Text));
         }
     }
 }

@@ -28,11 +28,11 @@ namespace bookStoreApp
         {
             Command(dbpath,
                     //ตารางเก็บข้อมูลลูกค้า
-                    "CREATE TABLE IF NOT EXISTS CustomersTable (`Customer ID` INTEGER PRIMARY KEY, `Name` NVARCHAR(50) NULL, `Address` NVARCHAR(500) NULL, `Email` NVARCHAR(50) NULL, `Sex(Male)` BOOL NULL, Birthday NVARCHAR(50) NULL, `Phone Number` INT NULL);" +
+                    "CREATE TABLE IF NOT EXISTS CustomersTable (`Customer ID` INTEGER PRIMARY KEY, `Name` NVARCHAR(50) NULL, `Address` NVARCHAR(500) NULL, `Email` NVARCHAR(50) NULL, `Sex(Male)` BOOL NULL, Birthday NVARCHAR(50) NULL, `Phone Number` NVARCHAR(50) NULL);" +
                     //สร้างตารางหนังสือ
                     "CREATE TABLE IF NOT EXISTS BookTable (Number INTEGER PRIMARY KEY ,`ISBN` CHAR(10) NULL, Title NVARCHAR(200) NULL,Type NVARCHAR(500) NULL,Description NVARCHAR(500) NULL,Price DECIMAL NULL,Quantity INT NULL);" +
                     //ข้อมูลการขาย
-                    "CREATE TABLE IF NOT EXISTS Transactions (`ISBN` CHAR(10) PRIMARY KEY,`Customers ID` NVARCHAR(200) NULL,Quatity INTEGER NULL,`Total Price` DOUBLE NULL);");
+                    "CREATE TABLE IF NOT EXISTS Transactions (Number INTEGER PRIMARY KEY ,`ISBN` CHAR(500) NULL,`Customers ID` INTEGER NULL,Quatity NVARCHAR(500) NULL,PricePerBook DECIMAL NULL,`Total Price` DECIMAL NULL,`Time Sold` DATETIME NULL);");
             Command(admindbpath, "CREATE TABLE IF NOT EXISTS User (`Number` INTEGER PRIMARY KEY, `User ID` NVARCHAR(100) NULL, `Password` NVARCHAR(100) NULL, `Name` NVARCHAR(50) NULL, `Address` NVARCHAR(500) NULL, `Email` NVARCHAR(50) NULL, `Birth day` NVARCHAR(50) NULL, `Sex (Male)` BOOL NULL, `TypeAdmin` BOOL NULL);");
 
 #if DEBUG
@@ -362,7 +362,7 @@ namespace bookStoreApp
                         Email = query.GetString(3),
                         Sex = query.GetBoolean(4),
                         Birthday = Time(query.GetString(5)),
-                        Phone = query.GetInt32(6),
+                        Phone = query.GetString(6),
                     });
                 }
 
@@ -370,7 +370,7 @@ namespace bookStoreApp
                 return entries;
             }
         }
-        public static List<CustomerModel> SearchCustomers(string search) //TODO : ยังไม่ได้ทำปุ่ม Search
+        public static List<CustomerModel> SearchCustomers(string search)
         {
             List<CustomerModel> entries = new List<CustomerModel>();
             using (SqliteConnection db = new SqliteConnection($"Filename={dbpath}"))
@@ -378,7 +378,7 @@ namespace bookStoreApp
                 db.Open();
                 SqliteCommand sqliteCommand = new SqliteCommand();
                 sqliteCommand.Connection = db;
-                sqliteCommand.CommandText = $"SELECT `Customer ID`,Address,Email,`Sex(Male)`,Birthday,`Phone Number` FROM CustomersTable WHERE Name LIKE \"%{search.ToLower()}%\" OR `User ID` LIKE  \"%{search.ToLower()}%\";";
+                sqliteCommand.CommandText = $"SELECT `Customer ID`,Name,Address,Email,`Sex(Male)`,Birthday,`Phone Number` FROM CustomersTable WHERE Name LIKE \"%{search.ToLower()}%\" OR `Phone Number` LIKE  \"%{search.ToLower()}%\";";
                 SqliteDataReader query = sqliteCommand.ExecuteReader();
                 while (query.Read())
                 {
@@ -390,7 +390,7 @@ namespace bookStoreApp
                         Email = query.GetString(3),
                         Sex = query.GetBoolean(4),
                         Birthday = Time(query.GetString(5)),
-                        Phone = query.GetInt32(6),
+                        Phone = query.GetString(6),
                     });
                 }
                 db.Close();
@@ -497,7 +497,7 @@ namespace bookStoreApp
         #endregion
         #region Transactions Zone
 
-        public static void AddDataTransactions(string isbn, string customersID, string quatity, string totalPrice) //TODO : Fix this Method
+        public static void AddDataTransactions(TransactionsSold Order) //TODO : Fix this Method
         {
 
             using (SqliteConnection db = new SqliteConnection($"Filename={dbpath}"))
@@ -506,11 +506,13 @@ namespace bookStoreApp
                 SqliteCommand insertCommand = new SqliteCommand();
                 insertCommand.Connection = db;
 
-                insertCommand.CommandText = "INSERT INTO BookTable VALUES(@isbn,`@Customers ID`,@quatity,`@Total Price`);";
-                insertCommand.Parameters.AddWithValue("@isbn", isbn);
-                insertCommand.Parameters.AddWithValue("@title", customersID);
-                insertCommand.Parameters.AddWithValue("@description", quatity);
-                insertCommand.Parameters.AddWithValue("@price", totalPrice);
+                insertCommand.CommandText = "INSERT INTO Transactions VALUES(NULL,@isbn,@CustomersID,@QuantitySold,@PricePerBook,@TotalPrice,@timeSold);";
+                insertCommand.Parameters.AddWithValue("@isbn", Order.ISBN);
+                insertCommand.Parameters.AddWithValue("@CustomersID", Order.CustomerId);
+                insertCommand.Parameters.AddWithValue("@QuantitySold", Order.QuantitySold);
+                insertCommand.Parameters.AddWithValue("@PricePerBook", Order.PricePerBook);
+                insertCommand.Parameters.AddWithValue("@TotalPrice", Order.TotalPrice);
+                insertCommand.Parameters.AddWithValue("@timeSold", Order.TimeSold);
                 insertCommand.ExecuteReader();
 
                 db.Close();

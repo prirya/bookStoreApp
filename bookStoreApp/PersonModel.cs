@@ -26,9 +26,9 @@ namespace bookStoreApp
         public string Email { get; set; }
         public DateTime Birthday { get; set; }
         public bool Sex { get; set; }
-        public int Phone { get; set; }
+        public string Phone { get; set; }
         public CustomerModel() { }
-        public CustomerModel(int customerId,string name,string address, string email,DateTime birthday ,bool sex ,int phone) 
+        public CustomerModel(int customerId,string name,string address, string email,DateTime birthday ,bool sex ,string phone) 
         {
             CustomerId = customerId;
             Name = name;
@@ -66,10 +66,11 @@ namespace bookStoreApp
         public string ISBN { get; set; }
         public decimal TotalPrice { get; set; }
         public int CustomerId { get; set; }
-        public int QuantitySold { get; set; }
+        public string QuantitySold { get; set; }
         public DateTime TimeSold { get; set; }
+        public string PricePerBook { get; set; }
         public TransactionsSold() { }
-        public TransactionsSold(int number, string isbn, int customerid, decimal totalPrice, int quantitySold, DateTime timeSold)
+        public TransactionsSold(int number, string isbn, int customerid, decimal totalPrice, string quantitySold, DateTime timeSold, string pricePerBook)
         {
             Number = number;
             ISBN = isbn;
@@ -77,6 +78,7 @@ namespace bookStoreApp
             TotalPrice = totalPrice;
             QuantitySold = quantitySold;
             TimeSold = timeSold;
+            PricePerBook = pricePerBook;
         }
     }
     public class GetdataTransactions

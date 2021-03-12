@@ -101,7 +101,7 @@ namespace bookStoreApp
             datePicker.SelectedDate = selectPerson.Birthday;
             emailtxtBox.Text = selectPerson.Email;
             addresstxtBox.Text = selectPerson.Address;
-            phonetxtBox.Text = selectPerson.Phone.ToString();
+            phonetxtBox.Text = selectPerson.Phone;
         }
         private bool CheckData()
         {
@@ -144,7 +144,7 @@ namespace bookStoreApp
                 emailtxtBox.Text, 
                 datePicker.SelectedDate.Value,
                 sex,
-                int.Parse(phonetxtBox.Text)));
+                phonetxtBox.Text));
             Clear();
             refreshData();
         }
@@ -193,6 +193,17 @@ namespace bookStoreApp
                 refreshData();
             }
             
+        }
+        private void SerachBtn_Click(object sender, RoutedEventArgs e)
+        {
+            if (searchtxtBox.Text == "") { refreshData(); return; }
+            people = DataAccess.SearchCustomers(searchtxtBox.Text);
+            dataGrid.ItemsSource = null;
+            dataGrid.ItemsSource = people;
+        }
+        private void SearchtxtBox_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Enter) { SerachBtn_Click(null, null); }
         }
     }
 }
