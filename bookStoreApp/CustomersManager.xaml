@@ -10,27 +10,27 @@
 
     <Grid>
         <TextBox x:Name="CustomersIDtxtBox" HorizontalAlignment="Left" Height="23" Margin="499,56,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="244" IsUndoEnabled="False" IsReadOnly="True" IsEnabled="False"/>
-        <TextBox x:Name="firstNametxtBox" HorizontalAlignment="Left" Height="23" Margin="498,140,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
-        <TextBox x:Name="lastNametxtBox" HorizontalAlignment="Left" Height="23" Margin="623,140,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
-        <TextBox x:Name="emailtxtBox" HorizontalAlignment="Left" Height="23" Margin="498,225,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="245"/>
-        <TextBox x:Name="addresstxtBox" HorizontalAlignment="Left" Height="99" Margin="498,253,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="245"/>
-        <RadioButton x:Name="maleRadio" Content="Male" HorizontalAlignment="Left" Margin="501,170,0,0" VerticalAlignment="Top" Height="23"/>
-        <RadioButton x:Name="femaleRadio" Content="Female" HorizontalAlignment="Left" Margin="581,170,0,0" VerticalAlignment="Top" Height="23"/>
+        <TextBox x:Name="firstNametxtBox" HorizontalAlignment="Left" Height="23" Margin="498,140,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" TabIndex="2"/>
+        <TextBox x:Name="lastNametxtBox" HorizontalAlignment="Left" Height="23" Margin="623,140,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" TabIndex="3"/>
+        <TextBox x:Name="emailtxtBox" HorizontalAlignment="Left" Height="23" Margin="498,225,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="245" TabIndex="7"/>
+        <TextBox x:Name="addresstxtBox" HorizontalAlignment="Left" Height="99" Margin="498,253,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="245" TabIndex="8" AcceptsReturn="True"/>
+        <RadioButton x:Name="maleRadio" Content="Male" HorizontalAlignment="Left" Margin="501,170,0,0" VerticalAlignment="Top" Height="23" TabIndex="4"/>
+        <RadioButton x:Name="femaleRadio" Content="Female" HorizontalAlignment="Left" Margin="581,170,0,0" VerticalAlignment="Top" Height="23" TabIndex="5"/>
         <Label Content="Customer ID" HorizontalAlignment="Left" Margin="384,52,0,0" VerticalAlignment="Top" Height="23" Width="110" VerticalContentAlignment="Center" FlowDirection="RightToLeft"/>
         <Label Content="Name" HorizontalAlignment="Left" Margin="383,136,0,0" VerticalAlignment="Top" Height="23" Width="110" VerticalContentAlignment="Center" FlowDirection="RightToLeft"/>
         <Label Content="Sex" HorizontalAlignment="Left" Margin="383,164,0,0" VerticalAlignment="Top" Height="23" Width="110" VerticalContentAlignment="Center" FlowDirection="RightToLeft"/>
         <Label Content="Birthday" HorizontalAlignment="Left" Margin="383,194,0,0" VerticalAlignment="Top" Height="23" Width="110" VerticalContentAlignment="Center" FlowDirection="RightToLeft"/>
         <Label Content="Email" HorizontalAlignment="Left" Margin="383,222,0,0" VerticalAlignment="Top" Height="23" Width="110" VerticalContentAlignment="Center" FlowDirection="RightToLeft"/>
         <Label Content="Address" HorizontalAlignment="Left" Margin="383,249,0,0" VerticalAlignment="Top" Height="23" Width="110" VerticalContentAlignment="Center" FlowDirection="RightToLeft"/>
-        <Button x:Name="saveBtn" Content="Save" HorizontalAlignment="Left" Margin="561,357,0,0" VerticalAlignment="Top" Width="48" Click="saveBtn_Click"/>
-        <Button x:Name="clearBTn" Content="Clear" HorizontalAlignment="Left" Margin="614,357,0,0" VerticalAlignment="Top" Width="42" Click="clearBTn_Click"/>
+        <Button x:Name="saveBtn" Content="Save" HorizontalAlignment="Left" Margin="561,357,0,0" VerticalAlignment="Top" Width="48" Click="saveBtn_Click" TabIndex="10"/>
+        <Button x:Name="clearBTn" Content="Clear" HorizontalAlignment="Left" Margin="614,357,0,0" VerticalAlignment="Top" Width="42" Click="clearBTn_Click" TabIndex="11"/>
         <DataGrid x:Name="dataGrid" HorizontalAlignment="Left" Height="300" Margin="19,52,0,0" VerticalAlignment="Top" Width="345" IsReadOnly="True" SelectionChanged="dataGrid_SelectionChanged"/>
-        <Button x:Name="addBtn" Content="Add" HorizontalAlignment="Left" Margin="499,357,0,0" VerticalAlignment="Top" Width="57" Click="addBtn_Click"/>
+        <Button x:Name="addBtn" Content="Add" HorizontalAlignment="Left" Margin="499,357,0,0" VerticalAlignment="Top" Width="57" Click="addBtn_Click" TabIndex="9"/>
         <Button x:Name="RemoveBtn" Content="Remove" HorizontalAlignment="Left" Margin="19,357,0,0" VerticalAlignment="Top" Width="54" Click="RemoveBtn_Click"/>
-        <Button Content="Back" HorizontalAlignment="Left" Margin="668,357,0,0" VerticalAlignment="Top" Width="75" Click="Button_Click" />
+        <Button Content="Back" HorizontalAlignment="Left" Margin="668,357,0,0" VerticalAlignment="Top" Width="75" Click="Button_Click" TabIndex="12" />
         <Label Content="Customers Manager" HorizontalAlignment="Left" Margin="11,-1,0,0" VerticalAlignment="Top" Height="44" Width="779" FontSize="24"/>
-        <DatePicker x:Name="datePicker" HorizontalAlignment="Left" Height="22" Margin="498,198,0,0" VerticalAlignment="Top" DisplayDate="1990-01-01" DisplayDateStart="1900-01-01"/>
-        <TextBox x:Name="phonetxtBox" HorizontalAlignment="Left" Height="23" Margin="499,84,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="244"/>
+        <DatePicker x:Name="datePicker" HorizontalAlignment="Left" Height="22" Margin="498,198,0,0" VerticalAlignment="Top" DisplayDate="1990-01-01" DisplayDateStart="1900-01-01" TabIndex="6"/>
+        <TextBox x:Name="phonetxtBox" HorizontalAlignment="Left" Height="23" Margin="499,84,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="244" TabIndex="1"/>
         <Label Content="Phone" HorizontalAlignment="Left" Margin="384,80,0,0" VerticalAlignment="Top" Height="23" Width="110" VerticalContentAlignment="Center" FlowDirection="RightToLeft"/>
         <TextBox x:Name="searchtxtBox" HorizontalAlignment="Left" Height="20" Margin="99,357,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="192" KeyDown="SearchtxtBox_KeyDown"/>
         <Button x:Name="SearchBtn" Content="Search" HorizontalAlignment="Left" Margin="296,357,0,0" VerticalAlignment="Top" Width="68" Click="SerachBtn_Click"/>

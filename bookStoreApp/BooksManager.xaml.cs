@@ -24,6 +24,7 @@ namespace bookStoreApp
         {
             InitializeComponent();
             Loaded += Loader;
+            saveBtn.Visibility = Visibility.Collapsed;
         }
         List<BookModel> book = new List<BookModel>();
         private void Loader(object sender, RoutedEventArgs e)
@@ -126,19 +127,20 @@ namespace bookStoreApp
         }
         private void AddBtn_Click(object sender, RoutedEventArgs e)
         {
+            if (CheckData() == false) { return; }
             string type = typetxtBox.Text;
             string isbn = ISBNtxtBox.Text;
             string title = titletxtBox.Text;
             string description = descriptiontxtBox.Text;
             decimal price = decimal.Parse(pricetxtBox.Text);
             int quantity = int.Parse(quantitytxtBox.Text);
-            if (CheckData() == false) { return; }
             DataAccess.AddDataBookTable(isbn, title, type, description, price, quantity);
             Clear();
             RefreshData();
         }
         private void removeBtn_Click(object sender, RoutedEventArgs e)
         {
+            if (dataGrid.SelectedCells == null || dataGrid.SelectedCells.Count < 1) { return; }
             var book = dataGrid.SelectedCells[0].Item as BookModel;
             var Result = MessageBox.Show("Are you sure?", "Confirm", MessageBoxButton.YesNo);
             if (Result == MessageBoxResult.Yes)

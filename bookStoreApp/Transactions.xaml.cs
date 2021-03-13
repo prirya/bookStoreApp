@@ -118,7 +118,48 @@ namespace bookStoreApp
 
         private void SellBtn_Click(object sender, RoutedEventArgs e)
         {
+            if (BookList.Count < 1)
+            {
+                return;
+            }
             NavigationService.Navigate(new ConfirmOrder(BookList, totalPricetxtBox.Text, DottxtBox.Text, totalQuantitytxtBox.Text));
+        }
+
+        private void removeBtn_Click(object sender, RoutedEventArgs e)
+        {
+            if (dataGrid.SelectedCells == null || dataGrid.SelectedCells.Count < 1) { return; }
+            var book = dataGrid.SelectedCells[0].Item as GetdataTransactions; //TODO fix bug if null
+            if (book == null || dataGrid.SelectedCells == null) 
+            {
+                return; 
+            }
+            else if (book != null)
+            {
+                var Result = MessageBox.Show("Are you sure?", "Confirm", MessageBoxButton.YesNo);
+                if (Result == MessageBoxResult.Yes)
+                {
+
+                    BookList.Remove(book);
+                    dataGrid.ItemsSource = null;
+                    dataGrid.ItemsSource = BookList;
+                    return;
+                }
+                else if (Result == MessageBoxResult.No)
+                {
+                    return;
+                }
+            }
+            
+        }
+
+        private void ClearBtn_Click(object sender, RoutedEventArgs e)
+        {
+            ClearBookList();
+        }
+
+        private void iSBNtxtBox_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Enter) { AddBtn_Click(null, null); }
         }
     }
 }

@@ -66,6 +66,15 @@ namespace bookStoreApp
             dataGrid1.ItemsSource = null;
             dataGrid2.ItemsSource = null;
         }
+        private void Clearpeople()
+        {
+            dataGrid1.ItemsSource = null;
+
+            phonetxtBox.Text = "";
+            CustomersIDtxtBox.Text = "";
+            firstNametxtBox.Text = "";
+            lastNametxtBox.Text = "";
+        }
         public void refreshData()
         {
             dataGrid1.ItemsSource = null;
@@ -76,11 +85,15 @@ namespace bookStoreApp
         private void SerachBtn_Click(object sender, RoutedEventArgs e)
         {
             if (phonetxtBox.Text == "") { refreshData(); return; }
-
             people = DataAccess.SearchCustomers(phonetxtBox.Text);
             dataGrid1.ItemsSource = null;
             dataGrid1.ItemsSource = people;
-        }
+            if (people.Count == 1)
+            {
+                dataGrid1.SelectAll();
+                SellBtn.Focus();
+            }
+        } 
         private void CustomersBtm_Click(object sender, RoutedEventArgs e)
         {
             NavigationService.Navigate(new CustomersManager());
@@ -144,6 +157,22 @@ namespace bookStoreApp
                 ClearAll();
                 NavigationService.Navigate(new Transactions());
             }
+        }
+
+        private void phonetxtBox_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Enter) { SerachBtn_Click(null, null); }
+        }
+
+        private void customerBtn_Click(object sender, RoutedEventArgs e)
+        {
+            NavigationService.Navigate(new CustomersManager());
+        }
+
+        private void ClearBtn_Click(object sender, RoutedEventArgs e)
+        {
+            Clearpeople();
+            refreshData();
         }
     }
 }

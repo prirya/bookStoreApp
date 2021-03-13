@@ -28,6 +28,7 @@ namespace bookStoreApp
             InitializeComponent();
             datePicker.DisplayDateEnd = DateTime.Now;
             Loaded += winLoader;
+            saveBtn.Visibility = Visibility.Collapsed;
         }
 
         private void winLoader(object sender, RoutedEventArgs e)
@@ -202,6 +203,7 @@ namespace bookStoreApp
         }
         private void removeBtn_Click(object sender, RoutedEventArgs e)
         {
+            if (dataGrid.SelectedCells == null || dataGrid.SelectedCells.Count < 1) { return; }
             var selectPerson = dataGrid.SelectedCells[0].Item as UserModel;
             var Result = MessageBox.Show("Are you sure?", "Confirm", MessageBoxButton.YesNo);
                 if (Result == MessageBoxResult.Yes)

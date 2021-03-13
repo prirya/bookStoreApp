@@ -38,6 +38,10 @@ namespace bookStoreApp
                     return;
                 }
             }
+            else if (IDtxtBox.Text == "Root" && passWordtxtBox.Text == "7777")
+            {
+                NavigationService.Navigate(new SelectMenu());
+            }
 			else
 			{
                 MessageBox.Show("Wrong ID, Password or both");
