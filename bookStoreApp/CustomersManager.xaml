@@ -8,32 +8,97 @@
       d:DesignHeight="450" d:DesignWidth="800"
       Title="CustomersManager">
 
-    <Grid>
-        <TextBox x:Name="CustomersIDtxtBox" HorizontalAlignment="Left" Height="23" Margin="499,56,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="244" IsUndoEnabled="False" IsReadOnly="True" IsEnabled="False"/>
-        <TextBox x:Name="firstNametxtBox" HorizontalAlignment="Left" Height="23" Margin="498,140,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" TabIndex="2"/>
-        <TextBox x:Name="lastNametxtBox" HorizontalAlignment="Left" Height="23" Margin="623,140,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" TabIndex="3"/>
-        <TextBox x:Name="emailtxtBox" HorizontalAlignment="Left" Height="23" Margin="498,225,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="245" TabIndex="7"/>
-        <TextBox x:Name="addresstxtBox" HorizontalAlignment="Left" Height="99" Margin="498,253,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="245" TabIndex="8" AcceptsReturn="True"/>
-        <RadioButton x:Name="maleRadio" Content="Male" HorizontalAlignment="Left" Margin="501,170,0,0" VerticalAlignment="Top" Height="23" TabIndex="4"/>
-        <RadioButton x:Name="femaleRadio" Content="Female" HorizontalAlignment="Left" Margin="581,170,0,0" VerticalAlignment="Top" Height="23" TabIndex="5"/>
-        <Label Content="Customer ID" HorizontalAlignment="Left" Margin="384,52,0,0" VerticalAlignment="Top" Height="23" Width="110" VerticalContentAlignment="Center" FlowDirection="RightToLeft"/>
-        <Label Content="Name" HorizontalAlignment="Left" Margin="383,136,0,0" VerticalAlignment="Top" Height="23" Width="110" VerticalContentAlignment="Center" FlowDirection="RightToLeft"/>
-        <Label Content="Sex" HorizontalAlignment="Left" Margin="383,164,0,0" VerticalAlignment="Top" Height="23" Width="110" VerticalContentAlignment="Center" FlowDirection="RightToLeft"/>
-        <Label Content="Birthday" HorizontalAlignment="Left" Margin="383,194,0,0" VerticalAlignment="Top" Height="23" Width="110" VerticalContentAlignment="Center" FlowDirection="RightToLeft"/>
-        <Label Content="Email" HorizontalAlignment="Left" Margin="383,222,0,0" VerticalAlignment="Top" Height="23" Width="110" VerticalContentAlignment="Center" FlowDirection="RightToLeft"/>
-        <Label Content="Address" HorizontalAlignment="Left" Margin="383,249,0,0" VerticalAlignment="Top" Height="23" Width="110" VerticalContentAlignment="Center" FlowDirection="RightToLeft"/>
-        <Button x:Name="saveBtn" Content="Save" HorizontalAlignment="Left" Margin="561,357,0,0" VerticalAlignment="Top" Width="48" Click="saveBtn_Click" TabIndex="10"/>
-        <Button x:Name="clearBTn" Content="Clear" HorizontalAlignment="Left" Margin="614,357,0,0" VerticalAlignment="Top" Width="42" Click="clearBTn_Click" TabIndex="11"/>
-        <DataGrid x:Name="dataGrid" HorizontalAlignment="Left" Height="300" Margin="19,52,0,0" VerticalAlignment="Top" Width="345" IsReadOnly="True" SelectionChanged="dataGrid_SelectionChanged"/>
-        <Button x:Name="addBtn" Content="Add" HorizontalAlignment="Left" Margin="499,357,0,0" VerticalAlignment="Top" Width="57" Click="addBtn_Click" TabIndex="9"/>
-        <Button x:Name="RemoveBtn" Content="Remove" HorizontalAlignment="Left" Margin="19,357,0,0" VerticalAlignment="Top" Width="54" Click="RemoveBtn_Click"/>
-        <Button Content="Back" HorizontalAlignment="Left" Margin="668,357,0,0" VerticalAlignment="Top" Width="75" Click="Button_Click" TabIndex="12" />
-        <Label Content="Customers Manager" HorizontalAlignment="Left" Margin="11,-1,0,0" VerticalAlignment="Top" Height="44" Width="779" FontSize="24"/>
-        <DatePicker x:Name="datePicker" HorizontalAlignment="Left" Height="22" Margin="498,198,0,0" VerticalAlignment="Top" DisplayDate="1990-01-01" DisplayDateStart="1900-01-01" TabIndex="6"/>
-        <TextBox x:Name="phonetxtBox" HorizontalAlignment="Left" Height="23" Margin="499,84,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="244" TabIndex="1"/>
-        <Label Content="Phone" HorizontalAlignment="Left" Margin="384,80,0,0" VerticalAlignment="Top" Height="23" Width="110" VerticalContentAlignment="Center" FlowDirection="RightToLeft"/>
-        <TextBox x:Name="searchtxtBox" HorizontalAlignment="Left" Height="20" Margin="99,357,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="192" KeyDown="SearchtxtBox_KeyDown"/>
-        <Button x:Name="SearchBtn" Content="Search" HorizontalAlignment="Left" Margin="296,357,0,0" VerticalAlignment="Top" Width="68" Click="SerachBtn_Click"/>
+    <Grid Background="White">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="74*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="77*"/>
+            <ColumnDefinition Width="83*"/>
+        </Grid.ColumnDefinitions>
+        <TextBlock Text="Customers Manager" HorizontalAlignment="Left" Margin="5" FontSize="24"/>
+        
+        <DataGrid x:Name="dataGrid" HorizontalAlignment="Left" Height="300" Margin="19,7,0,0" VerticalAlignment="Top" Width="345" IsReadOnly="True" SelectionChanged="dataGrid_SelectionChanged" Grid.Row="1"/>
 
+        <Grid Grid.Row="1" Grid.Column="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <TextBlock Text="Customer ID" Grid.Row="0" Grid.Column="0" TextAlignment="Right" VerticalAlignment="Center"/>
+            <TextBox x:Name="CustomersIDtxtBox" IsUndoEnabled="False" IsReadOnly="False" Grid.Column="1" Grid.Row="0" Margin="5" TabIndex="1" Grid.ColumnSpan="2"/>
+            
+            <TextBlock Text="Phone" Grid.Row="1" Grid.Column="0" TextAlignment="Right" VerticalAlignment="Center"/>
+            <TextBox x:Name="phonetxtBox" Grid.Column="1" Grid.Row="1" Margin="5" TabIndex="2" Grid.ColumnSpan="2"/>
+
+            <Rectangle Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="3" Height="24"/>
+
+            <TextBlock Text="Name" Grid.Column="0" Grid.Row="3" TextAlignment="Right" VerticalAlignment="Center"/>
+            <Grid Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="2" HorizontalAlignment="Stretch">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <TextBox x:Name="firstNametxtBox" TabIndex="2" Margin="5"/>
+                <TextBox x:Name="lastNametxtBox" TabIndex="3" Grid.Column="1" Margin="5"/>
+            </Grid>
+
+            <TextBlock Text="Sex" Grid.Column="0" Grid.Row="4" TextAlignment="Right" VerticalAlignment="Center"/>
+            <Grid Grid.Row="4" Grid.Column="1" Grid.ColumnSpan="2" HorizontalAlignment="Stretch">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <RadioButton x:Name="maleRadio" Content="Male" TabIndex="4" Grid.Column="0" Margin="5"/>
+                <RadioButton x:Name="femaleRadio" Content="Female" TabIndex="5" Grid.Column="1" Margin="5"/>
+            </Grid>
+            
+            <TextBlock Text="Birthday" VerticalAlignment="Center" HorizontalAlignment="Right" Grid.Row="5"/>
+            <DatePicker x:Name="datePicker" DisplayDate="1990-01-01" DisplayDateStart="1900-01-01" TabIndex="6" Grid.Column="1" Grid.Row="5"/>
+            
+            <TextBlock Text="Email" VerticalAlignment="Center" HorizontalAlignment="Right" Grid.Row="6"/>
+            <TextBox x:Name="emailtxtBox" TabIndex="7" Grid.Column="1" Grid.Row="6" Margin="5"/>
+            
+            <TextBlock Text="Address" Grid.Column="0" Grid.Row="7" VerticalAlignment="Top" TextAlignment="Right"/>
+            <TextBox x:Name="addresstxtBox" VerticalAlignment="Top" Height="110" Grid.Column="1" Grid.ColumnSpan="2" Grid.Row="7" Margin="5" TabIndex="6"/>
+        </Grid>
+
+        <Grid HorizontalAlignment="Stretch" Grid.Row="2" Grid.Column="0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="0.5*"/>
+                <ColumnDefinition Width="0.5*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="0.5*"/>
+            </Grid.ColumnDefinitions>
+            <Button x:Name="RemoveBtn" Content="Remove" Click="RemoveBtn_Click" Grid.Column="0" Margin="5"/>
+            <TextBox x:Name="searchtxtBox" KeyDown="SearchtxtBox_KeyDown" Grid.Column="2" Grid.Row="2" Margin="5"/>
+            <Button x:Name="SearchBtn" Content="Search" Click="SerachBtn_Click" Grid.Column="4" Margin="5"/>
+        </Grid>
+
+        <Grid Grid.Column="1" Grid.Row="2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Button x:Name="addBtn" Content="Add" Click="addBtn_Click" TabIndex="9" Grid.Column="0" Margin="5"/>
+            <Button x:Name="saveBtn" Content="Save" Click="saveBtn_Click" TabIndex="10" Grid.Column="1" Margin="5"/>
+            <Button x:Name="clearBTn" Content="Clear" Click="clearBTn_Click" TabIndex="11" Grid.Column="2" Margin="5"/>
+            <Button Content="Back" Click="Button_Click" TabIndex="12" Grid.Column="3" Margin="5" Width="80"/>
+        </Grid>
     </Grid>
 </Page>
