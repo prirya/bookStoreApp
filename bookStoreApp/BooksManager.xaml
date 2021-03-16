@@ -25,15 +25,16 @@
         <Grid Grid.Row="2" Grid.Column="0">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="0.5*"/>
+                <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
-            <Button x:Name="addBtn" Content="Add" Margin="110,5,-98,5" Click="AddBtn_Click" Grid.Column="3"/>
-            <Button x:Name="removeBtn" Content="Remove" Margin="10,5,39,5" Click="removeBtn_Click"/>
-            <Button x:Name="HideShowBtm" Content="Hide Edit" Grid.Column="3" Margin="31,5,5,5" Click="HideEditBtm_Click"/>
-            <TextBox x:Name="searchtxtBox" HorizontalAlignment="Left" Height="20" Margin="5,5,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="165" RenderTransformOrigin="0.362,0.581" KeyDown="SearchtxtBox_KeyDown" Grid.ColumnSpan="2" Grid.Column="1"/>
-            <Button x:Name="SerachBtn" Content="Search" Grid.Column="2" Margin="75,5,74,0" VerticalAlignment="Top" Height="20" Click="SerachBtn_Click" Grid.ColumnSpan="2"/>
+            <Button x:Name="removeBtn" Content="Remove" Margin="5" Click="removeBtn_Click" Grid.Row="0"/>
+            <TextBox x:Name="searchtxtBox" HorizontalAlignment="Stretch" Height="20" TextWrapping="Wrap" VerticalAlignment="Center" KeyDown="SearchtxtBox_KeyDown" Grid.ColumnSpan="2" Grid.Column="2" Margin="5"/>
+            <Button x:Name="SerachBtn" Content="Search" VerticalAlignment="Top" Height="20" Click="SerachBtn_Click" Grid.Column="4" Margin="5"/>
+            <Button x:Name="HideShowBtm" Content="Hide Edit" Grid.Column="5" Click="HideEditBtm_Click" Margin="5"/>
         </Grid>
 
         <Grid Grid.Row="1" Grid.Column="1">
@@ -78,9 +79,10 @@
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
+            <Button x:Name="addBtn" Content="Add" Margin="5" Click="AddBtn_Click"/>
             <Button x:Name="saveBtn" Content="Save" Grid.Column="1" Margin="5" Click="saveBtn_Click"/>
             <Button x:Name="clearBtn" Content="Clear" Grid.Column="2" Margin="5" Click="clearBtn_Click"/>
-            <Button x:Name="backBtm" Content="Back" Click="backBtm_Click" Grid.Column="3" Margin="5" Width="80"/>
+            <Button x:Name="backBtm" Content="Back" Click="backBtm_Click" Grid.Column="3" Margin="5" Width="80" HorizontalAlignment="Right"/>
         </Grid>
     </Grid>
 </Page>
