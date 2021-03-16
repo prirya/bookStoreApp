@@ -20,45 +20,60 @@
         </Grid.RowDefinitions>
         <Label Content="Confirm Order" FontSize="24" Margin="5"/>
 
-        <DataGrid x:Name="dataGrid1" Margin="4,10,6,211" Grid.Row="1" Grid.Column="0" IsReadOnly="True" SelectionChanged="dataGrid_SelectionChanged"/>
+        <Grid Grid.Row="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <DataGrid x:Name="dataGrid1" Grid.Row="0" IsReadOnly="True" SelectionChanged="dataGrid_SelectionChanged" Margin="5"/>
+            <DataGrid x:Name="dataGrid2" Grid.Row="1" Grid.Column="0" IsReadOnly="True" Margin="5"/>
+        </Grid>
 
         <Grid Grid.Row="1" Grid.Column="2">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto" MinHeight="37"/>
-                <RowDefinition Height="Auto" MinHeight="159"/>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="78"/>
+                <RowDefinition />
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto"/>
-                <ColumnDefinition Width="103*"/>
-                <ColumnDefinition Width="55*"/>
-            </Grid.ColumnDefinitions>
-
-            <TextBlock Text="ID Customer" Grid.Row="1" VerticalAlignment="Center" TextAlignment="Right" Height="16" Margin="0,18,0,14"/>
-            <TextBox x:Name="CustomersIDtxtBox" Grid.Column="1" Margin="5,5,0,10" Grid.Row="1" IsReadOnly="True"/>
-
-            <TextBlock x:Name="quantityBuy" Text="Phone Number" VerticalAlignment="Center" TextAlignment="Right" Height="16" Margin="0,8,0,18"/>
-            <TextBox x:Name="phonetxtBox" Grid.Column="1" Margin="5,7,0,6" KeyDown="phonetxtBox_KeyDown"/>
-            <Image x:Name="imageBox" Grid.Column="2" Grid.RowSpan="3"/>
-
-            <TextBlock Text="Total Price" FontSize="20" FontWeight="Bold" Grid.Column="1" Grid.Row="2" VerticalAlignment="Center" TextAlignment="Right" Height="26" Margin="190,77,10,78" Grid.ColumnSpan="2"/>
-            <TextBox x:Name="totalPricetxtBox" FontSize="72" Grid.Row="2" Margin="10,113,0,-60" Background="#FFA0FF8B" Grid.ColumnSpan="2" TextAlignment="Right" Height="127" VerticalAlignment="Top"/>
-            <TextBox x:Name="DottxtBox" Grid.Column="2" Grid.Row="2" Margin="0,113,5,-60" FontSize="72" Background="#FFD8FFF4"/>
-            <TextBlock FontSize="20" Grid.Column="1" Grid.Row="2" VerticalAlignment="Center" TextAlignment="Right" Height="26" Margin="175,12,5,144" Grid.ColumnSpan="2" FontWeight="Bold"><Run Text="Total "/><Run Text="Quantity"/></TextBlock>
-            <TextBox x:Name="totalQuantitytxtBox" Grid.Column="2" HorizontalAlignment="Left" Height="35" Margin="10,42,0,0" Grid.Row="2" TextWrapping="Wrap" VerticalAlignment="Top" Width="82" FontSize="22" FontWeight="Bold" TextAlignment="Right" Background="#FFFFFFAB"/>
-            <TextBox x:Name="firstNametxtBox" HorizontalAlignment="Left" Height="22" Margin="5,10,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="143" Grid.Row="2" Grid.Column="1" IsReadOnly="True"/>
-            <TextBox x:Name="lastNametxtBox" HorizontalAlignment="Left" Height="23" Margin="5,42,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="143" Grid.Column="1" Grid.Row="2" IsReadOnly="True"/>
-            <Button x:Name="SearchBtn" Content="Search" Grid.Column="2" HorizontalAlignment="Left" Margin="10,6,0,0" VerticalAlignment="Top" Width="91" Height="76" Click="SerachBtn_Click" Grid.RowSpan="2"/>
-            <Button x:Name="customerBtn" Content="Customers Manager" HorizontalAlignment="Left" Margin="5,70,0,0" VerticalAlignment="Top" Width="143" Click="customerBtn_Click" Grid.Column="1" Grid.Row="2"/>
-        </Grid>
-
-        <Grid Grid.Row="2" Grid.Column="0">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="2*"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
+
+            <TextBlock x:Name="quantityBuy" Text="Phone Number" VerticalAlignment="Center" TextAlignment="Right" Height="16" Margin="0,8" />
+            <TextBox x:Name="phonetxtBox" Grid.Column="1" Margin="5" KeyDown="phonetxtBox_KeyDown"/>
+
+            <TextBlock Text="ID Customer" Grid.Row="1" VerticalAlignment="Center" TextAlignment="Right" Height="16" Margin="0,8"/>
+            <TextBox x:Name="CustomersIDtxtBox" Grid.Column="1" Margin="5" Grid.Row="1" IsReadOnly="True"/>
+
+            <Button x:Name="SearchBtn" Content="Search" Grid.Column="2" HorizontalAlignment="Stretch" Margin="5" VerticalAlignment="Stretch" Click="SerachBtn_Click" Grid.RowSpan="2"/>
+
+            <Grid Grid.Column="1" Grid.Row="2">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="0.5*"/>
+                </Grid.ColumnDefinitions>
+                <StackPanel>
+                    <TextBox x:Name="firstNametxtBox" Grid.Row="0" HorizontalAlignment="Stretch" Height="22" Margin="5" TextWrapping="Wrap" VerticalAlignment="Stretch" Grid.Column="0" IsReadOnly="True"/>
+                    <TextBox x:Name="lastNametxtBox" Grid.Row="1" HorizontalAlignment="Stretch" Height="22" Margin="5" TextWrapping="Wrap" VerticalAlignment="Stretch" Grid.Column="0" IsReadOnly="True"/>
+                    <Button x:Name="customerBtn" Grid.Row="2" Content="Customers Manager" HorizontalAlignment="Stretch" Margin="5" VerticalAlignment="Stretch" Click="customerBtn_Click"/>
+                </StackPanel>
+            </Grid>
+
+            <StackPanel Grid.Column="1" Grid.ColumnSpan="2" Grid.Row="2" Grid.RowSpan="2" VerticalAlignment="Bottom">
+                <TextBlock FontSize="20" HorizontalAlignment="Right" Margin="5" FontWeight="Bold" Text="Total Quantity"/>
+                <TextBox x:Name="totalQuantitytxtBox" HorizontalAlignment="Right" Height="35" Margin="5" TextWrapping="Wrap" VerticalAlignment="Top" Width="82" FontSize="22" FontWeight="Bold" TextAlignment="Right" Background="#FFFFFFAB"/>
+                <TextBlock Text="Total Price" FontSize="20" FontWeight="Bold" Grid.Column="1" Grid.Row="3" HorizontalAlignment="Right" Margin="5"/>
+            </StackPanel>
+
+
+            <TextBox x:Name="totalPricetxtBox" FontSize="72" Grid.Row="4" Margin="5,5,20,5" Background="#FFA0FF8B" Grid.ColumnSpan="2" TextAlignment="Right"/>
+            <TextBlock Text="." Grid.Column="1" Grid.Row="4" HorizontalAlignment="Right" FontSize="72" VerticalAlignment="Center"/>
+            <TextBox x:Name="DottxtBox" Grid.Column="2" Grid.Row="4" Margin="5,5,5,5" FontSize="72" Background="#FFD8FFF4"/>
+
         </Grid>
 
         <Grid Grid.Column="1" Grid.Row="3">
@@ -72,6 +87,5 @@
             <Button x:Name="SellBtn" Content="Sell" Grid.Column="2" Margin="5" Click="SellBtn_Click"  />
             <Button x:Name="backBtm" Content="Back" Grid.Column="3" Margin="5" Width="80" Click="backBtm_Click"/>
         </Grid>
-        <DataGrid x:Name="dataGrid2" Margin="5,172,5,10" Grid.Row="1" Grid.Column="0" IsReadOnly="True"/>
     </Grid>
 </Page>
