@@ -28,7 +28,7 @@ namespace bookStoreApp
         public bool Sex { get; set; }
         public string Phone { get; set; }
         public CustomerModel() { }
-        public CustomerModel(int customerId,string name,string address, string email,DateTime birthday ,bool sex ,string phone) 
+        public CustomerModel(int customerId, string name, string address, string email, DateTime birthday, bool sex, string phone)
         {
             CustomerId = customerId;
             Name = name;
@@ -49,7 +49,7 @@ namespace bookStoreApp
         public decimal Price { get; set; }
         public int Quantity { get; set; }
         public BookModel() { }
-        public BookModel(int number, string isbn, string title, string type, string description, decimal price,int quantity)
+        public BookModel(int number, string isbn, string title, string type, string description, decimal price, int quantity)
         {
             Number = number;
             ISBN = isbn;
@@ -91,7 +91,7 @@ namespace bookStoreApp
         public int Quantity { get; set; }
         public int Number { get; set; }
         public GetdataTransactions() { }
-        public GetdataTransactions(string isbn, string titleBook,string type,decimal price,int quantitySold,int quantity,int number)
+        public GetdataTransactions(string isbn, string titleBook, string type, decimal price, int quantitySold, int quantity, int number)
         {
             ISBN = isbn;
             TitleBook = titleBook;
@@ -101,6 +101,34 @@ namespace bookStoreApp
             Quantity = quantity;
             Number = number;
 
+        }
+    }
+    public class Bill
+    {
+        public int NumberBill { get; set; }
+        public int CustomerID { get; set; }
+        public DateTime TimeSold { get; set; }
+        public int User { get; set; }
+        public Bill() { }
+        public Bill(int numberBill,int customerID, DateTime timeSold, int user)
+        {
+            NumberBill = numberBill;
+            CustomerID = customerID;
+            TimeSold = timeSold;
+            User = user;
+        }
+    }
+    public class BillDetail
+    {
+        public int NumberBill { get; set; }
+        public string ISBN { get; set; }
+        public int Quantity { get; set; }
+        public BillDetail() { }
+        public BillDetail(int numberBill, string Isbn, int quantity)
+        {
+            NumberBill = numberBill;
+            ISBN = Isbn;
+            Quantity = quantity;
         }
     }
 }

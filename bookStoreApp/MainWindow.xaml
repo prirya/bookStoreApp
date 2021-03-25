@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:bookStoreApp"
         mc:Ignorable="d"
-        Title="Book store manager" Width="800" Height="480">
+        Title="Book store manager" Width="1024" Height="768">
     <Grid>
         <Frame x:FieldModifier="public" Margin="12" x:Name="mainFrame" NavigationUIVisibility="Hidden"/>
     </Grid>

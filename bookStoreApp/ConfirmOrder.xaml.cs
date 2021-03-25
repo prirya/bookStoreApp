@@ -1,4 +1,4 @@
-﻿using System;
+﻿ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -22,7 +22,10 @@ namespace bookStoreApp
     {
         List<CustomerModel> people = new List<CustomerModel>();
         List<GetdataTransactions> BookList = new List<GetdataTransactions>();
-        TransactionsSold Order = new TransactionsSold();
+        Bill Order = new Bill();
+        List<BillDetail> bill = new List<BillDetail>();
+        List<UserModel> UserList = new List<UserModel>();
+        int useridsent;
         public ConfirmOrder()
         {
             InitializeComponent();
@@ -31,7 +34,7 @@ namespace bookStoreApp
 
 
         }
-        public ConfirmOrder(List<GetdataTransactions> bookList, string totalPrice, string Dot , string totalQuantity)
+        public ConfirmOrder(List<GetdataTransactions> bookList, string totalPrice, string Dot , string totalQuantity ,string userid)
         {
             InitializeComponent();
             Loaded += Loader;
@@ -42,6 +45,8 @@ namespace bookStoreApp
             totalPricetxtBox.Text = totalPrice;
             DottxtBox.Text = Dot;
             totalQuantitytxtBox.Text = totalQuantity;
+            UserList = DataAccess.SearchPeople(userid);
+            useridsent = UserList[0].Number;
         }
         private void Loader(object sender, RoutedEventArgs e)
         {
@@ -85,6 +90,11 @@ namespace bookStoreApp
         private void SerachBtn_Click(object sender, RoutedEventArgs e)
         {
             if (phonetxtBox.Text == "") { refreshData(); return; }
+            if (NumberOnly(phonetxtBox.Text) == false)
+            {
+                MessageBox.Show("please put the number only");
+                return;
+            }
             people = DataAccess.SearchCustomers(phonetxtBox.Text);
             dataGrid1.ItemsSource = null;
             dataGrid1.ItemsSource = people;
@@ -123,27 +133,18 @@ namespace bookStoreApp
                 lastNametxtBox.Text = "";
             }
             phonetxtBox.Text = selectPerson.Phone;
-            Order.CustomerId = selectPerson.CustomerId;
+            Order.CustomerID = selectPerson.CustomerId;
         }
         private void SellBtn_Click(object sender, RoutedEventArgs e)
         {
             string textshow = "";
             int count = 1;
             decimal totalprice = Transactions.CalculateTotalBookPrice(BookList);
-            string BookISBN = "";
-            string Quantitydetail = "";
-            string PricePerBook = "";
-            foreach (var ISBNall in BookList)
-            {
-                BookISBN += $"{ISBNall.ISBN}\r\n";
-                Quantitydetail += $"({ISBNall.ISBN}){ISBNall.QuantitySold}\r\n";
-                PricePerBook += $"({ISBNall.ISBN}){ISBNall.Price}\r\n";
-            }
-            Order.ISBN = BookISBN;
-            Order.TotalPrice = totalprice;
-            Order.QuantitySold = Quantitydetail;
+            if (CustomersIDtxtBox.Text == "" ) { Order.CustomerID = 0; }
+            else if (CustomersIDtxtBox.Text != "") { Order.CustomerID = int.Parse(CustomersIDtxtBox.Text); }
             Order.TimeSold = DateTime.Now;
-            Order.PricePerBook = PricePerBook;
+            Order.User = useridsent;
+
             foreach (var order in BookList)
             {
                 textshow += $"{count}.{order.TitleBook}  Quantity :{order.QuantitySold} Price :{order.Price * order.QuantitySold}\r \n";
@@ -153,7 +154,17 @@ namespace bookStoreApp
             if (Answer == MessageBoxResult.Yes)
             {
                 DataAccess.SellBook(BookList);
-                DataAccess.AddDataTransactions(Order);
+                int billNumber = DataAccess.AddDataTransactions(Order); //TODO : BillDetail ยังไม่ได้ทำ
+                bill = new List<BillDetail>();
+                foreach (var ISBNall in BookList)
+                {
+                    var detail = new BillDetail();
+                    detail.NumberBill = billNumber;
+                    detail.ISBN = ISBNall.ISBN;
+                    detail.Quantity = ISBNall.QuantitySold;
+                    bill.Add(detail);
+                }
+                DataAccess.AddBill(billNumber, bill);
                 ClearAll();
                 NavigationService.Navigate(new Transactions());
             }
@@ -173,6 +184,21 @@ namespace bookStoreApp
         {
             Clearpeople();
             refreshData();
+        }
+        public static bool NumberOnly(string word)
+        {
+            foreach (var c in word)
+            {
+                if (char.IsDigit(c) == true)
+                {
+                    continue;
+                }
+                else if (char.IsDigit(c) == false)
+                {
+                    return false;
+                }
+            }
+            return true;
         }
     }
 }

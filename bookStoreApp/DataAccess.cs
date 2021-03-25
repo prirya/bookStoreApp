@@ -32,7 +32,8 @@ namespace bookStoreApp
                     //สร้างตารางหนังสือ
                     "CREATE TABLE IF NOT EXISTS BookTable (Number INTEGER PRIMARY KEY ,`ISBN` CHAR(10) NULL, Title NVARCHAR(200) NULL,Type NVARCHAR(500) NULL,Description NVARCHAR(500) NULL,Price DECIMAL NULL,Quantity INT NULL);" +
                     //ข้อมูลการขาย
-                    "CREATE TABLE IF NOT EXISTS Transactions (Number INTEGER PRIMARY KEY ,`ISBN` CHAR(500) NULL,`Customers ID` INTEGER NULL,Quatity NVARCHAR(500) NULL,PricePerBook DECIMAL NULL,`Total Price` DECIMAL NULL,`Time Sold` DATETIME NULL);");
+                    "CREATE TABLE IF NOT EXISTS Transactions (BillNumber INTEGER PRIMARY KEY ,CustomersID INTEGER NULL,TimeSold DATETIME NULL,UserIDNumber INT NULL);" +
+                    "CREATE TABLE IF NOT EXISTS Bill (BillNumber INTEGER NULL,ISBN CHAR(500) NULL,Quatity NVARCHAR(500) NULL);");
             Command(admindbpath, "CREATE TABLE IF NOT EXISTS User (`Number` INTEGER PRIMARY KEY, `User ID` NVARCHAR(100) NULL, `Password` NVARCHAR(100) NULL, `Name` NVARCHAR(50) NULL, `Address` NVARCHAR(500) NULL, `Email` NVARCHAR(50) NULL, `Birth day` NVARCHAR(50) NULL, `Sex (Male)` BOOL NULL, `TypeAdmin` BOOL NULL);");
 
 #if DEBUG
@@ -497,28 +498,53 @@ namespace bookStoreApp
         #endregion
         #region Transactions Zone
 
-        public static void AddDataTransactions(TransactionsSold Order) //TODO : Fix this Method
+        public static int AddDataTransactions(Bill Order)
         {
-
+            
             using (SqliteConnection db = new SqliteConnection($"Filename={dbpath}"))
             {
                 db.Open();
                 SqliteCommand insertCommand = new SqliteCommand();
                 insertCommand.Connection = db;
-
-                insertCommand.CommandText = "INSERT INTO Transactions VALUES(NULL,@isbn,@CustomersID,@QuantitySold,@PricePerBook,@TotalPrice,@timeSold);";
-                insertCommand.Parameters.AddWithValue("@isbn", Order.ISBN);
-                insertCommand.Parameters.AddWithValue("@CustomersID", Order.CustomerId);
-                insertCommand.Parameters.AddWithValue("@QuantitySold", Order.QuantitySold);
-                insertCommand.Parameters.AddWithValue("@PricePerBook", Order.PricePerBook);
-                insertCommand.Parameters.AddWithValue("@TotalPrice", Order.TotalPrice);
+                insertCommand.CommandText = "INSERT INTO Transactions VALUES(NULL,@CustomersID,@timeSold,@UserIDNumber);";
+                insertCommand.Parameters.AddWithValue("@CustomersID", Order.CustomerID);
                 insertCommand.Parameters.AddWithValue("@timeSold", Order.TimeSold);
+                insertCommand.Parameters.AddWithValue("@UserIDNumber", Order.User);
                 insertCommand.ExecuteReader();
 
+                SqliteCommand selectCommand = new SqliteCommand();
+                selectCommand.Connection = db;
+                selectCommand.CommandText = "SELECT BillNumber FROM Transactions";
+                SqliteDataReader query = selectCommand.ExecuteReader();
+                int billNumber = 0;
+
+                while (query.Read())
+                {
+                    billNumber = query.GetInt32(0);
+                }
                 db.Close();
+                return billNumber;
             }
         }
-        public static List<BookModel> GetTransactions() //TODO : fix
+        public static void AddBill(int billNumber ,List<BillDetail> bill)
+        {
+            using (SqliteConnection db = new SqliteConnection($"Filename={dbpath}"))
+            {
+                db.Open();
+                foreach (var book in bill)
+                {
+                    SqliteCommand insertBill = new SqliteCommand();
+                    insertBill.Connection = db;
+                    insertBill.CommandText = $"INSERT INTO Bill VALUES({billNumber},@ISBN,@Quatity);";
+                    insertBill.Parameters.AddWithValue("@ISBN", book.ISBN);
+                    insertBill.Parameters.AddWithValue("@Quatity", book.Quantity);
+                    insertBill.ExecuteReader();
+                }
+                db.Close();
+            }
+            
+        }
+        public static List<BookModel> GetTransactions()
         {
             List<BookModel> entries = new List<BookModel>();
             using (SqliteConnection db = new SqliteConnection($"Filename={dbpath}"))
@@ -544,30 +570,6 @@ namespace bookStoreApp
                 return entries;
             }
         }
-        //public static void RemoveBookTable(BookModel book) //TODO : fix
-        //{
-        //    Command(dbpath, $"DELETE FROM BookTable WHERE Number = \"{book.Number}\";");
-        //}
-        //public static void SaveBook(BookModel book) //TODO : fix
-        //{
-        //    using (SqliteConnection db = new SqliteConnection($"Filename={dbpath}"))
-        //    {
-        //        db.Open();
-        //        SqliteCommand sqliteCommand = new SqliteCommand();
-        //        sqliteCommand.Connection = db;
-        //        //SQLite Command
-        //        sqliteCommand.CommandText = $"UPDATE BookTable SET " +
-        //            $"ISBN = \"{book.ISBN}\" ," +
-        //            $"Title = \"{book.Title}\" ," +
-        //            $"Type = \"{book.Type}\" ," +
-        //            $"Description = \"{book.Description}\" ," +
-        //            $"Price = {book.Price} ," +
-        //            $"Quantity = {book.Quantity} " +
-        //            $"WHERE Number = {book.Number};";
-        //        sqliteCommand.ExecuteReader();
-        //        db.Close();
-        //    }
-        //}
         public static List<GetdataTransactions> GetDataBook(string isbn,int quantitySold)
         {
             List<GetdataTransactions> entries = new List<GetdataTransactions>();
@@ -595,15 +597,6 @@ namespace bookStoreApp
                 return entries;
             }
         }
-
-        public static void SellAllBooks(List<GetdataTransactions> Books)
-		{
-
-            //TODO:เช็คหนังสือในสต็อค
-            //TODO:ลบหนังสือที่เหลืออยู่ (Quantity) ใน BookTable
-
-            //TODO:บันทึกรายการขาย
-		}
         public static void SellBook(List<GetdataTransactions> bookList)
         {
             using (SqliteConnection db = new SqliteConnection($"Filename={dbpath}"))
@@ -625,7 +618,7 @@ namespace bookStoreApp
                 db.Close();
             }
         }
-
+        //TODO : GetLog Bill
         #endregion
 
 

@@ -182,7 +182,7 @@ namespace bookStoreApp
         private void RemoveBtn_Click(object sender, RoutedEventArgs e)
         {
             if (dataGrid.SelectedCells == null || dataGrid.SelectedCells.Count < 1) { return; }
-            var selectPerson = dataGrid.SelectedCells[0].Item as CustomerModel; //TODO fix bug if null
+            var selectPerson = dataGrid.SelectedCells[0].Item as CustomerModel;
             var Result = MessageBox.Show("Are you sure?", "Confirm", MessageBoxButton.YesNo);
             if (Result == MessageBoxResult.Yes)
             {

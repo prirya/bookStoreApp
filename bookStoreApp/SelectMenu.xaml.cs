@@ -20,6 +20,7 @@ namespace bookStoreApp
     /// </summary>
     public partial class SelectMenu : Page
     {
+        static string useridsent = "";
         public SelectMenu(string userid, string password)
         {
             InitializeComponent();
@@ -36,6 +37,7 @@ namespace bookStoreApp
             {
                 adminManagerBtn.Visibility = Visibility.Hidden;
             }
+            userid = useridsent;
         }
         public SelectMenu()
         {
@@ -63,7 +65,7 @@ namespace bookStoreApp
 
         private void Button_Click_1(object sender, RoutedEventArgs e)
         {
-            NavigationService.Navigate(new Transactions());
+            NavigationService.Navigate(new Transactions(useridsent));
         }
 
         private void Button_Click_2(object sender, RoutedEventArgs e)

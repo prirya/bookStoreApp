@@ -21,11 +21,18 @@ namespace bookStoreApp
     /// </summary>
     public partial class Transactions : Page
     {
-        List<GetdataTransactions> BookList = new List<GetdataTransactions>();
+        string useridsent = "";
+        List<GetdataTransactions> BookList = new List<GetdataTransactions>(); //TODO : แก้โคตรใหม่หมด
         public Transactions()
         {
             InitializeComponent();
             iSBNtxtBox.Focus();
+        }
+        public Transactions(string userid)
+        {
+            InitializeComponent();
+            iSBNtxtBox.Focus();
+            useridsent = userid;
         }
         private void backBtm_Click(object sender, RoutedEventArgs e)
         {
@@ -70,7 +77,7 @@ namespace bookStoreApp
 
         private void AddBtn_Click(object sender, RoutedEventArgs e)
         {
-
+            if (iSBNtxtBox.Text == "") { return; }
             var databook = DataAccess.GetDataBook(iSBNtxtBox.Text, int.Parse(quantitytxtBox.Text));
             if (databook.Count == 0)
             {
@@ -122,13 +129,13 @@ namespace bookStoreApp
             {
                 return;
             }
-            NavigationService.Navigate(new ConfirmOrder(BookList, totalPricetxtBox.Text, DottxtBox.Text, totalQuantitytxtBox.Text));
+            NavigationService.Navigate(new ConfirmOrder(BookList, totalPricetxtBox.Text, DottxtBox.Text, totalQuantitytxtBox.Text, useridsent));
         }
 
         private void removeBtn_Click(object sender, RoutedEventArgs e)
         {
             if (dataGrid.SelectedCells == null || dataGrid.SelectedCells.Count < 1) { return; }
-            var book = dataGrid.SelectedCells[0].Item as GetdataTransactions; //TODO fix bug if null
+            var book = dataGrid.SelectedCells[0].Item as GetdataTransactions;
             if (book == null || dataGrid.SelectedCells == null) 
             {
                 return; 
