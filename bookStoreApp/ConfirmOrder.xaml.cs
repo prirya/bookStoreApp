@@ -46,8 +46,7 @@ namespace bookStoreApp
             totalPricetxtBox.Text = totalPrice;
             DottxtBox.Text = Dot;
             totalQuantitytxtBox.Text = totalQuantity;
-            UserList = DataAccess.SearchUser(userid);
-            useridsent = UserList[0].Number;
+            useridsent = DataAccess.GetUser(userid).Number;
             Totalprice = totalprice;
         }
         private void Loader(object sender, RoutedEventArgs e)

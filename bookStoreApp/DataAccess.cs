@@ -210,6 +210,35 @@ namespace bookStoreApp
                 return entries;
             }
         }
+        public static UserModel GetUser(string search)
+        {
+            UserModel user = new UserModel();
+            using (SqliteConnection admindb = new SqliteConnection($"Filename={admindbpath}"))
+            {
+                admindb.Open();
+                SqliteCommand sqliteCommand = new SqliteCommand();
+                sqliteCommand.Connection = admindb;
+                sqliteCommand.CommandText = $"SELECT Number,`User Id`,Password,Name,Address,Email,`Birth day`,`Sex (Male)`,TypeAdmin FROM User WHERE `User ID` = \"{search}\";";
+                SqliteDataReader query = sqliteCommand.ExecuteReader();
+                while (query.Read())
+                {
+                    user = new UserModel()
+                    {
+                        Number = query.GetInt32(0),
+                        userId = query.GetString(1),
+                        password = query.GetString(2),
+                        name = query.GetString(3),
+                        address = query.GetString(4),
+                        email = query.GetString(5),
+                        birthday = Time(query.GetString(6)),
+                        sex = query.GetBoolean(7),
+                        typeAdmin = query.GetBoolean(8)
+                    };
+                }
+                admindb.Close();
+                return user;
+            }
+        }
         public static string SearchUserID(int id)
         {
             string userName = "";

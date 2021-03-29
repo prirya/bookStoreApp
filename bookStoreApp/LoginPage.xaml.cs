@@ -62,14 +62,6 @@ namespace bookStoreApp
             {
                 passWordtxtBox.Focus(); //คำสั่งนี้ใช้เพื่อให้เกิดคอเซอร์เมอร์ไปกระพิบที่ช่องนั้นๆ (Focus())
             }
-#if DEBUG
-            if (e.Key == Key.F12)
-            {
-                IDtxtBox.Text = "root";
-                passWordtxtBox.Text = "7777";
-                loginBottom_Click(null, null);
-            }
-#endif
         }
     }
 }

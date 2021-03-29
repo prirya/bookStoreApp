@@ -37,7 +37,7 @@ namespace bookStoreApp
             {
                 adminManagerBtn.Visibility = Visibility.Hidden;
             }
-            userid = useridsent;
+            useridsent = userid;
         }
         public SelectMenu()
         {
