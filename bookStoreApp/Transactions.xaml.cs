@@ -22,7 +22,8 @@ namespace bookStoreApp
     public partial class Transactions : Page
     {
         string useridsent = "";
-        List<GetdataTransactions> BookList = new List<GetdataTransactions>(); //TODO : แก้โคตรใหม่หมด
+        decimal TotalPrice = 0m;
+        List<GetdataTransactions> BookList = new List<GetdataTransactions>();
         public Transactions()
         {
             InitializeComponent();
@@ -106,9 +107,9 @@ namespace bookStoreApp
             dataGrid.ItemsSource = null;
             dataGrid.ItemsSource = BookList;
             int bookcount = CalculateTotalBookCount(BookList);
-            decimal totalprice = CalculateTotalBookPrice(BookList);
+            TotalPrice = CalculateTotalBookPrice(BookList);
             totalQuantitytxtBox.Text = bookcount.ToString();
-            string stringtotalPrice = totalprice.ToString();
+            string stringtotalPrice = TotalPrice.ToString();
             var cha = stringtotalPrice.Split('.');
             if (cha.Length > 1)
             {
@@ -129,7 +130,7 @@ namespace bookStoreApp
             {
                 return;
             }
-            NavigationService.Navigate(new ConfirmOrder(BookList, totalPricetxtBox.Text, DottxtBox.Text, totalQuantitytxtBox.Text, useridsent));
+            NavigationService.Navigate(new ConfirmOrder(BookList, totalPricetxtBox.Text, DottxtBox.Text, totalQuantitytxtBox.Text, useridsent, TotalPrice));
         }
 
         private void removeBtn_Click(object sender, RoutedEventArgs e)

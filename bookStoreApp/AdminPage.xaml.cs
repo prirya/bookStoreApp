@@ -221,7 +221,7 @@ namespace bookStoreApp
         private void SearchBtn_Click(object sender, RoutedEventArgs e)
         {
             if (SearchtxtBox.Text == "") { refreshDATA(); return; }
-            people = DataAccess.SearchPeople(SearchtxtBox.Text);
+            people = DataAccess.SearchUser(SearchtxtBox.Text);
             dataGrid.ItemsSource = null;
             dataGrid.ItemsSource = people;
         }

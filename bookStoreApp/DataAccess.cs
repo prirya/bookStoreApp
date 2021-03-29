@@ -32,13 +32,10 @@ namespace bookStoreApp
                     //สร้างตารางหนังสือ
                     "CREATE TABLE IF NOT EXISTS BookTable (Number INTEGER PRIMARY KEY ,`ISBN` CHAR(10) NULL, Title NVARCHAR(200) NULL,Type NVARCHAR(500) NULL,Description NVARCHAR(500) NULL,Price DECIMAL NULL,Quantity INT NULL);" +
                     //ข้อมูลการขาย
-                    "CREATE TABLE IF NOT EXISTS Transactions (BillNumber INTEGER PRIMARY KEY ,CustomersID INTEGER NULL,TimeSold DATETIME NULL,UserIDNumber INT NULL);" +
+                    "CREATE TABLE IF NOT EXISTS Transactions (BillNumber INTEGER PRIMARY KEY ,CustomersID INTEGER NULL,TimeSold DATETIME NULL,UserIDNumber INT NULL,TotalPrice DECIMAL NULL);" +
                     "CREATE TABLE IF NOT EXISTS Bill (BillNumber INTEGER NULL,ISBN CHAR(500) NULL,Quatity NVARCHAR(500) NULL);");
             Command(admindbpath, "CREATE TABLE IF NOT EXISTS User (`Number` INTEGER PRIMARY KEY, `User ID` NVARCHAR(100) NULL, `Password` NVARCHAR(100) NULL, `Name` NVARCHAR(50) NULL, `Address` NVARCHAR(500) NULL, `Email` NVARCHAR(50) NULL, `Birth day` NVARCHAR(50) NULL, `Sex (Male)` BOOL NULL, `TypeAdmin` BOOL NULL);");
 
-#if DEBUG
-            AddDebugData();
-#endif
         }
 
         public static SqliteDataReader GetSqliterQuery(string filename, string command) //TODO : ยังไม่เวิร์ค ต้องมี List ลองรับ
@@ -57,36 +54,7 @@ namespace bookStoreApp
                 return query;
             }
         }
-        public static void AddDebugData()
-        {
-            var usernames = GetUsernames();
-            if (usernames.ContainsKey("root"))
-                return;
-            //Admin test
-            AddUserTable("root", "7777", "Administrator", "", "", new DateTime(1990, 5, 12), true, true);
-            //User test
-            //AddDataCustomerTable(GetRandomName(), "", "");
-            //AddDataCustomerTable(GetRandomName(), "", "");
-            //AddDataCustomerTable(GetRandomName(), "", "");
-            //AddDataCustomerTable(GetRandomName(), "", "");
-            //AddDataCustomerTable(GetRandomName(), "", "");
-        }
 
-        static string chars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
-        static Random randomCore;
-        public static string GetRandomName()
-        {
-            if (randomCore == null)
-                randomCore = new Random();
-            int length = randomCore.Next(10, 20);
-            string randomName = "";
-            while (length > 1)
-            {
-                randomName += chars[randomCore.Next(0, chars.Length - 1)];
-                length--;
-            }
-            return randomName;
-        }
         public static DateTime Time(string time)
         {
             var split = time.Split('-');
@@ -213,7 +181,7 @@ namespace bookStoreApp
                 Number = number
             }) ;
         }
-        public static List<UserModel> SearchPeople(string search)
+        public static List<UserModel> SearchUser(string search)
         {
             List<UserModel> entries = new List<UserModel>();
             using (SqliteConnection admindb = new SqliteConnection($"Filename={admindbpath}"))
@@ -241,6 +209,26 @@ namespace bookStoreApp
                 admindb.Close();
                 return entries;
             }
+        }
+        public static string SearchUserID(int id)
+        {
+            string userName = "";
+            using (SqliteConnection admindb = new SqliteConnection($"Filename={admindbpath}"))
+            {
+                admindb.Open();
+
+                SqliteCommand selectCommand = new SqliteCommand
+                    ("SELECT Name from User " +
+                    $"WHERE Number =\"{id}\";", admindb); 
+
+                SqliteDataReader query = selectCommand.ExecuteReader();
+                while (query.Read())
+                {
+                    userName = query.GetString(0);
+                }
+                admindb.Close();
+            }
+            return userName;
         }
         public static bool Typeuser(string userid, string password)
         {
@@ -398,6 +386,25 @@ namespace bookStoreApp
                 return entries;
             }
         }
+        public static string SearchCustomersID(int search)
+        {
+            using (SqliteConnection db = new SqliteConnection($"Filename={dbpath}"))
+            {
+                db.Open();
+                SqliteCommand sqliteCommand = new SqliteCommand();
+                sqliteCommand.Connection = db;
+                sqliteCommand.CommandText = $"SELECT Name FROM CustomersTable WHERE `Customer ID` LIKE \"%{search}%\";";
+                SqliteDataReader query = sqliteCommand.ExecuteReader();
+                string CustomerName = "";
+                while (query.Read())
+                {
+                    CustomerName = query.GetString(0);
+                }
+                db.Close();
+                if (CustomerName == "") { CustomerName = "Anonymous"; }
+                return CustomerName;
+            }
+        }
         #endregion
         #region Book Data Base Zone
         public static List<BookModel> GetBookData()
@@ -476,7 +483,7 @@ namespace bookStoreApp
                 db.Open();
                 SqliteCommand sqliteCommand = new SqliteCommand();
                 sqliteCommand.Connection = db;
-                sqliteCommand.CommandText = $"SELECT Number,ISBN,Type,Title,Description,Price,Quantity FROM BookTable WHERE Title LIKE \"%{search.ToLower()}%\" OR ISBN LIKE  \"%{search.ToLower()}%\";";
+                sqliteCommand.CommandText = $"SELECT Number,ISBN,Title,Type,Description,Price,Quantity FROM BookTable WHERE Title LIKE \"%{search.ToLower()}%\" OR ISBN LIKE  \"%{search.ToLower()}%\";";
                 SqliteDataReader query = sqliteCommand.ExecuteReader();
                 while (query.Read())
                 {
@@ -506,10 +513,11 @@ namespace bookStoreApp
                 db.Open();
                 SqliteCommand insertCommand = new SqliteCommand();
                 insertCommand.Connection = db;
-                insertCommand.CommandText = "INSERT INTO Transactions VALUES(NULL,@CustomersID,@timeSold,@UserIDNumber);";
+                insertCommand.CommandText = "INSERT INTO Transactions VALUES(NULL,@CustomersID,@timeSold,@UserIDNumber,@totalprice);";
                 insertCommand.Parameters.AddWithValue("@CustomersID", Order.CustomerID);
                 insertCommand.Parameters.AddWithValue("@timeSold", Order.TimeSold);
                 insertCommand.Parameters.AddWithValue("@UserIDNumber", Order.User);
+                insertCommand.Parameters.AddWithValue("@totalprice", Order.TotalPrice);
                 insertCommand.ExecuteReader();
 
                 SqliteCommand selectCommand = new SqliteCommand();
@@ -618,9 +626,55 @@ namespace bookStoreApp
                 db.Close();
             }
         }
-        //TODO : GetLog Bill
         #endregion
-
+        #region LogShow
+        public static List<Bill> GetBill()
+        {
+            List<Bill> entries = new List<Bill>();
+            using (SqliteConnection db = new SqliteConnection($"Filename={dbpath}"))
+            {
+                db.Open();
+                SqliteCommand selectCommand = new SqliteCommand
+                    ("SELECT BillNumber,CustomersID,TimeSold,UserIDNumber,TotalPrice FROM Transactions", db);
+                SqliteDataReader query = selectCommand.ExecuteReader();
+                while (query.Read())
+                {
+                    entries.Add(new Bill()
+                    {
+                        NumberBill = query.GetInt32(0),
+                        CustomerID = query.GetInt32(1),
+                        TimeSold = query.GetDateTime(2),
+                        User = query.GetInt32(3),
+                        TotalPrice = query.GetDecimal(4)
+                    });
+                }
+                db.Close();
+                return entries;
+            }
+        }
+        public static List<BillDetail> GetBillDetaill(int numberBill)
+        {
+            List<BillDetail> entries = new List<BillDetail>();
+            using (SqliteConnection db = new SqliteConnection($"Filename={dbpath}"))
+            {
+                db.Open();
+                SqliteCommand selectCommand = new SqliteCommand
+                    ($"SELECT ISBN,Quatity FROM Bill WHERE BillNumber LIKE \"%{numberBill}%\";", db);
+                SqliteDataReader query = selectCommand.ExecuteReader();
+                while (query.Read())
+                {
+                    entries.Add(new BillDetail()
+                    {
+                        NumberBill = numberBill,
+                        ISBN = query.GetString(0),
+                        Quantity = query.GetInt32(1),
+                    });
+                }
+                db.Close();
+                return entries;
+            }
+        }
+        #endregion
 
     }
 }

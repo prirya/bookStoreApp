@@ -34,7 +34,8 @@ namespace bookStoreApp
 
 
         }
-        public ConfirmOrder(List<GetdataTransactions> bookList, string totalPrice, string Dot , string totalQuantity ,string userid)
+        decimal Totalprice;
+        public ConfirmOrder(List<GetdataTransactions> bookList, string totalPrice, string Dot , string totalQuantity ,string userid,decimal totalprice)
         {
             InitializeComponent();
             Loaded += Loader;
@@ -45,8 +46,9 @@ namespace bookStoreApp
             totalPricetxtBox.Text = totalPrice;
             DottxtBox.Text = Dot;
             totalQuantitytxtBox.Text = totalQuantity;
-            UserList = DataAccess.SearchPeople(userid);
+            UserList = DataAccess.SearchUser(userid);
             useridsent = UserList[0].Number;
+            Totalprice = totalprice;
         }
         private void Loader(object sender, RoutedEventArgs e)
         {
@@ -144,6 +146,7 @@ namespace bookStoreApp
             else if (CustomersIDtxtBox.Text != "") { Order.CustomerID = int.Parse(CustomersIDtxtBox.Text); }
             Order.TimeSold = DateTime.Now;
             Order.User = useridsent;
+            Order.TotalPrice = totalprice;
 
             foreach (var order in BookList)
             {
@@ -154,7 +157,7 @@ namespace bookStoreApp
             if (Answer == MessageBoxResult.Yes)
             {
                 DataAccess.SellBook(BookList);
-                int billNumber = DataAccess.AddDataTransactions(Order); //TODO : BillDetail ยังไม่ได้ทำ
+                int billNumber = DataAccess.AddDataTransactions(Order);
                 bill = new List<BillDetail>();
                 foreach (var ISBNall in BookList)
                 {

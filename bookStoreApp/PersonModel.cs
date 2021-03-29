@@ -109,13 +109,15 @@ namespace bookStoreApp
         public int CustomerID { get; set; }
         public DateTime TimeSold { get; set; }
         public int User { get; set; }
+        public decimal TotalPrice { get; set; }
         public Bill() { }
-        public Bill(int numberBill,int customerID, DateTime timeSold, int user)
+        public Bill(int numberBill,int customerID, DateTime timeSold, int user,decimal totalprice)
         {
             NumberBill = numberBill;
             CustomerID = customerID;
             TimeSold = timeSold;
             User = user;
+            TotalPrice = totalprice;
         }
     }
     public class BillDetail
@@ -129,6 +131,23 @@ namespace bookStoreApp
             NumberBill = numberBill;
             ISBN = Isbn;
             Quantity = quantity;
+        }
+    }
+    public class LogShow
+    {
+        public LogShow() { }
+        public int NumberBill { get; set; }
+        public string CustomerName { get; set; }
+        public string SellerUser { get; set; }
+        public DateTime TimeSold { get; set; }
+        public decimal TotalPrice { get; set; }
+        public LogShow(int numberbill,string customerName, string user, DateTime timeSold,decimal totalPrice)
+        {
+            NumberBill = numberbill;
+            CustomerName = customerName;
+            SellerUser = user;
+            TimeSold = timeSold;
+            TotalPrice = totalPrice;
         }
     }
 }
