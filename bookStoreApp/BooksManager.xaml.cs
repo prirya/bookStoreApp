@@ -234,5 +234,14 @@ namespace bookStoreApp
         {
             if (e.Key == Key.Enter) { SerachBtn_Click(null, null); }
         }
+
+        private void pricetxtBox_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Decimal || e.Key == Key.OemPeriod) 
+            {
+                e.Handled = true;
+                price2txtBox.Focus();
+            }
+        }
     }
 }
