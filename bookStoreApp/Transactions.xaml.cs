@@ -79,6 +79,7 @@ namespace bookStoreApp
         private void AddBtn_Click(object sender, RoutedEventArgs e)
         {
             if (iSBNtxtBox.Text == "") { return; }
+            if (CommonMethor.NumberOnly(quantitytxtBox.Text) == false) { return; }
             var databook = DataAccess.GetDataBook(iSBNtxtBox.Text, int.Parse(quantitytxtBox.Text));
             if (databook.Count == 0)
             {
@@ -150,6 +151,21 @@ namespace bookStoreApp
                     BookList.Remove(book);
                     dataGrid.ItemsSource = null;
                     dataGrid.ItemsSource = BookList;
+                    int bookcount = CalculateTotalBookCount(BookList);
+                    TotalPrice = CalculateTotalBookPrice(BookList);
+                    totalQuantitytxtBox.Text = bookcount.ToString();
+                    string stringtotalPrice = TotalPrice.ToString();
+                    var cha = stringtotalPrice.Split('.');
+                    if (cha.Length > 1)
+                    {
+                        totalPricetxtBox.Text = cha[0];
+                        DottxtBox.Text = $".{cha[1]}";
+                    }
+                    else if (cha.Length == 1)
+                    {
+                        totalPricetxtBox.Text = cha[0];
+                        DottxtBox.Text = "";
+                    }
                     return;
                 }
                 else if (Result == MessageBoxResult.No)
@@ -158,6 +174,8 @@ namespace bookStoreApp
                 }
             }
             
+            
+
         }
 
         private void ClearBtn_Click(object sender, RoutedEventArgs e)

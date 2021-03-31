@@ -86,6 +86,7 @@
     </Reference>
     <Reference Include="System.ServiceProcess" />
     <Reference Include="System.Transactions" />
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />
@@ -110,6 +111,7 @@
     <Compile Include="BooksManager.xaml.cs">
       <DependentUpon>BooksManager.xaml</DependentUpon>
     </Compile>
+    <Compile Include="CommonMethor.cs" />
     <Compile Include="ConfirmOrder.xaml.cs">
       <DependentUpon>ConfirmOrder.xaml</DependentUpon>
     </Compile>

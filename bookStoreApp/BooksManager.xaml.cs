@@ -37,6 +37,7 @@ namespace bookStoreApp
             ISBNtxtBox.Text = "";
             typetxtBox.Text = "";
             pricetxtBox.Text = "";
+            price2txtBox.Text = "";
             quantitytxtBox.Text = "";
             titletxtBox.Text = "";
             descriptiontxtBox.Text = "";
@@ -73,7 +74,18 @@ namespace bookStoreApp
             }
             ISBNtxtBox.Text = selectBook.ISBN;
             typetxtBox.Text = selectBook.Type;
-            pricetxtBox.Text = selectBook.Price.ToString();
+            string priceString = selectBook.Price.ToString();
+            var price = priceString.Split('.');
+            if (price.Length > 1)
+            {
+                pricetxtBox.Text = price[0];
+                price2txtBox.Text = price[1];
+            }
+            else if (price.Length == 1)
+            {
+                pricetxtBox.Text = price[0];
+                price2txtBox.Text = "";
+            }
             quantitytxtBox.Text = selectBook.Quantity.ToString();
             titletxtBox.Text = selectBook.Title;
             descriptiontxtBox.Text = selectBook.Description;
@@ -132,7 +144,21 @@ namespace bookStoreApp
             string isbn = ISBNtxtBox.Text;
             string title = titletxtBox.Text;
             string description = descriptiontxtBox.Text;
-            decimal price = decimal.Parse(pricetxtBox.Text);
+            bool decimaltxt = CommonMethor.NumberOnly(pricetxtBox.Text);
+            bool decimaltxt2 = CommonMethor.NumberOnly(price2txtBox.Text);
+            if (decimaltxt == false || decimaltxt2 == false)
+            {
+                MessageBox.Show("Number Only in Price or Decimal");
+                return;
+            }
+            string monny = pricetxtBox.Text + "." + price2txtBox.Text;
+            decimal price = decimal.Parse(monny);
+            bool quantitytxt = CommonMethor.NumberOnly(quantitytxtBox.Text);
+            if (quantitytxt == false)
+            {
+                MessageBox.Show("Put number only in quantity");
+                return;
+            }
             int quantity = int.Parse(quantitytxtBox.Text);
             DataAccess.AddDataBookTable(isbn, title, type, description, price, quantity);
             Clear();
@@ -172,7 +198,22 @@ namespace bookStoreApp
                     book.Title = titletxtBox.Text;
                     book.Type = typetxtBox.Text;
                     book.Description = descriptiontxtBox.Text;
-                    book.Price = decimal.Parse(pricetxtBox.Text);
+                    bool decimaltxt = CommonMethor.NumberOnly(pricetxtBox.Text);
+                    bool decimaltxt2 = CommonMethor.NumberOnly(price2txtBox.Text);
+                    if (decimaltxt == false || decimaltxt2 == false)
+                    {
+                        MessageBox.Show("Number Only in Price or Decimal");
+                        return;
+                    }
+                    string monny = pricetxtBox.Text + "." + price2txtBox.Text;
+                    decimal price = decimal.Parse(monny);
+                    bool quantitytxt = CommonMethor.NumberOnly(quantitytxtBox.Text);
+                    if (quantitytxt == false)
+                    {
+                        MessageBox.Show("Put number only in quantity");
+                        return;
+                    }
+                    book.Price = price;
                     book.Quantity = int.Parse(quantitytxtBox.Text);
                     DataAccess.SaveBook(book);
                     RefreshData();

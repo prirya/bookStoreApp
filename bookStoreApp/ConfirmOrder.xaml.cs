@@ -91,7 +91,7 @@ namespace bookStoreApp
         private void SerachBtn_Click(object sender, RoutedEventArgs e)
         {
             if (phonetxtBox.Text == "") { refreshData(); return; }
-            if (NumberOnly(phonetxtBox.Text) == false)
+            if (CommonMethor.NumberOnly(phonetxtBox.Text) == false)
             {
                 MessageBox.Show("please put the number only");
                 return;
@@ -186,21 +186,6 @@ namespace bookStoreApp
         {
             Clearpeople();
             refreshData();
-        }
-        public static bool NumberOnly(string word)
-        {
-            foreach (var c in word)
-            {
-                if (char.IsDigit(c) == true)
-                {
-                    continue;
-                }
-                else if (char.IsDigit(c) == false)
-                {
-                    return false;
-                }
-            }
-            return true;
         }
     }
 }
