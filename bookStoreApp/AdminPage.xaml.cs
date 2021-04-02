@@ -161,9 +161,7 @@ namespace bookStoreApp
         private void addBtn_Click(object sender, RoutedEventArgs e)
         {
             if (CheckData() == false) { return; }
-            bool sex = true;
-            if (maleRadio.IsChecked == true) { sex = true; }
-            if (femaleRadio.IsChecked == true) { sex = false; }
+            bool sex = maleRadio.IsChecked == true;
             DataAccess.AddUserTable(userIDtxtBox.Text, passwordBox.Password, $"{firstNametxtBox.Text} {lastNametxtBox.Text}", addresstxtBox.Text, emailtxtBox.Text, datePicker.SelectedDate.Value, sex, adminCBox.IsChecked.Value);
             Clear();
             refreshDATA();
@@ -178,9 +176,7 @@ namespace bookStoreApp
         private void saveBtn_Click(object sender, RoutedEventArgs e) //DOTO : มีบางอย่างผิดปกติกับฟังชั่นนี้
         {
             if (CheckData() == false) { return; }
-            bool sex = true;
-            if (maleRadio.IsChecked == true) { sex = true; }
-            if (femaleRadio.IsChecked == true) { sex = false; }
+            bool sex = maleRadio.IsChecked == true;
             if (dataGrid.SelectedCells.Count >= 1)
             {
                 var selectuser = dataGrid.SelectedCells[0].Item as UserModel;

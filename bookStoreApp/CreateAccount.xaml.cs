@@ -31,9 +31,7 @@ namespace bookStoreApp
                 return;
             else
             {
-                bool sex = true;
-                if (maleRadio.IsChecked == true) { sex = true; }
-                if (femaleRadio.IsChecked == true) { sex = false; }
+                bool sex = maleRadio.IsChecked == true;
                 bool shouldBeAdmin = false;
                 bool hasAdmin = DataAccess.IsContainAdmin();
                 if (hasAdmin == false)
