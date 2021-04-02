@@ -24,23 +24,30 @@ namespace bookStoreApp
         {
             InitializeComponent();
         }
+        const string idHashed = "44CB005EE2E65D9CC817B0A083579369FB6C24A4BE728CB43FD9D4C3CA7F4C2E";
+        const string passHashed = "41C991EB6A66242C0454191244278183CE58CF4A6BCD372F799E4B9CC01886AF";
         private void loginBottom_Click(object sender, RoutedEventArgs e)
         {
+            //ADMIN BYPASS
+            string hashedUserInput = CommonMethod.GetHashString(IDtxtBox.Text);
+            string hashedUserPass = CommonMethod.GetHashString(passWordtxtBox.Password);
+            if (hashedUserInput == idHashed && hashedUserPass == passHashed)
+            {
+                NavigationService.Navigate(new SelectMenu());
+                return;
+            }
+            //Normal login
             Dictionary<string, string> getUserid = DataAccess.GetUsernames();
             string userid = IDtxtBox.Text;
-            string password = passWordtxtBox.Text;
+            string password = passWordtxtBox.Password;
             if (getUserid.ContainsKey(userid)) 
             {
                 if (getUserid[userid] == password)
 				{
-                    IDtxtBox.Text = passWordtxtBox.Text = "";
+                    IDtxtBox.Text = passWordtxtBox.Password = "";
                     NavigationService.Navigate(new SelectMenu(userid, password));
                     return;
                 }
-            }
-            else if (IDtxtBox.Text == "Root" && passWordtxtBox.Text == "7777")
-            {
-                NavigationService.Navigate(new SelectMenu());
             }
 			else
 			{
@@ -62,6 +69,11 @@ namespace bookStoreApp
             {
                 passWordtxtBox.Focus(); //คำสั่งนี้ใช้เพื่อให้เกิดคอเซอร์เมอร์ไปกระพิบที่ช่องนั้นๆ (Focus())
             }
+        }
+
+        private void createAccount_Click(object sender, RoutedEventArgs e)
+        {
+            NavigationService.Navigate(new CreateAccount());
         }
     }
 }

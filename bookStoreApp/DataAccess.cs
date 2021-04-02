@@ -259,6 +259,35 @@ namespace bookStoreApp
             }
             return userName;
         }
+
+        public static bool IsContainAdmin()
+        {
+            List<bool> admins = new List<bool>();
+            using (SqliteConnection admindb = new SqliteConnection($"Filename={admindbpath}"))
+            {
+                admindb.Open();
+
+                SqliteCommand selectCommand = new SqliteCommand
+                    ("SELECT TypeAdmin from User;", admindb); //หลัง SELECT คือใส่ชื่อ field หากมีหลาย field ข้องใส่ (,) เอาไว้ด้วย แต่ถ้าอยากได้ทั้งหมดเลยก็ใส่ (*)
+
+                SqliteDataReader query = selectCommand.ExecuteReader();
+
+                while (query.Read())
+                {
+                    admins.Add(query.GetBoolean(2));
+                }
+
+                admindb.Close();
+            }
+            bool hasAdmin = false;
+            foreach (bool perm in admins)
+            {
+                if (perm == true)
+                    hasAdmin = true;
+            }
+            return hasAdmin;
+        }
+
         public static bool Typeuser(string userid, string password)
         {
             bool IsAdmin = false;

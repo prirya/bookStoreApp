@@ -144,8 +144,8 @@ namespace bookStoreApp
             string isbn = ISBNtxtBox.Text;
             string title = titletxtBox.Text;
             string description = descriptiontxtBox.Text;
-            bool decimaltxt = CommonMethor.NumberOnly(pricetxtBox.Text);
-            bool decimaltxt2 = CommonMethor.NumberOnly(price2txtBox.Text);
+            bool decimaltxt = CommonMethod.NumberOnly(pricetxtBox.Text);
+            bool decimaltxt2 = CommonMethod.NumberOnly(price2txtBox.Text);
             if (decimaltxt == false || decimaltxt2 == false)
             {
                 MessageBox.Show("Number Only in Price or Decimal");
@@ -153,7 +153,7 @@ namespace bookStoreApp
             }
             string monny = pricetxtBox.Text + "." + price2txtBox.Text;
             decimal price = decimal.Parse(monny);
-            bool quantitytxt = CommonMethor.NumberOnly(quantitytxtBox.Text);
+            bool quantitytxt = CommonMethod.NumberOnly(quantitytxtBox.Text);
             if (quantitytxt == false)
             {
                 MessageBox.Show("Put number only in quantity");
@@ -198,8 +198,8 @@ namespace bookStoreApp
                     book.Title = titletxtBox.Text;
                     book.Type = typetxtBox.Text;
                     book.Description = descriptiontxtBox.Text;
-                    bool decimaltxt = CommonMethor.NumberOnly(pricetxtBox.Text);
-                    bool decimaltxt2 = CommonMethor.NumberOnly(price2txtBox.Text);
+                    bool decimaltxt = CommonMethod.NumberOnly(pricetxtBox.Text);
+                    bool decimaltxt2 = CommonMethod.NumberOnly(price2txtBox.Text);
                     if (decimaltxt == false || decimaltxt2 == false)
                     {
                         MessageBox.Show("Number Only in Price or Decimal");
@@ -207,7 +207,7 @@ namespace bookStoreApp
                     }
                     string monny = pricetxtBox.Text + "." + price2txtBox.Text;
                     decimal price = decimal.Parse(monny);
-                    bool quantitytxt = CommonMethor.NumberOnly(quantitytxtBox.Text);
+                    bool quantitytxt = CommonMethod.NumberOnly(quantitytxtBox.Text);
                     if (quantitytxt == false)
                     {
                         MessageBox.Show("Put number only in quantity");

@@ -91,7 +91,7 @@ namespace bookStoreApp
         private void SerachBtn_Click(object sender, RoutedEventArgs e)
         {
             if (phonetxtBox.Text == "") { refreshData(); return; }
-            if (CommonMethor.NumberOnly(phonetxtBox.Text) == false)
+            if (CommonMethod.NumberOnly(phonetxtBox.Text) == false)
             {
                 MessageBox.Show("please put the number only");
                 return;

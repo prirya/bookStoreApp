@@ -79,7 +79,7 @@ namespace bookStoreApp
         private void AddBtn_Click(object sender, RoutedEventArgs e)
         {
             if (iSBNtxtBox.Text == "") { return; }
-            if (CommonMethor.NumberOnly(quantitytxtBox.Text) == false) { return; }
+            if (CommonMethod.NumberOnly(quantitytxtBox.Text) == false) { return; }
             var databook = DataAccess.GetDataBook(iSBNtxtBox.Text, int.Parse(quantitytxtBox.Text));
             if (databook.Count == 0)
             {
