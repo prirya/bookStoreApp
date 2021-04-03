@@ -79,9 +79,9 @@
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="0.5*"/>
             </Grid.ColumnDefinitions>
-            <Button x:Name="RemoveBtn" Content="Remove" Click="RemoveBtn_Click" Grid.Column="0" Margin="5"/>
+            <Button x:Name="RemoveBtn" Content="Remove" Click="RemoveBtn_Click" Grid.Column="0" Margin="5" HorizontalAlignment="Stretch"/>
             <TextBox x:Name="searchtxtBox" KeyDown="SearchtxtBox_KeyDown" Grid.Column="2" Grid.Row="2" Margin="5" Padding="5"/>
-            <Button x:Name="SearchBtn" Content="Search" Click="SerachBtn_Click" Grid.Column="4" Margin="5"/>
+            <Button x:Name="SearchBtn" Content="Search" Click="SerachBtn_Click" Grid.Column="4" Margin="5" HorizontalAlignment="Stretch"/>
         </Grid>
 
         <Grid Grid.Column="1" Grid.Row="2">
@@ -89,11 +89,11 @@
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
             </Grid.ColumnDefinitions>
-            <Button x:Name="addBtn" Content="Add" Click="addBtn_Click" TabIndex="9" Grid.Column="0" Margin="5"/>
-            <Button x:Name="saveBtn" Content="Save" Click="saveBtn_Click" TabIndex="10" Grid.Column="1" Margin="5"/>
-            <Button x:Name="clearBTn" Content="Clear" Click="clearBTn_Click" TabIndex="11" Grid.Column="2" Margin="5"/>
+            <Button x:Name="addBtn" Content="Add" Click="addBtn_Click" TabIndex="9" Grid.Column="0" Margin="5" HorizontalAlignment="Stretch"/>
+            <Button x:Name="saveBtn" Content="Save" Click="saveBtn_Click" TabIndex="10" Grid.Column="1" Margin="5" HorizontalAlignment="Stretch"/>
+            <Button x:Name="clearBTn" Content="Clear" Click="clearBTn_Click" TabIndex="11" Grid.Column="2" Margin="5" HorizontalAlignment="Stretch"/>
             <Button Content="Back" Click="Button_Click" TabIndex="12" Grid.Column="3" Margin="5" Width="80" HorizontalAlignment="Right"/>
         </Grid>
     </Grid>
