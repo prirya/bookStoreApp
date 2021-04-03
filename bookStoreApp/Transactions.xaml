@@ -3,16 +3,13 @@
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:ui="http://schemas.modernwpf.com/2019"
       xmlns:local="clr-namespace:bookStoreApp"
       mc:Ignorable="d" 
       d:DesignHeight="768" d:DesignWidth="1024"
       Title="Transactions">
 
     <Grid>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="*"/>
-        </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
@@ -20,9 +17,40 @@
         </Grid.RowDefinitions>
         <Label Content="Transactions" FontSize="24" Margin="5"/>
 
-        <DataGrid x:Name="dataGrid" Margin="5" Grid.Row="1" Grid.Column="0" IsReadOnly="True"/>
+        <ListView x:Name="dataGrid" Margin="5"
+                  Grid.Row="1" Grid.ColumnSpan="2"
+                  SelectionMode="Single">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <StackPanel Orientation="Horizontal">
+                        <Button Width="66" Height="66" Margin="5" x:Name="transactionRemove" Tag="{Binding}" Click="transactionRemove_Click">
+                            <ui:SymbolIcon Symbol="Delete"/>
+                        </Button>
+                        <StackPanel Orientation="Vertical" VerticalAlignment="Center" Margin="5">
+                            <Button x:Name="transactionListRaiseDown" Tag="{Binding}" Click="transactionListRaiseDown_Click">
+                                <ui:FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE010;" />
+                            </Button>
+                            <Button x:Name="transactionListRaiseUp" Tag="{Binding}" Click="transactionListRaiseUp_Click">
+                                <ui:FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE011;" />
+                            </Button>
+                        </StackPanel>
+                        <StackPanel Orientation="Vertical" VerticalAlignment="Center">
+                            <TextBlock Text="{Binding TitleBook}" FontSize="18"/>
+                            <TextBlock Text="{Binding Type}" FontSize="14"/>
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="{Binding ISBN}" Margin="0,0,10,0" FontWeight="Bold"/>
+                                <TextBlock>
+                                ฿<Run Text="{Binding Price}"/> × <Run Text="{Binding QuantitySold}"/> (<Run Text="{Binding Quantity}"/>)
+                                </TextBlock>
+                            </StackPanel>
+                        </StackPanel>
+                    </StackPanel>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+        <!--<DataGrid x:Name="dataGrid" Margin="5" Grid.Row="1" Grid.ColumnSpan="2" IsReadOnly="True"/>-->
 
-        <Grid Grid.Row="1" Grid.Column="2">
+        <Grid Grid.Row="2" Grid.ColumnSpan="2">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
@@ -36,9 +64,26 @@
                 <ColumnDefinition Width="55*"/>
             </Grid.ColumnDefinitions>
 
-            <TextBlock Text="ISBN" Grid.Row="1" VerticalAlignment="Center" TextAlignment="Right" Height="16" Margin="5" />
-            <ComboBox x:Name="iSBNtxtBox" Grid.Column="1" Margin="5" Grid.Row="1" KeyDown="iSBNtxtBox_KeyDown"
-                      HorizontalAlignment="Stretch">
+            <StackPanel HorizontalAlignment="Right" Grid.Row="0" VerticalAlignment="Bottom"  Grid.ColumnSpan="2" Grid.Column="1" >
+                <TextBlock FontSize="20" HorizontalAlignment="Right" Margin="5" FontWeight="Bold" Text="Total Quantity"/>
+                <TextBox x:Name="totalQuantitytxtBox" HorizontalAlignment="Right" Height="35" Margin="5" TextWrapping="Wrap" VerticalAlignment="Top" Width="82" FontSize="22" FontWeight="Bold" TextAlignment="Right" Background="{ui:ThemeResource SystemControlBackgroundAccentBrush}"/>
+                <TextBlock Text="Total Price" FontSize="20" FontWeight="Bold" Grid.Column="1" Grid.Row="3" HorizontalAlignment="Right" Margin="5"/>
+            </StackPanel>
+
+            <TextBox x:Name="totalPricetxtBox" FontSize="72" Grid.Row="1"  Background="{ui:ThemeResource SystemControlBackgroundAccentBrush}" Grid.ColumnSpan="2" TextAlignment="Right" VerticalAlignment="Bottom" Height="98" Margin="5"/>
+            <TextBox x:Name="DottxtBox" Grid.Column="2" Grid.Row="1" FontSize="72" Background="{ui:ThemeResource SystemControlBackgroundAccentBrush}" VerticalAlignment="Bottom" Height="98" Margin="5"/>
+
+            <Button x:Name="SellBtn" Content="Sell" Grid.Column="2" Grid.Row="2" Margin="5" Click="SellBtn_Click" HorizontalAlignment="Stretch" FontSize="28"/>
+
+            <TextBlock x:Name="quantityBuy" Margin="5,20,5,5" Text="Quantity for sell" VerticalAlignment="Center" TextAlignment="Right" Height="16" HorizontalAlignment="Right" Grid.Row="3"/>
+            <TextBox x:Name="quantitytxtBox" Grid.Column="1" Margin="5,20,5,5" Text="1" Grid.Row="3"/>
+
+            <TextBlock Text="ISBN" Grid.Row="4" VerticalAlignment="Center" TextAlignment="Right" Height="16" Margin="5" />
+            <ComboBox x:Name="iSBNtxtBox" Grid.Column="1" Margin="5" Grid.Row="4" 
+                      KeyDown="iSBNtxtBox_KeyDown"
+                      HorizontalAlignment="Stretch"
+                      IsEditable="True"
+                      IsSynchronizedWithCurrentItem="False">
                 <ComboBox.ItemTemplate>
                     <DataTemplate>
                         <StackPanel Orientation="Vertical">
@@ -49,40 +94,8 @@
                 </ComboBox.ItemTemplate>
             </ComboBox>
 
-                <TextBlock x:Name="quantityBuy" Text="Quantity for sell" VerticalAlignment="Center" TextAlignment="Right" Height="16" HorizontalAlignment="Right" Margin="5"/>
-            <TextBox x:Name="quantitytxtBox" Grid.Column="1" Margin="5" Text="1" />
+            <Button x:Name="AddBtn" Grid.Row="3" Content="Add" Margin="5,20,5,5" Grid.Column="2" Grid.RowSpan="2" Click="AddBtn_Click" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>
 
-
-            <TextBox x:Name="totalPricetxtBox" FontSize="72" Grid.Row="4"  Background="#FFA0FF8B" Grid.ColumnSpan="2" TextAlignment="Right" VerticalAlignment="Bottom" Height="98" Margin="5"/>
-            <TextBox x:Name="DottxtBox" Grid.Column="2" Grid.Row="4"  FontSize="72" Background="#FFD8FFF4" VerticalAlignment="Bottom" Height="98" Margin="5"/>
-
-            <Button x:Name="AddBtn" Content="Add" Margin="5" Grid.Column="2" Grid.RowSpan="2" Click="AddBtn_Click" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>
-            <StackPanel HorizontalAlignment="Right" Grid.Row="3" VerticalAlignment="Bottom"  Grid.ColumnSpan="2" Grid.Column="1" >
-                <TextBlock FontSize="20" HorizontalAlignment="Right" Margin="5" FontWeight="Bold" Text="Total Quantity"/>
-                <TextBox x:Name="totalQuantitytxtBox" HorizontalAlignment="Right" Height="35" Margin="5" TextWrapping="Wrap" VerticalAlignment="Top" Width="82" FontSize="22" FontWeight="Bold" TextAlignment="Right" Background="#FFFFFFAB"/>
-                <TextBlock Text="Total Price" FontSize="20" FontWeight="Bold" Grid.Column="1" Grid.Row="3" HorizontalAlignment="Right" Margin="5"/>
-            </StackPanel>
-        </Grid>
-
-        <Grid Grid.Row="2" Grid.Column="0">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="*"/>
-            </Grid.ColumnDefinitions>
-            <Button x:Name="removeBtn" Content="Remove" Margin="5" Click="removeBtn_Click" HorizontalAlignment="Stretch"/>
-        </Grid>
-
-        <Grid Grid.Column="1" Grid.Row="3">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="Auto"/>
-                <ColumnDefinition Width="Auto"/>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="Auto"/>
-            </Grid.ColumnDefinitions>
-            <Button x:Name="ClearBtn" Content="Clear" Grid.Column="0" Margin="5,5,5,5" Click="ClearBtn_Click" Width="85" HorizontalAlignment="Stretch"/>
-            <Button x:Name="SellBtn" Content="Sell" Grid.Column="1" Margin="30,5,5,5" Click="SellBtn_Click" Width="85" HorizontalAlignment="Stretch"/>
         </Grid>
     </Grid>
 </Page>

@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -39,15 +41,51 @@ namespace bookStoreApp
             Phone = phone;
         }
     }
-    public class BookModel
+    public class BookModel : INotifyPropertyChanged 
     {
-        public int Number { get; set; }
-        public string ISBN { get; set; }
-        public string Title { get; set; }
-        public string Type { get; set; }
-        public string Description { get; set; }
-        public decimal Price { get; set; }
-        public int Quantity { get; set; }
+        int _number;
+        public int Number
+        {
+            get => _number;
+            set => Set(ref _number, value);
+        }
+        string _isbn;
+        public string ISBN
+        {
+            get => _isbn;
+            set => Set(ref _isbn, value);
+        }
+        string _title;
+        public string Title
+        {
+            get => _title;
+            set => Set(ref _title, value);
+        }
+
+        string _type;
+        public string Type
+        {
+            get => _type;
+            set => Set(ref _type, value);
+        }
+        string _desc;
+        public string Description
+        {
+            get => _desc;
+            set => Set(ref _desc, value);
+        }
+        decimal _price;
+        public decimal Price
+        {
+            get => _price;
+            set => Set(ref _price, value);
+        }
+        int _q;
+        public int Quantity
+        {
+            get => _q;
+            set => Set(ref _q, value);
+        }
         public BookModel() { }
         public BookModel(int number, string isbn, string title, string type, string description, decimal price, int quantity)
         {
@@ -58,6 +96,27 @@ namespace bookStoreApp
             Description = description;
             Price = price;
             Quantity = quantity;
+        }
+
+        public void Set<T>(ref T storage, T value, [CallerMemberName]string propertyName = null)
+        {
+            if (!Equals(storage, value))
+            {
+                storage = value;
+                NotifyPropertyChanged(propertyName);
+            }
+        }
+
+        void NotifyPropertyChanged(string propertyName)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        public override string ToString()
+        {
+            return ISBN;
         }
     }
     public class TransactionsSold

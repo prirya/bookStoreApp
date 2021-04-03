@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -24,17 +25,24 @@ namespace bookStoreApp
         string useridsent = "";
         decimal TotalPrice = 0m;
         List<GetdataTransactions> BookList = new List<GetdataTransactions>();
-        List<BookModel> AllBooks = new List<BookModel>();
+        public ObservableCollection<BookModel> AllBooks = new ObservableCollection<BookModel>();
+        public ObservableCollection<BookModel> SearchBook = new ObservableCollection<BookModel>();
         public Transactions()
         {
             InitializeComponent();
-            iSBNtxtBox.Focus();
-            AllBooks = DataAccess.GetBookData();
+            DataContext = this;
+            AllBooks = new ObservableCollection<BookModel>(DataAccess.GetBookData());
             iSBNtxtBox.ItemsSource = AllBooks;
+
+            iSBNtxtBox.Focus();
         }
         public Transactions(string userid)
         {
             InitializeComponent();
+            DataContext = this;
+            AllBooks = new ObservableCollection<BookModel>(DataAccess.GetBookData());
+            iSBNtxtBox.ItemsSource = AllBooks;
+
             iSBNtxtBox.Focus();
             useridsent = userid;
         }
@@ -139,9 +147,9 @@ namespace bookStoreApp
 
         private void removeBtn_Click(object sender, RoutedEventArgs e)
         {
-            if (dataGrid.SelectedCells == null || dataGrid.SelectedCells.Count < 1) { return; }
-            var book = dataGrid.SelectedCells[0].Item as GetdataTransactions;
-            if (book == null || dataGrid.SelectedCells == null) 
+            if (dataGrid.SelectedIndex < 0) { return; }
+            var book = dataGrid.SelectedItem as GetdataTransactions;
+            if (book == null) 
             {
                 return; 
             }
@@ -189,6 +197,47 @@ namespace bookStoreApp
         private void iSBNtxtBox_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.Key == Key.Enter) { AddBtn_Click(null, null); }
+        }
+
+        private void transactionRemove_Click(object sender, RoutedEventArgs e)
+        {
+            var request = (sender as Button).Tag as GetdataTransactions;
+            BookList.Remove(request);
+            dataGrid.ItemsSource = null;
+            dataGrid.ItemsSource = BookList;
+        }
+
+        private void transactionListRaiseDown_Click(object sender, RoutedEventArgs e)
+        {
+            var request = (sender as Button).Tag as GetdataTransactions;
+            int index = BookList.IndexOf(request);
+            if (index > -1)
+            {
+                BookList[index].QuantitySold++; 
+                if (BookList[index].QuantitySold > BookList[index].Quantity)
+                {
+                    BookList[index].QuantitySold = BookList[index].Quantity;
+                }
+                dataGrid.ItemsSource = null;
+                dataGrid.ItemsSource = BookList;
+            }
+        }
+
+        private void transactionListRaiseUp_Click(object sender, RoutedEventArgs e)
+        {
+            var request = (sender as Button).Tag as GetdataTransactions;
+            int index = BookList.IndexOf(request);
+            if (index > -1)
+            {
+                BookList[index].QuantitySold--;
+                if (BookList[index].QuantitySold < 1)
+                {
+                    //Remove it
+                    BookList.Remove(request);
+                }
+                dataGrid.ItemsSource = null;
+                dataGrid.ItemsSource = BookList;
+            }
         }
     }
 }
