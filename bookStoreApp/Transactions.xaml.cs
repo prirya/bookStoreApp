@@ -24,10 +24,13 @@ namespace bookStoreApp
         string useridsent = "";
         decimal TotalPrice = 0m;
         List<GetdataTransactions> BookList = new List<GetdataTransactions>();
+        List<BookModel> AllBooks = new List<BookModel>();
         public Transactions()
         {
             InitializeComponent();
             iSBNtxtBox.Focus();
+            AllBooks = DataAccess.GetBookData();
+            iSBNtxtBox.ItemsSource = AllBooks;
         }
         public Transactions(string userid)
         {
