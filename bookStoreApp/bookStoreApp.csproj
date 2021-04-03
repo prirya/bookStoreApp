@@ -93,6 +93,9 @@
     <Compile Include="SelectMenu.xaml.cs">
       <DependentUpon>SelectMenu.xaml</DependentUpon>
     </Compile>
+    <Compile Include="SelectMenuNav.xaml.cs">
+      <DependentUpon>SelectMenuNav.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Transactions.xaml.cs">
       <DependentUpon>Transactions.xaml</DependentUpon>
     </Compile>
@@ -141,6 +144,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="SelectMenuNav.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Transactions.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -184,6 +191,9 @@
     </PackageReference>
     <PackageReference Include="ModernWpfUI">
       <Version>0.9.4</Version>
+    </PackageReference>
+    <PackageReference Include="MvvmLightLibs">
+      <Version>5.4.1.1</Version>
     </PackageReference>
     <PackageReference Include="SQLitePCLRaw.bundle_e_sqlite3">
       <Version>2.0.4</Version>

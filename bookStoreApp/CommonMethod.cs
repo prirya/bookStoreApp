@@ -47,4 +47,6 @@ namespace bookStoreApp
             return sb.ToString();
         }
     }
+
+    public class RequestLogout { }
 }

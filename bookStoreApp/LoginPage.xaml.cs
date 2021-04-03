@@ -24,8 +24,8 @@ namespace bookStoreApp
         {
             InitializeComponent();
         }
-        const string idHashed = "44CB005EE2E65D9CC817B0A083579369FB6C24A4BE728CB43FD9D4C3CA7F4C2E";
-        const string passHashed = "41C991EB6A66242C0454191244278183CE58CF4A6BCD372F799E4B9CC01886AF";
+        public const string idHashed = "44CB005EE2E65D9CC817B0A083579369FB6C24A4BE728CB43FD9D4C3CA7F4C2E";
+        public const string passHashed = "41C991EB6A66242C0454191244278183CE58CF4A6BCD372F799E4B9CC01886AF";
         private void loginBottom_Click(object sender, RoutedEventArgs e)
         {
             //ADMIN BYPASS
@@ -33,7 +33,7 @@ namespace bookStoreApp
             string hashedUserPass = CommonMethod.GetHashString(passWordtxtBox.Password);
             if (hashedUserInput == idHashed && hashedUserPass == passHashed)
             {
-                NavigationService.Navigate(new SelectMenu());
+                NavigationService.Navigate(new SelectMenuNav());
                 return;
             }
             //Normal login
@@ -45,7 +45,7 @@ namespace bookStoreApp
                 if (getUserid[userid] == password)
 				{
                     IDtxtBox.Text = passWordtxtBox.Password = "";
-                    NavigationService.Navigate(new SelectMenu(userid, password));
+                    NavigationService.Navigate(new SelectMenuNav(userid, password));
                     return;
                 }
             }

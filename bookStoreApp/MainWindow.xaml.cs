@@ -1,4 +1,5 @@
-﻿using System;
+﻿using GalaSoft.MvvmLight.Messaging;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -23,7 +24,23 @@ namespace bookStoreApp
         public MainWindow()
         {
             InitializeComponent();
+            Messenger.Default.Register<RequestLogout>(this, ActOnLogoutRequest);
             DataAccess.InitializeDatabase();
+            mainFrame.Navigate(new LoginPage());
+        }
+
+        private void ActOnLogoutRequest(RequestLogout obj)
+        {
+            //Clear all page history
+            if (!mainFrame.CanGoBack && !mainFrame.CanGoForward)
+            {
+                mainFrame.Navigate(new LoginPage());
+            }
+
+            var entry = mainFrame.RemoveBackEntry();
+            while (entry != null)
+                entry = mainFrame.RemoveBackEntry();
+
             mainFrame.Navigate(new LoginPage());
         }
     }
