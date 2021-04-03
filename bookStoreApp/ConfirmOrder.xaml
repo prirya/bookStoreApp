@@ -80,13 +80,13 @@
 
         <Grid Grid.Column="1" Grid.Row="3">
             <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
                 <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
             </Grid.ColumnDefinitions>
-            <Button x:Name="ClearBtn" Content="Clear" Grid.Column="1" Margin="5" Click="ClearBtn_Click"/>
-            <Button x:Name="SellBtn" Content="Sell" Grid.Column="2" Margin="5" Click="SellBtn_Click"  />
+            <Button x:Name="ClearBtn" Content="Clear" Margin="5,5,5,5" Grid.Column="0" Click="ClearBtn_Click" HorizontalAlignment="Stretch" Width="85"/>
+            <Button x:Name="SellBtn" Content="Sell" Margin="30,5,5,5" Grid.Column="1" Click="SellBtn_Click" HorizontalAlignment="Stretch" Width="85"/>
             <Button x:Name="backBtm" Content="Back" Grid.Column="3" Margin="5" Width="80" Click="backBtm_Click" HorizontalAlignment="Right"/>
         </Grid>
     </Grid>

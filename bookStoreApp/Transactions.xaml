@@ -46,7 +46,7 @@
             <TextBox x:Name="totalPricetxtBox" FontSize="72" Grid.Row="4"  Background="#FFA0FF8B" Grid.ColumnSpan="2" TextAlignment="Right" VerticalAlignment="Bottom" Height="98" Margin="5"/>
             <TextBox x:Name="DottxtBox" Grid.Column="2" Grid.Row="4"  FontSize="72" Background="#FFD8FFF4" VerticalAlignment="Bottom" Height="98" Margin="5"/>
 
-            <Button x:Name="AddBtn" Content="Add" Margin="5" Grid.Column="2" Grid.RowSpan="2" Click="AddBtn_Click"/>
+            <Button x:Name="AddBtn" Content="Add" Margin="5" Grid.Column="2" Grid.RowSpan="2" Click="AddBtn_Click" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>
             <StackPanel HorizontalAlignment="Right" Grid.Row="3" VerticalAlignment="Bottom"  Grid.ColumnSpan="2" Grid.Column="1" >
                 <TextBlock FontSize="20" HorizontalAlignment="Right" Margin="5" FontWeight="Bold" Text="Total Quantity"/>
                 <TextBox x:Name="totalQuantitytxtBox" HorizontalAlignment="Right" Height="35" Margin="5" TextWrapping="Wrap" VerticalAlignment="Top" Width="82" FontSize="22" FontWeight="Bold" TextAlignment="Right" Background="#FFFFFFAB"/>
@@ -61,7 +61,7 @@
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
-            <Button x:Name="removeBtn" Content="Remove" Margin="5" Click="removeBtn_Click"/>
+            <Button x:Name="removeBtn" Content="Remove" Margin="5" Click="removeBtn_Click" HorizontalAlignment="Stretch"/>
         </Grid>
 
         <Grid Grid.Column="1" Grid.Row="3">
@@ -69,10 +69,10 @@
                 <ColumnDefinition Width="Auto"/>
                 <ColumnDefinition Width="Auto"/>
                 <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
             </Grid.ColumnDefinitions>
-            <Button x:Name="ClearBtn" Content="Clear" Grid.Column="0" Margin="5,5,5,5" Click="ClearBtn_Click" HorizontalAlignment="Left" Width="85"/>
-            <Button x:Name="SellBtn" Content="Sell" Grid.Column="1" Margin="30,5,5,5" Click="SellBtn_Click" Width="85"/>
+            <Button x:Name="ClearBtn" Content="Clear" Grid.Column="0" Margin="5,5,5,5" Click="ClearBtn_Click" Width="85" HorizontalAlignment="Stretch"/>
+            <Button x:Name="SellBtn" Content="Sell" Grid.Column="1" Margin="30,5,5,5" Click="SellBtn_Click" Width="85" HorizontalAlignment="Stretch"/>
             <Button x:Name="backBtm" Content="Back" Click="backBtm_Click" Grid.Column="3" Margin="5" Width="80" HorizontalAlignment="Right"/>
         </Grid>
     </Grid>
